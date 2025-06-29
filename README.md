@@ -1,5 +1,10 @@
 # 🏟️ Kopp CRM Automation
 
+![CI](https://github.com/kopp-stadium/kopp-crm-automation/workflows/CI%20-%20Continuous%20Integration/badge.svg)
+![Coverage](https://img.shields.io/badge/Coverage-9.56%25-red?style=flat-square![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat-square&logo=jest)logo=jest)
+![Node.js](https://img.shields.io/badge/Node.js-20.x-green?style=flat-square&logo=node.js)
+![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
+
 Automatización estratégica de Slack y HubSpot para Kopp Stadium con integración futura a Firebase, reemplazo progresivo de Zapier y despliegue en Vercel.
 
 ## 🚀 Inicio Rápido
@@ -43,14 +48,72 @@ kopp-crm-automation/
 
 ## 🛠️ Scripts Disponibles
 
+### **Desarrollo y Testing**
 ```bash
-npm run lint          # Ejecutar linting con ESLint
-npm run test          # Ejecutar tests (placeholder)
-npm run build         # Compilar TypeScript
-npm run bootstrap:all # Ejecutar configuración inicial completa
+npm run dev                   # Iniciar desarrollo con hot-reload
+npm run build                 # Compilar TypeScript
+npm run test                  # Ejecutar todos los tests
+npm run test:watch            # Tests en modo watch
+npm run test:coverage         # Tests con reporte de cobertura
+npm run lint                  # Linting y autofix
+npm run lint:check            # Solo verificar linting
 ```
 
-## 🔧 Extensiones VS Code Requeridas
+### **QA y Release**
+```bash
+npm run qa:local              # QA completo local
+npm run qa:staging            # QA en staging
+npm run qa:report             # Reporte QA a Slack
+npm run release:patch         # Release patch (1.0.0 → 1.0.1)
+npm run release:minor         # Release minor (1.0.0 → 1.1.0)
+npm run release:major         # Release major (1.0.0 → 2.0.0)
+```
+
+### **GitHub Automation**
+```bash
+npm run github:setup-secrets  # 🔑 Configurar GitHub Secrets automáticamente
+npm run github:verify-secrets # ✅ Verificar secrets configurados
+npm run github:list-secrets   # 📋 Listar secrets actuales
+npm run coverage:badge        # 🏆 Generar badge de cobertura
+npm run coverage:open         # 📊 Abrir reporte de cobertura
+```
+
+## � GitHub Automation Setup
+
+### **Quick Start - Configuración Completa:**
+
+```bash
+# 1. Instalar GitHub CLI
+brew install gh  # macOS
+gh auth login     # Autenticar
+
+# 2. Configurar variables de entorno
+cp .env.example .env
+# Editar .env con valores reales
+
+# 3. Configurar GitHub Secrets automáticamente
+npm run github:setup-secrets
+
+# 4. Verificar configuración
+npm run github:verify-secrets
+
+# 5. Generar badge de cobertura
+npm run test:coverage
+npm run coverage:badge
+```
+
+### **Funcionalidades Automatizadas:**
+
+- ✅ **CI/CD Pipeline:** Tests, build y deploy automático
+- ✅ **GitHub Secrets:** Configuración automática desde `.env`
+- ✅ **Coverage Badge:** Generación automática en README
+- ✅ **Slack Notifications:** Reportes automáticos de CI/QA
+- ✅ **Multi-Node Testing:** Node.js 18.x y 20.x
+- ✅ **Security Audit:** Análisis automático de vulnerabilidades
+
+Ver documentación completa: [📚 GitHub Automation Guide](./docs/GITHUB-AUTOMATION-GUIDE.md)
+
+## �🔧 Extensiones VS Code Requeridas
 
 - ✅ **GitHub Copilot Chat** - Asistente de código IA
 - ✅ **ESLint** - Linting de código

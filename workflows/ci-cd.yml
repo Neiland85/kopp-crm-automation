@@ -32,6 +32,18 @@ jobs:
     - name: Run tests
       run: npm run test:coverage
     
+    - name: Report test results to Slack
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_TEST_CHANNEL: '#kopp-crm-tests'
+        GITHUB_REF_NAME: ${{ github.ref_name }}
+        GITHUB_SHA: ${{ github.sha }}
+        GITHUB_SERVER_URL: ${{ github.server_url }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_RUN_ID: ${{ github.run_id }}
+      run: node scripts/slackTestReport.js
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
@@ -83,3 +95,33 @@ jobs:
         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
         vercel-args: '--prod'
+        
+    - name: Report QA results to Slack
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_QA_CHANNEL: '#kopp-crm-qa'
+        GITHUB_REF_NAME: ${{ github.ref_name }}
+        GITHUB_SHA: ${{ github.sha }}
+        GITHUB_SERVER_URL: ${{ github.server_url }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_RUN_ID: ${{ github.run_id }}
+      run: node scripts/qaReport.js
+
+    - name: Notify deployment success
+      if: success()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+          --data '{"channel":"#anuncios-kopp","username":"Deploy Bot","icon_emoji":":rocket:","text":"🚀 Deployment exitoso a producción","attachments":[{"color":"#36a64f","title":"'${GITHUB_REPOSITORY}' deployed","title_link":"'${GITHUB_SERVER_URL}'/'${GITHUB_REPOSITORY}'/actions/runs/'${GITHUB_RUN_ID}'","fields":[{"title":"Environment","value":"Production","short":true},{"title":"Commit","value":"'${GITHUB_SHA:0:8}'","short":true}],"footer":"GitHub Actions","ts":'$(date +%s)'}]}' \
+          $SLACK_WEBHOOK_URL
+
+    - name: Notify deployment failure
+      if: failure()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+          --data '{"channel":"#anuncios-kopp","username":"Deploy Bot","icon_emoji":":x:","text":"❌ Deployment falló","attachments":[{"color":"#ff0000","title":"'${GITHUB_REPOSITORY}' deployment failed","title_link":"'${GITHUB_SERVER_URL}'/'${GITHUB_REPOSITORY}'/actions/runs/'${GITHUB_RUN_ID}'","fields":[{"title":"Environment","value":"Production","short":true},{"title":"Commit","value":"'${GITHUB_SHA:0:8}'","short":true}],"footer":"GitHub Actions","ts":'$(date +%s)'}]}' \
+          $SLACK_WEBHOOK_URL
