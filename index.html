@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Kopp Stadium - Dashboard Emocional</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/recharts@2.8.0/umd/Recharts.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .subtitle {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .chart-container {
+            padding: 30px;
+            background: white;
+        }
+        .chart-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .positive { color: #4ECDC4; }
+        .neutral { color: #FFE66D; }
+        .negative { color: #FF6B6B; }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div id="dashboard-root"></div>
+
+    <script type="text/babel">
+        const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } = Recharts;
+
+        const dashboardData = {
+  "emotionalSentiment": [
+    {
+      "timestamp": "2025-06-29T10:00:00Z",
+      "sentiment": "positive",
+      "score": 0.8,
+      "contactId": "12345",
+      "source": "slack"
+    },
+    {
+      "timestamp": "2025-06-29T11:00:00Z",
+      "sentiment": "neutral",
+      "score": 0.5,
+      "contactId": "12346",
+      "source": "hubspot"
+    },
+    {
+      "timestamp": "2025-06-29T12:00:00Z",
+      "sentiment": "negative",
+      "score": 0.2,
+      "contactId": "12347",
+      "source": "slack"
+    },
+    {
+      "timestamp": "2025-06-29T13:00:00Z",
+      "sentiment": "positive",
+      "score": 0.9,
+      "contactId": "12348",
+      "source": "hubspot"
+    }
+  ],
+  "metrics": [
+    {
+      "date": "2025-06-29",
+      "totalInteractions": 25,
+      "averageScore": 0.65,
+      "positiveCount": 15,
+      "neutralCount": 6,
+      "negativeCount": 4,
+      "dropoutCount": 2
+    },
+    {
+      "date": "2025-06-28",
+      "totalInteractions": 30,
+      "averageScore": 0.72,
+      "positiveCount": 18,
+      "neutralCount": 8,
+      "negativeCount": 4,
+      "dropoutCount": 1
+    },
+    {
+      "date": "2025-06-27",
+      "totalInteractions": 22,
+      "averageScore": 0.58,
+      "positiveCount": 12,
+      "neutralCount": 5,
+      "negativeCount": 5,
+      "dropoutCount": 3
+    }
+  ],
+  "generatedAt": "2025-06-29T21:55:39.949Z"
+};
+
+        function Dashboard() {
+            const { emotionalSentiment, metrics, generatedAt } = dashboardData;
+
+            // Calcular estadísticas
+            const totalInteractions = emotionalSentiment.length;
+            const positiveCount = emotionalSentiment.filter(d => d.sentiment === 'positive').length;
+            const neutralCount = emotionalSentiment.filter(d => d.sentiment === 'neutral').length;
+            const negativeCount = emotionalSentiment.filter(d => d.sentiment === 'negative').length;
+            const averageScore = emotionalSentiment.reduce((sum, d) => sum + d.score, 0) / totalInteractions;
+
+            // Datos para gráfico de línea (tendencia temporal)
+            const timelineData = metrics.map(m => ({
+                date: new Date(m.date).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' }),
+                score: Math.round(m.averageScore),
+                positive: m.positiveCount,
+                neutral: m.neutralCount,
+                negative: m.negativeCount
+            }));
+
+            // Datos para gráfico de pastel
+            const pieData = [
+                { name: 'Positivo', value: positiveCount, color: '#4ECDC4' },
+                { name: 'Neutral', value: neutralCount, color: '#FFE66D' },
+                { name: 'Negativo', value: negativeCount, color: '#FF6B6B' }
+            ];
+
+            return (
+                <div className="dashboard">
+                    <div className="header">
+                        <h1>📊 Dashboard Emocional</h1>
+                        <p className="subtitle">Kopp Stadium CRM - Análisis de Sentimientos</p>
+                        <small>Generado: {new Date(generatedAt).toLocaleString('es-ES')}</small>
+                    </div>
+
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <div className="stat-number positive">{positiveCount}</div>
+                            <div className="stat-label">Interacciones Positivas</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number neutral">{neutralCount}</div>
+                            <div className="stat-label">Interacciones Neutrales</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number negative">{negativeCount}</div>
+                            <div className="stat-label">Interacciones Negativas</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{Math.round(averageScore)}</div>
+                            <div className="stat-label">Score Promedio</div>
+                        </div>
+                    </div>
+
+                    <div className="chart-container">
+                        <h2 className="chart-title">📈 Tendencia de Sentimientos</h2>
+                        <ResponsiveContainer width="100%" height={400}>
+                            <LineChart data={timelineData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="date" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={3} name="Score Promedio" />
+                                <Line type="monotone" dataKey="positive" stroke="#4ECDC4" strokeWidth={2} name="Positivos" />
+                                <Line type="monotone" dataKey="neutral" stroke="#FFE66D" strokeWidth={2} name="Neutrales" />
+                                <Line type="monotone" dataKey="negative" stroke="#FF6B6B" strokeWidth={2} name="Negativos" />
+                            </LineChart>
+                        </ResponsiveContainer>
+
+                        <div className="chart-grid">
+                            <div>
+                                <h3 className="chart-title">🥧 Distribución de Sentimientos</h3>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <PieChart>
+                                        <Pie
+                                            data={pieData}
+                                            cx="50%"
+                                            cy="50%"
+                                            labelLine={false}
+                                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                            outerRadius={80}
+                                            fill="#8884d8"
+                                            dataKey="value"
+                                        >
+                                            {pieData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+
+                            <div>
+                                <h3 className="chart-title">📊 Métricas Diarias</h3>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <LineChart data={timelineData}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="date" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Legend />
+                                        <Line type="monotone" dataKey="positive" stroke="#4ECDC4" strokeWidth={2} name="Positivos" />
+                                        <Line type="monotone" dataKey="negative" stroke="#FF6B6B" strokeWidth={2} name="Negativos" />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="footer">
+                        <p>🚀 Kopp Stadium CRM - Dashboard Emocional v1.0</p>
+                        <p>Datos actualizados automáticamente cada hora</p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<Dashboard />, document.getElementById('dashboard-root'));
+    </script>
+</body>
+</html>
