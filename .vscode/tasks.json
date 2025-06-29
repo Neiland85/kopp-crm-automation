@@ -1,16 +1,178 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Setup Automático del Workspace",
-			"type": "shell",
-			"command": "./setup.sh",
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "new"
-			},
-			"problemMatcher": []
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🛠️ Setup Completo del Workspace",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "setup:all"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "🧪 Ejecutar Tests",
+      "type": "shell",
+      "command": "npm",
+      "args": ["test"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": ["$eslint-stylish"],
+      "isBackground": false
+    },
+    {
+      "label": "🧪 Tests en Modo Watch",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "test:watch"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "jest",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^\\s*at\\s+.*\\((.*):(\\d+):(\\d+)\\)$",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ]
+      }
+    },
+    {
+      "label": "🔧 Build Proyecto",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "🎯 Lint y Fix",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "lint"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "⚡ Validación Local Rápida",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "validate:local"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "🚀 Servidor de Desarrollo",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "dev"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "ts",
+        "applyTo": "closedDocuments",
+        "fileLocation": ["relative", "${workspaceRoot}"],
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Starting compilation in watch mode",
+          "endsPattern": "Found 0 errors. Watching for file changes"
+        }
+      }
+    },
+    {
+      "label": "⚡ Zapier: Validar",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "zapier:validate"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "⚡ Zapier: Test",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "zapier:test"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📊 Coverage Report",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "test:coverage"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🧹 Clean All",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "clean"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🔄 Reinstalar Dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "workflow:cleanup"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ]
 }

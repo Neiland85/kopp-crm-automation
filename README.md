@@ -265,3 +265,47 @@ Para problemas con la configuración del workspace, consulta [WORKFLOW.md](./WOR
 ---
 
 **Desarrollado para Kopp Stadium** 🏟️
+
+## 📚 Documentación API Oficial - Swagger/OpenAPI
+
+### 🎯 FASE 1 COMPLETADA: Documentación Swagger Oficial
+
+**✅ Documentación completa y gratuita implementada exitosamente**
+
+| Formato             | URL              | Descripción                              |
+| ------------------- | ---------------- | ---------------------------------------- |
+| **🌐 Swagger UI**   | `/api-docs`      | Interfaz interactiva con pruebas en vivo |
+| **📄 OpenAPI JSON** | `/api-docs.json` | Especificación exportable JSON           |
+| **📝 OpenAPI YAML** | `/api-docs.yaml` | Especificación exportable YAML           |
+
+### 🚀 Acceso Rápido
+
+```bash
+# Iniciar servidor con documentación
+npm run dev
+
+# Probar endpoints de Swagger
+npm run docs:swagger
+
+# Abrir Swagger UI automáticamente
+npm run docs:open
+
+# Validar documentación completa
+npm run docs:validate
+```
+
+### 📊 12 Endpoints Completamente Documentados
+
+- ✅ **Health & System** (3/3) - Health checks y versión
+- ✅ **Slack Integration** (3/3) - Notificaciones y webhooks
+- ✅ **HubSpot CRM** (3/3) - Contactos y lead scoring
+- ✅ **Zapier Automation** (3/3) - Webhooks y automatización
+
+### 🔒 Autenticación Documentada
+
+- **JWT Bearer** - APIs principales
+- **API Key** - Webhooks externos
+- **Slack Signature** - Webhooks Slack
+- **HubSpot Token** - API HubSpot
+
+**📖 Documentación completa**: [SWAGGER_API_DOCUMENTATION.md](./docs/SWAGGER_API_DOCUMENTATION.md)

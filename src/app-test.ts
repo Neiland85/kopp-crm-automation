@@ -18,7 +18,7 @@ app.get('/health', (req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
     version: process.env.npm_package_version || '1.0.0',
     environment: process.env.NODE_ENV || 'test',
-    uptime: process.uptime()
+    uptime: process.uptime(),
   });
 });
 
@@ -28,7 +28,7 @@ app.get('/api/integrations/test', (req: Request, res: Response) => {
     status: 'success',
     message: 'Test integrations endpoint working',
     timestamp: new Date().toISOString(),
-    environment: 'test'
+    environment: 'test',
   });
 });
 

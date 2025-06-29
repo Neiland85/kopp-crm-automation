@@ -46,7 +46,7 @@
 
 ### 🏠 DESARROLLO LOCAL PRIORITARIO
 
-#### Scripts Optimizados añadidos:
+#### Scripts Optimizados añadidos
 
 ```bash
 npm run validate:local    # Reemplaza CI completo localmente
@@ -55,7 +55,7 @@ npm run qa:minimal       # QA completo local
 npm run pre-commit       # Validación antes de commit
 ```
 
-#### Script de Validación Local:
+#### Script de Validación Local
 
 - ✅ `scripts/local-validation.sh` ejecutable
 - ✅ Combina lint + test + build en <30 segundos
@@ -64,7 +64,7 @@ npm run pre-commit       # Validación antes de commit
 
 ### 📋 ESTRATEGIA DE DESARROLLO EFICIENTE
 
-#### ✅ Workflow Recomendado:
+#### ✅ Workflow Recomendado
 
 1. **Desarrollo**: `npm run dev`
 2. **Validación**: `npm run validate:local`
@@ -72,7 +72,7 @@ npm run pre-commit       # Validación antes de commit
 4. **PR**: Solo para main branch
 5. **Deploy**: Solo con tags de versión
 
-#### 🚫 Evitar (para ahorrar costos):
+#### 🚫 Evitar (para ahorrar costos)
 
 - ❌ Pushes frecuentes a main
 - ❌ PRs experimentales
@@ -99,13 +99,13 @@ npm run pre-commit       # Validación antes de commit
 
 ### 🎯 RESULTADOS ESPERADOS
 
-#### Consumo Mensual Estimado:
+#### Consumo Mensual Estimado
 
 - **Antes**: ~1,250 minutos/mes
 - **Después**: ~200 minutos/mes
 - **Ahorro**: ~1,050 minutos/mes (84%)
 
-#### Ejecuciones Típicas:
+#### Ejecuciones Típicas
 
 - **CI runs**: 2-3 por semana (solo PRs críticos)
 - **Deploy runs**: 1-2 por semana (solo releases)
