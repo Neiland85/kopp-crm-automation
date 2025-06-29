@@ -39,7 +39,14 @@
     "clean:extensions": "node scripts/cleanExtensions.js",
     "setup:env": "cp .env.example .env",
     "docs:generate": "typedoc src --out docs/api",
-    "clean": "rm -rf dist node_modules package-lock.json"
+    "clean": "rm -rf dist node_modules package-lock.json",
+    "zapier:validate": "zapier validate",
+    "zapier:test": "zapier test",
+    "zapier:push": "zapier push",
+    "zapier:promote": "zapier promote",
+    "zapier:deploy": "./scripts/deploy-zapier.sh",
+    "zapier:build": "npm run build && zapier validate",
+    "zapier:logs": "zapier logs"
   },
   "keywords": [
     "slack",
@@ -70,7 +77,8 @@
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.25.0",
     "typescript": "^5.0.0",
-    "vercel": "^25.2.0"
+    "vercel": "^25.2.0",
+    "zapier-platform-cli": "^17.2.0"
   },
   "dependencies": {
     "@hubspot/api-client": "^12.0.0",
