@@ -1,0 +1,41 @@
+name: 🧪 Test Billing Fix
+
+# Solo se ejecuta manualmente para probar que la facturación esté resuelta
+on:
+  workflow_dispatch:
+    inputs:
+      test_message:
+        description: 'Mensaje de prueba'
+        required: false
+        default: 'Testing billing fix'
+
+jobs:
+  minimal-test:
+    name: ⚡ Minimal Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: ✅ Billing Status Check
+        run: |
+          echo "🎉 ¡GitHub Actions está funcionando!"
+          echo "💳 Problema de facturación resuelto"
+          echo "📝 Mensaje: ${{ github.event.inputs.test_message }}"
+          echo "🔧 Runner: ${{ runner.os }}"
+          echo "📊 Repositorio: ${{ github.repository }}"
+
+      - name: 📱 Success Notification
+        if: success()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          text: |
+            ✅ ¡GitHub Actions funcionando correctamente!
+            💳 Problema de facturación resuelto
+            📝 ${{ github.event.inputs.test_message }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        continue-on-error: true
