@@ -1,0 +1,71 @@
+# Kopp CRM Automation - Production Configuration
+
+app:
+  name: "Kopp CRM Automation"
+  environment: production
+  debug: false
+  port: ${PORT}
+
+logging:
+  level: info
+  console: false
+  file: true
+  path: "./logs/production.log"
+  rotation: daily
+  maxSize: 50MB
+  maxFiles: 30
+
+database:
+  firebase:
+    useEmulator: false
+    projectId: "${FIREBASE_PROJECT_ID}"
+    credentials: "${FIREBASE_PRIVATE_KEY}"
+
+integrations:
+  slack:
+    testMode: false
+    webhookUrl: "${SLACK_WEBHOOK_URL}"
+    rateLimitPerMinute: 50
+    retryOnFailure: true
+    maxRetries: 3
+  
+  hubspot:
+    testMode: false
+    sandbox: false
+    apiKey: "${HUBSPOT_API_KEY}"
+    batchProcessing: true
+    batchSize: 100
+    
+  zapier:
+    enabled: true
+    migrationPhase: true
+    webhookUrl: "${ZAPIER_WEBHOOK_URL}"
+    timeout: 30000
+
+security:
+  cors:
+    origin: ["https://kopp-stadium.com", "https://app.kopp-stadium.com"]
+    credentials: true
+  
+  rateLimit:
+    windowMs: 900000  # 15 minutes
+    max: 1000  # limit each IP to 1000 requests per windowMs
+  
+  jwt:
+    secret: "${JWT_SECRET}"
+    expiresIn: "24h"
+
+monitoring:
+  enabled: true
+  errorReporting: true
+  performanceMetrics: true
+  healthCheck:
+    endpoint: "/health"
+    interval: 60000
+
+features:
+  autoSync: true
+  realTimeUpdates: true
+  analytics: true
+  caching: true
+  compression: true

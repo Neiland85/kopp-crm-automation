@@ -1,0 +1,53 @@
+{
+  "app": {
+    "name": "Kopp CRM Automation",
+    "version": "1.0.0",
+    "environment": "development",
+    "port": 3000,
+    "host": "localhost"
+  },
+  "logging": {
+    "level": "info",
+    "format": "combined",
+    "directory": "./logs",
+    "maxSize": "10MB",
+    "maxFiles": 5
+  },
+  "database": {
+    "type": "firebase",
+    "connectionTimeout": 30000,
+    "retryAttempts": 3
+  },
+  "integrations": {
+    "slack": {
+      "enabled": true,
+      "rateLimitPerMinute": 50,
+      "timeout": 10000
+    },
+    "hubspot": {
+      "enabled": true,
+      "rateLimitPerSecond": 10,
+      "timeout": 15000,
+      "batchSize": 100
+    },
+    "zapier": {
+      "enabled": true,
+      "migrationMode": true,
+      "timeout": 30000
+    }
+  },
+  "security": {
+    "corsEnabled": true,
+    "allowedOrigins": [
+      "http://localhost:3000"
+    ],
+    "jwtExpiration": "24h",
+    "encryptionAlgorithm": "aes-256-gcm"
+  },
+  "features": {
+    "autoSync": true,
+    "realTimeUpdates": true,
+    "errorReporting": true,
+    "analytics": true
+  }
+}
