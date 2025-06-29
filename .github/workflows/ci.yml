@@ -7,6 +7,12 @@ on:
     branches: [main, develop]
   workflow_dispatch:
 
+# Permisos explícitos para el workflow
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 env:
   NODE_VERSION: '20.x'
 
@@ -60,11 +66,11 @@ jobs:
 
       - name: 📈 Coverage Comment (PR only)
         if: github.event_name == 'pull_request' && matrix.node-version == '20.x'
-        uses: romeovs/lcov-reporter-action@v0.3.1
+        uses: MishaKav/jest-coverage-comment@main
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./coverage/lcov.info
-          delete-old-comments: true
+          coverage-summary-path: ./coverage/coverage-summary.json
+          title: 'Jest Coverage Report'
+          summary-title: 'Coverage Summary'
 
       - name: 📱 Report test results to Slack
         if: always() && matrix.node-version == '20.x'
