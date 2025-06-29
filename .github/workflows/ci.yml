@@ -85,7 +85,8 @@ jobs:
           NODE_ENV: test
         run: |
           if [ -f "scripts/slackTestReport.js" ]; then
-            node scripts/slackTestReport.js
+            echo "📱 Sending test results to Slack..."
+            node scripts/slackTestReport.js || echo "⚠️ Slack notification completed with warnings"
           else
             echo "⚠️ Slack test report script not found, skipping notification"
           fi
@@ -168,7 +169,8 @@ jobs:
           NODE_ENV: test
         run: |
           if [ -f "scripts/qaReport.js" ]; then
-            node scripts/qaReport.js
+            echo "📊 Running QA report..."
+            node scripts/qaReport.js || echo "⚠️ QA report completed with warnings"
           else
             echo "⚠️ QA report script not found, skipping notification"
           fi
@@ -213,7 +215,12 @@ jobs:
         run: |
           echo "📊 Coverage Summary:"
           if [ -f "coverage/coverage-summary.json" ]; then
-            cat coverage/coverage-summary.json | jq '.total'
+            if command -v jq &> /dev/null; then
+              cat coverage/coverage-summary.json | jq '.total'
+            else
+              echo "Coverage file found but jq not available for parsing"
+              ls -la coverage/
+            fi
           else
             echo "❌ No coverage summary found"
           fi
@@ -249,7 +256,7 @@ jobs:
                     },
                     {
                       "title": "Commit",
-                      "value": "${{ github.sha }}".substring(0, 8),
+                      "value": "${{ github.sha }}",
                       "short": true
                     },
                     {
@@ -296,7 +303,7 @@ jobs:
                     },
                     {
                       "title": "Commit",
-                      "value": "${{ github.sha }}".substring(0, 8),
+                      "value": "${{ github.sha }}",
                       "short": true
                     },
                     {
