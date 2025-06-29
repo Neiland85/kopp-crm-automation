@@ -1,59 +1,90 @@
-name: Deploy to Production
+name: 🚀 Deploy Production
 
 on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+permissions:
+  contents: read
+  deployments: write
 
 jobs:
-  deploy-production:
+  deploy:
+    name: 🚀 Production Deploy
     runs-on: ubuntu-latest
-
-    environment: production
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 20.x
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '20.x'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: 📦 Install & Test
+        run: |
+          npm ci
+          npm test
 
-      - name: Run tests
-        run: npm test
-
-      - name: Build for production
+      - name: 🏗️ Build Production
         run: npm run build
         env:
           NODE_ENV: production
 
-      - name: Deploy to Vercel Production
+      # Solo para Zapier CLI si es necesario
+      - name: 📦 Deploy Zapier App
+        if: env.ZAPIER_DEPLOY_KEY
+        run: |
+          npm install -g zapier-platform-cli
+          zapier deploy
+        env:
+          ZAPIER_DEPLOY_KEY: ${{ secrets.ZAPIER_DEPLOY_KEY }}
+
+      # Vercel deployment (si se usa)
+      - name: 🌐 Deploy to Vercel
+        if: env.VERCEL_TOKEN
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
-          github-comment: true
 
-      - name: Notify Slack on Success
+      - name: 📱 Success Notification
         if: success()
         uses: 8398a7/action-slack@v3
         with:
           status: success
-          text: '🚀 Kopp CRM Automation deployed successfully to production!'
+          text: |
+            🚀 ¡Despliegue exitoso a producción!
+            📦 Version: ${{ github.ref_name }}
+            💻 Environment: ${{ github.event.inputs.environment || 'production' }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Notify Slack on Failure
+      - name: 📱 Failure Notification
         if: failure()
         uses: 8398a7/action-slack@v3
         with:
           status: failure
-          text: '❌ Kopp CRM Automation deployment failed!'
+          text: |
+            ❌ Falló el despliegue a producción
+            📦 Version: ${{ github.ref_name }}
+            🔗 ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

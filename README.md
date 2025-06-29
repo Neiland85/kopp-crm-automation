@@ -7,6 +7,16 @@
 
 Automatización estratégica de Slack y HubSpot para Kopp Stadium con integración futura a Firebase, reemplazo progresivo de Zapier y despliegue en Vercel.
 
+## 🚨 Resolución de GitHub Actions (Importante)
+
+Si ves el error: `"The job was not started because recent account payments have failed or your spending limit needs to be increased"`, necesitas:
+
+1. **Resolver facturación:** Ve a GitHub Settings → Billing and plans
+2. **Aumentar límite:** Configura un límite de gastos apropiado
+3. **Probar resolución:** Ejecuta el workflow manual "Test Billing Fix"
+
+📖 **Documentación completa:** Ver [docs/GITHUB_ACTIONS_SETUP.md](./docs/GITHUB_ACTIONS_SETUP.md)
+
 ## 🚀 Inicio Rápido
 
 ### Configuración Automática
