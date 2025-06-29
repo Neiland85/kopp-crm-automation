@@ -1,0 +1,36 @@
+{
+  "github.copilot.enable": {
+    "*": true
+  },
+  "copilot.experimental.inlineSuggest.enable": true,
+  "editor.formatOnSave": true,
+  "eslint.validate": ["javascript", "typescript", "yaml", "json"],
+  "files.exclude": {
+    "**/logs": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/coverage": true,
+    "**/.git": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/coverage": true,
+    "**/.git": true
+  },
+  "copilot.settings": {
+    "scopes": ["**/*.ts", "**/*.js", "**/*.json", "**/*.yaml", "**/*.md"],
+    "linters": {
+      "eslint": true,
+      "yamllint": true
+    },
+    "formatters": {
+      "prettier": true
+    },
+    "testFrameworks": {
+      "jest": true
+    },
+    "enableIntrospection": false,
+    "skipPaths": ["node_modules", ".git", "coverage", "dist", "*.log"]
+  }
+}
