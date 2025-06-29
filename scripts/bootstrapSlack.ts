@@ -12,8 +12,8 @@ console.log('🚀 Iniciando Bootstrap Fase 0: Configuración Slack');
 
 export async function bootstrapSlack() {
   console.log('📡 Configurando cliente Slack...');
-  
-  // TODO: Implementar configuración real 
+
+  // TODO: Implementar configuración real
   console.log('✅ Bootstrap Slack completado');
 }
 

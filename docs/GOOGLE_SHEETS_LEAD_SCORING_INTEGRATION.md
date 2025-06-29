@@ -33,9 +33,9 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 
 La hoja "Lead Scoring" debe tener las siguientes columnas:
 
-| Email                | External Score | Timestamp            | Name     | Company      | Source  |
-| -------------------- | -------------- | -------------------- | -------- | ------------ | ------- |
-| john.doe@example.com | 75             | 2024-01-15T10:30:00Z | John Doe | Example Corp | Website |
+| Email                  | External Score | Timestamp            | Name     | Company      | Source  |
+| ---------------------- | -------------- | -------------------- | -------- | ------------ | ------- |
+| <john.doe@example.com> | 75             | 2024-01-15T10:30:00Z | John Doe | Example Corp | Website |
 
 **Columnas requeridas:**
 

@@ -12,7 +12,7 @@ The job was not started because recent account payments have failed or your spen
 
 1. **Ir a la configuración de facturación de GitHub:**
    - Ve a tu perfil de GitHub → Settings → Billing and plans
-   - O visita directamente: https://github.com/settings/billing
+   - O visita directamente: <https://github.com/settings/billing>
 
 2. **Verificar el estado de tu plan:**
    - Revisar si hay pagos fallidos
@@ -137,4 +137,4 @@ Si continúas experimentando problemas:
 
 - Contactar GitHub Support
 - Revisar documentación de GitHub Actions
-- Verificar estado de GitHub Actions: https://www.githubstatus.com/
+- Verificar estado de GitHub Actions: <https://www.githubstatus.com/>

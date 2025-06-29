@@ -35,7 +35,9 @@ describe('Integration Service', () => {
   describe('Test Integration Endpoint', () => {
     it('should complete test integrations without errors', async () => {
       // testIntegrations devuelve void, solo verificamos que no arroje error
-      await expect(integrationService.testIntegrations()).resolves.not.toThrow();
+      await expect(
+        integrationService.testIntegrations()
+      ).resolves.not.toThrow();
     });
 
     it('should have testIntegrations method defined', () => {
@@ -52,9 +54,9 @@ describe('Integration Service', () => {
     it('should handle webhook route setup', () => {
       const mockApp = {
         post: jest.fn(),
-        get: jest.fn()
+        get: jest.fn(),
       };
-      
+
       expect(() => {
         integrationService.setupWebhookRoutes(mockApp as any);
       }).not.toThrow();

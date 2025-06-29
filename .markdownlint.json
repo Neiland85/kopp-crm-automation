@@ -1,0 +1,16 @@
+{
+  "default": true,
+  "line-length": {
+    "line_length": 100,
+    "code_blocks": false,
+    "tables": false
+  },
+  "no-duplicate-header": false,
+  "no-inline-html": {
+    "allowed_elements": ["br", "sub", "sup", "kbd", "img"]
+  },
+  "single-h1": false,
+  "first-line-h1": false,
+  "fenced-code-language": false,
+  "no-emphasis-as-heading": false
+}

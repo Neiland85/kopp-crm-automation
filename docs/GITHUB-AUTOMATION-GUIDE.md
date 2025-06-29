@@ -46,6 +46,7 @@ bash scripts/setup-secrets.sh --help
    ```
 
 2. **Archivo `.env` configurado:**
+
    ```bash
    cp .env.example .env
    # Editar .env con valores reales
@@ -218,9 +219,9 @@ git push origin main
 
 ### **Verificación del Setup:**
 
-1. **GitHub Secrets:** https://github.com/kopp-stadium/kopp-crm-automation/settings/secrets/actions
-2. **GitHub Actions:** https://github.com/kopp-stadium/kopp-crm-automation/actions
-3. **Codecov Dashboard:** https://codecov.io/gh/kopp-stadium/kopp-crm-automation
+1. **GitHub Secrets:** <https://github.com/kopp-stadium/kopp-crm-automation/settings/secrets/actions>
+2. **GitHub Actions:** <https://github.com/kopp-stadium/kopp-crm-automation/actions>
+3. **Codecov Dashboard:** <https://codecov.io/gh/kopp-stadium/kopp-crm-automation>
 
 ---
 

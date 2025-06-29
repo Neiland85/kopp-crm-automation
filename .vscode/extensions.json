@@ -1,24 +1,41 @@
 {
   "recommendations": [
+    // GitHub Copilot (esencial)
     "github.copilot",
     "github.copilot-chat",
+    // Extensiones específicas del stack Kopp
+    "slackapi.vscode-slack",
+    "zapier.vscode-zapier",
+    "hubspot.vscode-devtools",
+    // Core TypeScript/JavaScript
     "ms-vscode.vscode-typescript-next",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "redhat.vscode-yaml",
-    "ms-azuretools.vscode-docker",
-    "eamodio.gitlens",
-    "humao.rest-client",
-    "mikestead.dotenv",
     "orta.vscode-jest",
+    // Utilidades de desarrollo
+    "redhat.vscode-yaml",
     "ms-vscode.vscode-json",
-    "bradlc.vscode-tailwindcss",
-    "formulahendry.auto-rename-tag",
-    "christian-kohler.path-intellisense",
-    "ms-vscode.vscode-github-issue-notebooks",
+    "mikestead.dotenv",
+    "humao.rest-client",
+    // Git y GitHub
+    "eamodio.gitlens",
     "github.vscode-pull-request-github",
+    "ms-vscode.vscode-github-issue-notebooks",
+    // Productividad
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-rename-tag",
+    "bradlc.vscode-tailwindcss",
+    // Docker y containerización (opcional)
+    "ms-azuretools.vscode-docker",
     "ms-vscode-remote.remote-containers",
+    // Herramientas adicionales
     "ritwickdey.liveserver",
     "ms-vscode.powershell"
+  ],
+  "unwantedRecommendations": [
+    // Extensiones que pueden causar conflictos
+    "ms-vscode.vscode-typescript",
+    "hookyqr.beautify",
+    "ms-vscode.typescript-javascript-grammar"
   ]
 }

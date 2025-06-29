@@ -42,14 +42,14 @@ skipPaths:
 
 ## Rationale
 
-### ✅ Por qué estos scopes:
+### ✅ Por qué estos scopes
 
 1. **TypeScript/JavaScript:** Core del proyecto, máxima productividad
 2. **JSON:** Configuraciones críticas (package.json, tsconfig.json)
 3. **YAML:** Workflows GitHub Actions y configuraciones
 4. **Markdown:** Documentación y ADRs
 
-### ❌ Por qué NO otros tipos:
+### ❌ Por qué NO otros tipos
 
 - **Archivos de configuración específicos** (.env, secrets): Seguridad
 - **Archivos binarios**: No aplica

@@ -72,7 +72,7 @@ npm run configure:extensions
 
 ### Slack
 
-1. Ir a https://api.slack.com/apps
+1. Ir a <https://api.slack.com/apps>
 2. Crear nueva aplicación
 3. Configurar Bot Token Scopes:
    - `chat:write`
@@ -231,6 +231,6 @@ grep "ERROR" logs/production.log
 
 ### Contacto
 
-- Email: dev@kopp-stadium.com
+- Email: <dev@kopp-stadium.com>
 - Slack: #kopp-crm-automation
 - GitHub Issues: Repository issues

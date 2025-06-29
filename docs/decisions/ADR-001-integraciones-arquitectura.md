@@ -37,7 +37,7 @@ Se necesita automatizar flujos de datos específicos para mejorar la eficiencia 
                               └─────────────────┘
 ```
 
-### Flujos Implementados:
+### Flujos Implementados
 
 #### 1. **Zapier → Slack** (Notificaciones)
 
@@ -60,7 +60,7 @@ Se necesita automatizar flujos de datos específicos para mejorar la eficiencia 
 
 ## Rationale
 
-### Alternativas Consideradas:
+### Alternativas Consideradas
 
 1. **Zapier directo (sin orquestador)**
    - ❌ **Rechazado:** Limitaciones en lógica compleja, debugging difícil
@@ -74,7 +74,7 @@ Se necesita automatizar flujos de datos específicos para mejorar la eficiencia 
    - ❌ **Rechazado:** Over-engineering para el volumen actual
    - ❌ **Rechazado:** Complejidad operacional innecesaria
 
-### Por qué Express.js como Orquestador:
+### Por qué Express.js como Orquestador
 
 - ✅ **Control total:** Lógica de negocio centralizada y debuggeable
 - ✅ **Flexibility:** Fácil agregar nuevas integraciones
@@ -84,20 +84,20 @@ Se necesita automatizar flujos de datos específicos para mejorar la eficiencia 
 
 ## Consecuencias
 
-### Positivas:
+### Positivas
 
 - **Mantenibilidad:** Código centralizado, fácil de debuggear
 - **Escalabilidad:** Fácil agregar nuevas integraciones
 - **Monitoreo:** Logs y métricas centralizadas
 - **Testing:** Flujos testables end-to-end
 
-### Negativas:
+### Negativas
 
 - **Single point of failure:** El servidor Express es crítico
 - **Latencia adicional:** Un hop extra en comunicaciones
 - **Operaciones:** Requiere monitoreo y deployment del orquestador
 
-### Riesgos y Mitigaciones:
+### Riesgos y Mitigaciones
 
 | Riesgo                  | Mitigación                             |
 | ----------------------- | -------------------------------------- |
@@ -108,14 +108,14 @@ Se necesita automatizar flujos de datos específicos para mejorar la eficiencia 
 
 ## Implementación
 
-### Fases:
+### Fases
 
 1. **Fase 2a:** Zapier → Slack (notificaciones básicas)
 2. **Fase 2b:** Slack → Hubspot (sincronización)
 3. **Fase 2c:** Hubspot → Slack (notificaciones de avance)
 4. **Fase 2d:** Optimización y monitoreo
 
-### Métricas de Éxito:
+### Métricas de Éxito
 
 - **Latencia:** < 2 segundos end-to-end
 - **Disponibilidad:** > 99.5%
