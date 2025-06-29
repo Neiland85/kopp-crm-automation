@@ -56,7 +56,7 @@ npm run qa:minimal
 
 ### 📋 Best Practices para Ahorro
 
-#### 🚫 Evitar:
+#### 🚫 Evitar
 
 - ❌ Pushes frecuentes a main
 - ❌ PRs experimentales
@@ -65,7 +65,7 @@ npm run qa:minimal
 - ❌ Coverage reporting en cada run
 - ❌ Notificaciones Slack automáticas
 
-#### ✅ Fomentar:
+#### ✅ Fomentar
 
 - ✅ Validación local antes de push
 - ✅ Feature branches sin CI (fuera de main)
@@ -95,14 +95,14 @@ git push origin v1.0.x
 
 ## 📊 Estimación de Consumo Mensual
 
-### Antes de la Optimización:
+### Antes de la Optimización
 
 - **CI Run**: ~15 min por ejecución
 - **Deploy Run**: ~10 min por ejecución
 - **Ejecuciones promedio**: 50/mes
 - **Total**: ~1,250 min/mes
 
-### Después de la Optimización:
+### Después de la Optimización
 
 - **CI Run**: ~4 min por ejecución
 - **Deploy Run**: ~6 min por ejecución

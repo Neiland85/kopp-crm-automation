@@ -1,120 +1,94 @@
 {
   "folders": [
     {
-      "extensions": {
-        "recommendations": [
-          "GitHub.copilot-chat", // Copilot Chat
-          "dbaeumer.vscode-eslint", // ESLint
-          "esbenp.prettier-vscode", // Prettier
-          "redhat.vscode-yaml", // YAML support
-          "ms-azuretools.vscode-docker", // Docker (para futuro)
-          "sozercan.slack" // Slack integration
-        ],
-        "unwantedRecommendations": [
-          "ms-python.python",
-          "ms-python.vscode-pylance",
-          "ms-python.isort",
-          "ms-python.black-formatter",
-          "ms-python.flake8",
-          "ms-python.mypy-type-checker",
-          "ms-vscode.cpptools",
-          "msjsdiag.debugger-for-chrome",
-          "ms-toolsai.jupyter",
-          "ms-vscode.powershell",
-          "ms-dotnettools.csharp",
-          "ms-vscode.vscode-typescript-next",
-          "bradlc.vscode-tailwindcss",
-          "ms-playwright.playwright",
-          "nextjs.vscode-nextjs-extension",
-          "prisma.prisma"
-        ]
+      "path": ".",
+    },
+  ],
+  "extensions": {
+    "recommendations": [
+      "GitHub.copilot-chat", // Copilot Chat
+      "dbaeumer.vscode-eslint", // ESLint
+      "esbenp.prettier-vscode", // Prettier
+      "redhat.vscode-yaml", // YAML support
+      "ms-azuretools.vscode-docker", // Docker (para futuro)
+      "sozercan.slack", // Slack integration
+    ],
+    "unwantedRecommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-python.isort",
+      "ms-python.black-formatter",
+      "ms-python.flake8",
+      "ms-python.mypy-type-checker",
+      "ms-vscode.cpptools",
+      "msjsdiag.debugger-for-chrome",
+      "ms-toolsai.jupyter",
+      "ms-vscode.powershell",
+      "ms-dotnettools.csharp",
+      "ms-vscode.vscode-typescript-next",
+      "bradlc.vscode-tailwindcss",
+      "ms-playwright.playwright",
+      "nextjs.vscode-nextjs-extension",
+      "prisma.prisma",
+    ],
+  },
+  "settings": {
+    // Formateo y linting básicos
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "eslint.enable": true,
+    "eslint.validate": ["javascript", "typescript", "json", "yaml", "markdown"],
+    // Copilot básico sin introspección avanzada
+    "copilot.experimental.introspection.enable": false,
+    // Paneles visibles al abrir el workspace
+    "workbench.startupEditor": "welcomePage",
+    "workbench.statusBar.visible": true,
+    "workbench.sideBar.location": "left",
+    // Terminal integrado: bash por defecto (adaptado para macOS)
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.shell.osx": "/bin/zsh",
+  },
+  "launch": {
+    // Plantillas de debug básico (TypeScript Node)
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Program",
+        "program": "${workspaceFolder}/scripts/bootstrapSlack.ts",
+        "preLaunchTask": "npm: build",
       },
     ],
-    "settings": {
-      // Formateo y linting básicos
-      "editor.formatOnSave": true,
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "eslint.enable": true,
-      "eslint.validate": [
-        "javascript",
-        "typescript",
-        "json",
-        "yaml",
-        "markdown"
-      ],
-      // Copilot básico sin introspección avanzada
-      "copilot.experimental.introspection.enable": false,
-      // Paneles visibles al abrir el workspace
-      "workbench.startupEditor": "welcomePage",
-      "workbench.statusBar.visible": true,
-      "workbench.sideBar.location": "left",
-      // Terminal integrado: bash por defecto (adaptado para macOS)
-      "terminal.integrated.defaultProfile.osx": "zsh",
-      "terminal.integrated.shell.osx": "/bin/zsh"
-    },
-    "extensions": {
-      "recommendations": [
-        "GitHub.copilot-chat", // Copilot Chat
-        "dbaeumer.vscode-eslint", // ESLint
-        "esbenp.prettier-vscode", // Prettier
-        "redhat.vscode-yaml", // YAML support
-        "ms-azuretools.vscode-docker", // Docker (para futuro)
-        "slackapi.vscode-slack", // Slack app manifest
-        "zapier.vscode-zapier" // Zapier CLI
-      ],
-      "unwantedRecommendations": [
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-vscode.cpptools",
-        "msjsdiag.debugger-for-chrome",
-        "ms-toolsai.jupyter"
-      ]
-    },
-    "launch": {
-      // Plantillas de debug básico (TypeScript Node)
-      "configurations": [
-        {
-          "type": "node",
-          "request": "launch",
-          "name": "Launch Program",
-          "program": "${workspaceFolder}/scripts/bootstrapSlack.ts",
-          "preLaunchTask": "npm: build"
-        }
-      ]
-    },
-    "tasks": {
-      "version": "2.0.0",
-      "tasks": [
-        {
-          "label": "npm: install",
-          "type": "npm",
-          "script": "install",
-          "problemMatcher": []
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "npm: install",
+        "type": "npm",
+        "script": "install",
+        "problemMatcher": [],
+      },
+      {
+        "label": "npm: lint",
+        "type": "npm",
+        "script": "lint",
+        "problemMatcher": ["$eslint-stylish"],
+      },
+      {
+        "label": "npm: test",
+        "type": "npm",
+        "script": "test",
+        "problemMatcher": ["$eslint-stylish"],
+      },
+      {
+        "label": "Bootstrap Fase 0",
+        "type": "shell",
+        "command": "npm run bootstrap:all",
+        "presentation": {
+          "reveal": "always",
         },
-        {
-          "label": "npm: lint",
-          "type": "npm",
-          "script": "lint",
-          "problemMatcher": [
-            "$eslint-stylish"
-          ]
-        },
-        {
-          "label": "npm: test",
-          "type": "npm",
-          "script": "test",
-          "problemMatcher": [
-            "$eslint-stylish"
-          ]
-        },
-        {
-          "label": "Bootstrap Fase 0",
-          "type": "shell",
-          "command": "npm run bootstrap:all",
-          "presentation": {
-            "reveal": "always"
-          }
-        }
-      ]
-    }
-  }
+      },
+    ],
+  },
+}

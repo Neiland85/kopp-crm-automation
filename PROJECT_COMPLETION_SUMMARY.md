@@ -158,8 +158,8 @@ Una vez resuelto, todos los workflows se ejecutarán perfectamente y el proyecto
 
 Para resolver el problema de facturación:
 
-1. GitHub Support: https://support.github.com/
+1. GitHub Support: <https://support.github.com/>
 2. Documentación: [docs/GITHUB_ACTIONS_SETUP.md](./docs/GITHUB_ACTIONS_SETUP.md)
-3. Estado de GitHub: https://www.githubstatus.com/
+3. Estado de GitHub: <https://www.githubstatus.com/>
 
 **¡El proyecto está listo para despegar una vez resuelta la facturación!** 🚀

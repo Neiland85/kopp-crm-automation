@@ -3,11 +3,13 @@
 ## 📋 Pasos UI para Configurar el Workspace
 
 ### 1. Abrir el Workspace
-1. **Archivo** → **Abrir Workspace...** 
+
+1. **Archivo** → **Abrir Workspace...**
 2. Selecciona `kopp-stadium.code-workspace`
 3. VS Code reiniciará con la configuración del workspace
 
 ### 2. Panel de Extensiones
+
 1. Presiona **⇧⌘X** (Mac) / **Ctrl+Shift+X** (Windows/Linux)
 2. Ve a la pestaña **"Recommended"**
 3. **Instala las extensiones recomendadas:**
@@ -27,6 +29,7 @@
    - ❌ Jupyter
 
 ### 3. Configurar Settings UI
+
 1. Presiona **⇧⌘P** → escribe **"Preferences: Open Workspace Settings"**
 2. **Verifica estas configuraciones:**
    - ✅ **Editor: Format On Save** → Activado
@@ -41,6 +44,7 @@
    - Verifica que ESLint está activo para linting
 
 ### 4. Vista de Tareas
+
 1. Presiona **⇧⌘P** → **"Tasks: Run Task"**
 2. **Verás estas tareas disponibles:**
    - 📦 `npm: install` - Instalar dependencias
@@ -51,11 +55,13 @@
 3. **Ejecuta primero:** `npm: install` para instalar dependencias
 
 ### 5. Copilot Panel
+
 1. Presiona **⇧⌘P** → **"Copilot: Toggle Chat"**
 2. **Verifica que Copilot Chat carga correctamente**
 3. **Confirma que la introspección avanzada está desactivada** (más rápido y eficiente)
 
 ### 6. Terminal Integrado
+
 1. Presiona **⌃`** para abrir el terminal
 2. **Verifica:**
    - ✅ Terminal usa **zsh** (configurado para macOS)
@@ -65,16 +71,19 @@
 ## 🔍 Validación Rápida
 
 ### Extensiones
+
 1. **⇧⌘P** → **"Extensions: Show Recommended Extensions"**
 2. **Confirma que solo aparecen las extensiones necesarias**
 
 ### Tareas
+
 1. **Ejecuta:** `npm: lint`
    - Debe ejecutarse sin errores críticos
-2. **Ejecuta:** `npm: test` 
+2. **Ejecuta:** `npm: test`
    - Debe mostrar mensaje de "No tests specified yet"
 
 ### Copilot
+
 1. **Abre:** `src/index.ts`
 2. **Pide a Copilot:** "Generate imports for @slack/web-api"
 3. **Verifica que Copilot responde y sugiere código**

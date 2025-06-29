@@ -1,4 +1,34 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+# Hook pre-commit para Kopp CRM
+# Se ejecuta automáticamente antes de cada commit
 
+set -e
+
+echo "🔍 Ejecutando validaciones pre-commit..."
+
+# 1. Ejecutar lint-staged (formato y lint de archivos staged)
+echo "📝 Formateando y validando archivos staged..."
 npx lint-staged
+
+# 2. Ejecutar validación local rápida
+echo "⚡ Ejecutando validación local..."
+npm run validate:local
+
+# 3. Validar que no hay secrets en el código
+echo "🔐 Verificando que no hay secrets expuestos..."
+if grep -r "sk-" src/ --include="*.ts" --include="*.js" 2>/dev/null; then
+    echo "❌ Error: Posible API key expuesta en el código"
+    exit 1
+fi
+
+if grep -r "xoxb-" src/ --include="*.ts" --include="*.js" 2>/dev/null; then
+    echo "❌ Error: Posible token de Slack expuesto en el código"
+    exit 1
+fi
+
+# 4. Verificar que .env no está en staging
+if git diff --cached --name-only | grep -q "^\.env$"; then
+    echo "❌ Error: No commitear archivo .env"
+    exit 1
+fi
+
+echo "✅ Todas las validaciones pre-commit pasaron exitosamente"

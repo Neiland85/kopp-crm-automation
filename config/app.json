@@ -38,9 +38,7 @@
   },
   "security": {
     "corsEnabled": true,
-    "allowedOrigins": [
-      "http://localhost:3000"
-    ],
+    "allowedOrigins": ["http://localhost:3000"],
     "jwtExpiration": "24h",
     "encryptionAlgorithm": "aes-256-gcm"
   },

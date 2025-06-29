@@ -1,23 +1,70 @@
-# 🤖 Copilot Setup - Fase 2: Integraciones Slack ↔ Zapier ↔ Hubspot
+scopes:
+  - "**/*.ts"
+  - "**/*.js" 
+  - "**/*.json"
+  - "**/*.yaml"
+  - "**/*.yml"
+  - "**/*.md"
+  - "**/*.sh"
+  - "src/zapier/**/*"
+  - ".github/workflows/*"
 
-## 🎯 Configuración Temporal - Desarrollo de APIs
-
-### Configuraciones Activas Durante Fase 2:
-- ✅ **Auto-completado de APIs** - Habilitado para Slack, Zapier, Hubspot
-- ✅ **Sugerencias de tipos TypeScript** - Mejoradas para interfaces de APIs
-- ✅ **Generación de payloads JSON** - Activada para webhooks
-- ✅ **Documentación inline** - Habilitada para métodos de integración
-- ⚠️ **Introspección experimental** - DESHABILITADA (mantener velocidad)
-
-### Variables de Entorno Requeridas:
-```bash
-# Slack Configuration
-SLACK_BOT_TOKEN=xoxb-your-bot-token-here
-SLACK_SIGNING_SECRET=your-signing-secret-here
-SLACK_APP_TOKEN=xapp-your-app-token-here
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
-
-# Hubspot Configuration  
+linters:
+  eslint: true
+  yamllint: true
+  markdownlint: true
+  
+formatters:
+  prettier: true
+  
+testFrameworks:
+  jest: true
+  
+features:
+  enableIntrospection: true  # ADR-ZAP-01 requiere introspección de flujos
+  enableCodeReview: true
+  enableAutoComplete: true
+  enableInlineSuggestions: true
+  
+integrations:
+  slack: true
+  zapier: true  
+  hubspot: true
+  notion: false  # opcional
+  
+optimization:
+  prioritizeLocalDevelopment: true
+  minimizeAPICallsInCI: true
+  enableCostOptimization: true
+  
+skipPaths:
+  - "node_modules"
+  - ".git"
+  - "dist"
+  - "coverage"
+  - "logs"
+  - "*.log"
+  
+projectContext:
+  name: "Kopp Stadium CRM"
+  type: "automation-integration"
+  primaryLanguage: "typescript"
+  targetPlatforms:
+    - "slack"
+    - "zapier" 
+    - "hubspot"
+    - "google-sheets"
+  
+codeStyle:
+  indentation: 2
+  quotes: "single"
+  semicolons: true
+  trailingCommas: true
+  
+adrs:
+  - "ADR-ZAP-01"  # Zapier CLI naming, triggers y error-handling
+  - "ADR-HUB-05"  # HubSpot DevTools y propiedades personalizadas
+  - "ADR-COST-01" # Optimización de costos GitHub Actions  
 HUBSPOT_API_KEY=your-hubspot-api-key-here
 HUBSPOT_PORTAL_ID=your-portal-id-here
 HUBSPOT_ACCESS_TOKEN=your-access-token-here

@@ -8,9 +8,7 @@ import app from '../../app-test';
 describe('E2E Tests', () => {
   describe('Health Check', () => {
     it('should return 200 for health endpoint', async () => {
-      const response = await request(app)
-        .get('/health')
-        .expect(200);
+      const response = await request(app).get('/health').expect(200);
 
       expect(response.body).toHaveProperty('status', 'OK');
       expect(response.body).toHaveProperty('timestamp');

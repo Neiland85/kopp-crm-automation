@@ -39,7 +39,7 @@ npm run setup:notion    # Configurar Notion
 
 ### 1. Crear App en Slack
 
-1. Ve a https://api.slack.com/apps
+1. Ve a <https://api.slack.com/apps>
 2. Crea nueva app "Kopp CRM Automation"
 3. Configura permisos: `chat:write`, `channels:read`, `channels:write`, `pins:write`
 4. Instala app en workspace
@@ -81,14 +81,14 @@ npm run setup:zapier
 
 ### 3. Estructura de Triggers y Actions
 
-#### Triggers:
+#### Triggers
 
 - `newGoogleSheetsLeadScoring` - Nuevas filas en Lead Scoring
 - `newFormSubmission` - Nuevos form submissions
 - `pageView` - Page views importantes
 - `updatedContactProperty` - Propiedades de contacto actualizadas
 
-#### Actions:
+#### Actions
 
 - `hubspotContact` - Crear/actualizar contacto HubSpot
 - `slackNotification` - Enviar notificación Slack
@@ -168,7 +168,7 @@ GOOGLE_SHEETS_ID=your-sheet-id
 
 ### 1. Crear Integration
 
-1. Ve a https://www.notion.so/my-integrations
+1. Ve a <https://www.notion.so/my-integrations>
 2. Crea nueva integration "Kopp CRM"
 3. Copia Integration Token
 
@@ -203,7 +203,7 @@ npm run setup:notion
 6. **Slack alert** envía notificación a `#scoring-leads`
 7. **HubSpot workflow** actualiza `last_score_update`
 
-### Flujos Secundarios:
+### Flujos Secundarios
 
 #### Form Submission → HubSpot + Slack
 
