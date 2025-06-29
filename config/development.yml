@@ -1,0 +1,49 @@
+# Kopp CRM Automation - Development Configuration
+
+app:
+  name: "Kopp CRM Automation"
+  environment: development
+  debug: true
+  port: 3000
+
+logging:
+  level: debug
+  console: true
+  file: true
+  path: "./logs/development.log"
+
+database:
+  firebase:
+    useEmulator: true
+    emulatorHost: "localhost"
+    emulatorPort: 9000
+
+integrations:
+  slack:
+    testMode: true
+    webhookUrl: "${SLACK_WEBHOOK_URL}"
+    rateLimitPerMinute: 30
+  
+  hubspot:
+    testMode: true
+    sandbox: true
+    apiKey: "${HUBSPOT_API_KEY}"
+    
+  zapier:
+    enabled: false  # Disabled in development
+    testWebhooks: true
+
+security:
+  cors:
+    origin: "*"
+    credentials: true
+  
+  rateLimit:
+    windowMs: 900000  # 15 minutes
+    max: 100  # limit each IP to 100 requests per windowMs
+
+features:
+  hotReload: true
+  mockData: true
+  errorStack: true
+  performanceMonitoring: false
