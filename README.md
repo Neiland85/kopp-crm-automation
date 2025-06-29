@@ -39,6 +39,41 @@ npm run qa:minimal
 
 📖 **Estrategia completa**: Ver [docs/COST_OPTIMIZATION_STRATEGY.md](./docs/COST_OPTIMIZATION_STRATEGY.md)
 
+## 🔗 Configuración de Integraciones
+
+### ⚡ Setup Automático (Recomendado)
+
+```bash
+# Configurar todas las integraciones de una vez
+npm run setup:all
+
+# O configurar individualmente
+npm run setup:slack     # Slack channels y bot
+npm run setup:zapier    # Zapier CLI y app
+npm run setup:hubspot   # HubSpot API y propiedades
+npm run setup:notion    # Notion templates (opcional)
+```
+
+### 🎯 Integraciones Incluidas
+
+- **Slack**: Canales `#automations-alerts` y `#scoring-leads`
+- **Zapier**: 4 triggers + 6 actions configuradas
+- **HubSpot**: Propiedades custom y workflows
+- **Google Sheets**: Lead scoring automation
+- **Notion**: Templates de documentación
+
+### 📋 Variables de Entorno Requeridas
+
+```bash
+SLACK_BOT_TOKEN=xoxb-...
+SLACK_SIGNING_SECRET=...
+HUBSPOT_API_KEY=...
+ZAPIER_WEBHOOK_URL=...
+NOTION_TOKEN=... (opcional)
+```
+
+📖 **Guía completa**: Ver [docs/INTEGRATIONS_COMPLETE_GUIDE.md](./docs/INTEGRATIONS_COMPLETE_GUIDE.md)
+
 ## 🚨 Resolución de GitHub Actions (Importante)
 
 Si ves el error: `"The job was not started because recent account payments have failed or your spending limit needs to be increased"`, necesitas:

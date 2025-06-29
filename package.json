@@ -50,7 +50,13 @@
     "validate:local": "./scripts/local-validation.sh",
     "test:fast": "jest --bail --testTimeout=5000 --silent",
     "qa:minimal": "npm run lint:check --silent && npm run test:fast && npm run build --silent",
-    "pre-commit": "npm run validate:local"
+    "pre-commit": "npm run validate:local",
+    "setup:integrations": "./scripts/setup-integrations.sh",
+    "setup:slack": "./scripts/setup-slack.sh",
+    "setup:zapier": "./scripts/setup-zapier.sh",
+    "setup:hubspot": "./scripts/setup-hubspot.sh",
+    "setup:notion": "./scripts/setup-notion.sh",
+    "setup:all": "npm run setup:integrations"
   },
   "keywords": [
     "slack",
