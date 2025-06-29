@@ -1,0 +1,47 @@
+# Kopp CRM Automation - Python Dependencies
+# Para scripts auxiliares de procesamiento de datos y automatización
+
+# Análisis de datos
+pandas==2.1.0
+numpy==1.24.3
+
+# APIs y requests
+requests==2.31.0
+urllib3==2.0.4
+
+# Procesamiento de JSON y YAML
+pyyaml==6.0.1
+jsonschema==4.19.0
+
+# Automatización y scripting
+python-dotenv==1.0.0
+click==8.1.7
+
+# Integración con servicios
+slack-sdk==3.22.0
+hubspot-api-client==7.1.0
+
+# Utilidades para fechas y tiempo
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Logging y debugging
+colorlog==6.7.0
+loguru==0.7.0
+
+# Testing (opcional)
+pytest==7.4.0
+pytest-mock==3.11.1
+
+# Herramientas de desarrollo
+flake8==6.0.0
+black==23.7.0
+isort==5.12.0
+
+# Procesamiento de archivos
+openpyxl==3.1.2
+csv-reader==1.2.0
+
+# Criptografía y seguridad
+cryptography==41.0.3
+bcrypt==4.0.1
