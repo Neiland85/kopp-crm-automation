@@ -7,7 +7,6 @@ on:
     branches: [main, develop]
   workflow_dispatch:
 
-# Permisos explícitos para el workflow
 permissions:
   contents: read
   pull-requests: write
@@ -29,7 +28,7 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Needed for coverage reports
+          fetch-depth: 0
 
       - name: 🟢 Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -47,10 +46,10 @@ jobs:
         run: npm run test:coverage
         env:
           NODE_ENV: test
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
-          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
-          ZAPIER_WEBHOOK_URL: ${{ secrets.ZAPIER_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || '' }}
+          SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET || '' }}
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY || '' }}
+          ZAPIER_WEBHOOK_URL: ${{ secrets.ZAPIER_WEBHOOK_URL || '' }}
 
       - name: 📊 Upload coverage to Codecov
         if: matrix.node-version == '20.x'
@@ -71,25 +70,6 @@ jobs:
           coverage-summary-path: ./coverage/coverage-summary.json
           title: 'Jest Coverage Report'
           summary-title: 'Coverage Summary'
-
-      - name: 📱 Report test results to Slack
-        if: always() && matrix.node-version == '20.x'
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_TEST_CHANNEL: ${{ secrets.SLACK_TEST_CHANNEL }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          GITHUB_SHA: ${{ github.sha }}
-          GITHUB_SERVER_URL: ${{ github.server_url }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-          NODE_ENV: test
-        run: |
-          if [ -f "scripts/slackTestReport.js" ]; then
-            echo "📱 Sending test results to Slack..."
-            node scripts/slackTestReport.js || echo "⚠️ Slack notification completed with warnings"
-          else
-            echo "⚠️ Slack test report script not found, skipping notification"
-          fi
 
   build:
     name: 🏗️ Build
@@ -121,17 +101,6 @@ jobs:
           path: dist/
           retention-days: 7
 
-      - name: 🔍 Check build size
-        run: |
-          echo "📊 Build Size Report:"
-          if [ -d "dist" ]; then
-            du -sh dist/
-            find dist -name "*.js" -exec ls -lh {} \; | head -10
-          else
-            echo "❌ No dist directory found"
-            exit 1
-          fi
-
   quality-check:
     name: 🔍 Quality Check
     runs-on: ubuntu-latest
@@ -156,77 +125,8 @@ jobs:
       - name: 📋 TypeScript check
         run: npx tsc --noEmit
 
-      - name: 🎯 Run QA report
-        if: always()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_QA_CHANNEL: ${{ secrets.SLACK_QA_CHANNEL }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          GITHUB_SHA: ${{ github.sha }}
-          GITHUB_SERVER_URL: ${{ github.server_url }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-          NODE_ENV: test
-        run: |
-          if [ -f "scripts/qaReport.js" ]; then
-            echo "📊 Running QA report..."
-            node scripts/qaReport.js || echo "⚠️ QA report completed with warnings"
-          else
-            echo "⚠️ QA report script not found, skipping notification"
-          fi
-
-  coverage-badge:
-    name: 🏆 Update Coverage Badge
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: 📦 Install dependencies
-        run: npm ci
-
-      - name: 🧪 Generate coverage
-        run: npm run test:coverage
-        env:
-          NODE_ENV: test
-
-      - name: 🏆 Generate coverage badge
-        uses: tj-actions/coverage-badge-js@v2
-        with:
-          coverage-summary-path: './coverage/coverage-summary.json'
-          output: './coverage-badge.svg'
-
-      - name: 📤 Upload coverage badge
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-badge
-          path: coverage-badge.svg
-
-      - name: 📊 Coverage Summary
-        run: |
-          echo "📊 Coverage Summary:"
-          if [ -f "coverage/coverage-summary.json" ]; then
-            if command -v jq &> /dev/null; then
-              cat coverage/coverage-summary.json | jq '.total'
-            else
-              echo "Coverage file found but jq not available for parsing"
-              ls -la coverage/
-            fi
-          else
-            echo "❌ No coverage summary found"
-          fi
-
   slack-notification:
-    name: 📱 Slack Notification
+    name: Slack Notification
     runs-on: ubuntu-latest
     needs: [test, build, quality-check]
     if: always()
@@ -234,94 +134,27 @@ jobs:
     steps:
       - name: 📱 Notify Success
         if: needs.test.result == 'success' && needs.build.result == 'success'
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          text: |
+            ✅ CI Pipeline exitoso para ${{ github.repository }}
+            📊 Branch: ${{ github.ref_name }}
+            🔗 Commit: ${{ github.sha }}
+            🎯 Event: ${{ github.event_name }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-          if [ -n "$SLACK_WEBHOOK_URL" ]; then
-            curl -X POST -H 'Content-type: application/json' \
-              --data '{
-                "channel": "${{ secrets.SLACK_DEV_CHANNEL || '#equipo-dev' }}",
-                "username": "GitHub CI Bot",
-                "icon_emoji": ":white_check_mark:",
-                "text": "✅ CI Pipeline exitoso",
-                "attachments": [{
-                  "color": "#36a64f",
-                  "title": "${{ github.repository }} - CI Success",
-                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                  "fields": [
-                    {
-                      "title": "Branch",
-                      "value": "${{ github.ref_name }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Commit",
-                      "value": "${{ github.sha }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Event",
-                      "value": "${{ github.event_name }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Status",
-                      "value": "All checks passed ✅",
-                      "short": true
-                    }
-                  ],
-                  "footer": "GitHub Actions",
-                  "ts": '"$(date +%s)"'
-                }]
-              }' \
-              "$SLACK_WEBHOOK_URL"
-          else
-            echo "⚠️ SLACK_WEBHOOK_URL not configured, skipping notification"
-          fi
 
       - name: 📱 Notify Failure
         if: needs.test.result == 'failure' || needs.build.result == 'failure'
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          text: |
+            ❌ CI Pipeline falló para ${{ github.repository }}
+            📊 Branch: ${{ github.ref_name }}
+            🔗 Commit: ${{ github.sha }}
+            🧪 Tests: ${{ needs.test.result }}
+            🏗️ Build: ${{ needs.build.result }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-          if [ -n "$SLACK_WEBHOOK_URL" ]; then
-            curl -X POST -H 'Content-type: application/json' \
-              --data '{
-                "channel": "${{ secrets.SLACK_DEV_CHANNEL || '#equipo-dev' }}",
-                "username": "GitHub CI Bot",
-                "icon_emoji": ":x:",
-                "text": "❌ CI Pipeline falló",
-                "attachments": [{
-                  "color": "#ff0000",
-                  "title": "${{ github.repository }} - CI Failure",
-                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                  "fields": [
-                    {
-                      "title": "Branch",
-                      "value": "${{ github.ref_name }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Commit",
-                      "value": "${{ github.sha }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Test Result",
-                      "value": "${{ needs.test.result }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Build Result",
-                      "value": "${{ needs.build.result }}",
-                      "short": true
-                    }
-                  ],
-                  "footer": "GitHub Actions",
-                  "ts": '"$(date +%s)"'
-                }]
-              }' \
-              "$SLACK_WEBHOOK_URL"
-          else
-            echo "⚠️ SLACK_WEBHOOK_URL not configured, skipping notification"
-          fi
