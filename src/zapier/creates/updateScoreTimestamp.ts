@@ -26,7 +26,7 @@ const updateScoreTimestamp = async (
   const currentTimestamp = new Date().toISOString();
 
   if (!contactId) {
-    throw new Error('Contact ID is required to update score timestamp');
+    throw new Error('Contact ID is required');
   }
 
   // Preparar propiedades a actualizar
