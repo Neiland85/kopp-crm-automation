@@ -34,7 +34,6 @@
     "workflow:cleanup": "npm run clean && npm install && npm run setup:env",
     "pre-release": "npm run workflow:cleanup && npm run qa:local",
     "start": "node dist/index.js",
-    "install": "npm install",
     "bootstrap:all": "echo \"Bootstrap Phase 0: Setting up project structure...\" && npm install",
     "configure:extensions": "node scripts/configureExtensions.js",
     "clean:extensions": "node scripts/cleanExtensions.js",
@@ -69,7 +68,7 @@
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.25.0",
     "typescript": "^5.0.0",
-    "vercel": "^32.0.0"
+    "vercel": "^41.0.2"
   },
   "dependencies": {
     "@hubspot/api-client": "^12.0.0",
@@ -80,5 +79,13 @@
     "express": "^4.18.0",
     "firebase-admin": "^12.0.0",
     "zapier-platform-core": "^17.1.0"
+  },
+  "overrides": {
+    "path-to-regexp": "^8.0.0",
+    "undici": "^6.0.0",
+    "esbuild": "^0.24.0",
+    "tar": "^6.2.1",
+    "semver": "^7.6.0",
+    "debug": "^4.4.0"
   }
 }
