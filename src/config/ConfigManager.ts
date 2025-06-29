@@ -26,7 +26,7 @@ export class ConfigManager {
       // Cargar configuración específica del entorno
       // const envConfigPath = path.join(process.cwd(), 'config', `${this.environment}.yml`);
       // TODO: Implementar parser YAML si es necesario
-      
+
       console.log(`📋 Configuración cargada para entorno: ${this.environment}`);
     } catch (error) {
       console.error('❌ Error cargando configuración:', error);
@@ -41,18 +41,18 @@ export class ConfigManager {
         name: 'Kopp CRM Automation',
         version: '1.0.0',
         environment: this.environment,
-        port: 3000
+        port: 3000,
       },
       logging: {
-        level: 'info'
-      }
+        level: 'info',
+      },
     };
   }
 
   get(key: string, defaultValue?: any): any {
     const keys = key.split('.');
     let value = this.config;
-    
+
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
         value = value[k];
@@ -60,7 +60,7 @@ export class ConfigManager {
         return defaultValue;
       }
     }
-    
+
     return value;
   }
 

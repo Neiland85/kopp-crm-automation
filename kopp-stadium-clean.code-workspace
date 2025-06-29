@@ -1,27 +1,21 @@
 {
   "folders": [
     {
-      "path": "."
-    }
+      "path": ".",
+    },
   ],
   "settings": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "eslint.enable": true,
-    "eslint.validate": [
-      "javascript",
-      "typescript",
-      "json",
-      "yaml",
-      "markdown"
-    ],
+    "eslint.validate": ["javascript", "typescript", "json", "yaml", "markdown"],
     "copilot.experimental.introspection.enable": false,
     "workbench.startupEditor": "welcomePage",
     "workbench.statusBar.visible": true,
     "workbench.activityBar.visible": true,
     "workbench.sideBar.location": "left",
     "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.integrated.shell.osx": "/bin/zsh"
+    "terminal.integrated.shell.osx": "/bin/zsh",
   },
   "extensions": {
     "recommendations": [
@@ -30,7 +24,7 @@
       "esbenp.prettier-vscode",
       "redhat.vscode-yaml",
       "ms-azuretools.vscode-docker",
-      "sozercan.slack"
+      "sozercan.slack",
     ],
     "unwantedRecommendations": [
       "ms-python.python",
@@ -47,8 +41,8 @@
       "bradlc.vscode-tailwindcss",
       "ms-playwright.playwright",
       "nextjs.vscode-nextjs-extension",
-      "prisma.prisma"
-    ]
+      "prisma.prisma",
+    ],
   },
   "launch": {
     "configurations": [
@@ -57,9 +51,9 @@
         "request": "launch",
         "name": "Launch Program",
         "program": "${workspaceFolder}/scripts/bootstrapSlack.ts",
-        "preLaunchTask": "npm: build"
-      }
-    ]
+        "preLaunchTask": "npm: build",
+      },
+    ],
   },
   "tasks": {
     "version": "2.0.0",
@@ -68,48 +62,44 @@
         "label": "npm: install",
         "type": "npm",
         "script": "install",
-        "problemMatcher": []
+        "problemMatcher": [],
       },
       {
         "label": "npm: lint",
         "type": "npm",
         "script": "lint",
-        "problemMatcher": [
-          "$eslint-stylish"
-        ]
+        "problemMatcher": ["$eslint-stylish"],
       },
       {
         "label": "npm: test",
         "type": "npm",
         "script": "test",
-        "problemMatcher": [
-          "$eslint-stylish"
-        ]
+        "problemMatcher": ["$eslint-stylish"],
       },
       {
         "label": "Bootstrap Fase 0",
         "type": "shell",
         "command": "npm run bootstrap:all",
         "presentation": {
-          "reveal": "always"
-        }
+          "reveal": "always",
+        },
       },
       {
         "label": "Configurar Extensiones",
         "type": "shell",
         "command": "npm run configure:extensions",
         "presentation": {
-          "reveal": "always"
-        }
+          "reveal": "always",
+        },
       },
       {
         "label": "Limpiar Extensiones",
         "type": "shell",
         "command": "npm run clean:extensions",
         "presentation": {
-          "reveal": "always"
-        }
-      }
-    ]
-  }
+          "reveal": "always",
+        },
+      },
+    ],
+  },
 }

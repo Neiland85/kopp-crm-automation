@@ -3,8 +3,10 @@
     "*": true
   },
   "copilot.experimental.inlineSuggest.enable": true,
+  "copilot.experimental.introspection.enable": true,
   "editor.formatOnSave": true,
   "eslint.validate": ["javascript", "typescript", "yaml", "json"],
+  "hubspot.devtools.enable": true,
   "files.exclude": {
     "**/logs": true,
     "**/dist": true,
@@ -30,7 +32,7 @@
     "testFrameworks": {
       "jest": true
     },
-    "enableIntrospection": false,
+    "enableIntrospection": true,
     "skipPaths": ["node_modules", ".git", "coverage", "dist", "*.log"]
   }
 }

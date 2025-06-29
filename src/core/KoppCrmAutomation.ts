@@ -12,13 +12,13 @@ export class KoppCrmAutomation {
 
   async initialize(): Promise<void> {
     console.log('⚙️ Inicializando sistema de automatización Kopp CRM...');
-    
+
     // TODO: Inicializar servicios
     // - Slack integration
-    // - HubSpot integration  
+    // - HubSpot integration
     // - Firebase connection
     // - Zapier migration setup
-    
+
     this.isInitialized = true;
     console.log('✅ Sistema CRM inicializado correctamente');
   }

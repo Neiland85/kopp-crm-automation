@@ -12,11 +12,11 @@ export class Logger {
   private formatMessage(level: string, message: string, data?: any): string {
     const timestamp = new Date().toISOString();
     const logMessage = `[${timestamp}] [${level}] [${this.context}] ${message}`;
-    
+
     if (data) {
       return `${logMessage} ${JSON.stringify(data)}`;
     }
-    
+
     return logMessage;
   }
 

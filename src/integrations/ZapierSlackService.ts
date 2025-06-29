@@ -15,15 +15,15 @@ export class ZapierSlackService {
   constructor(config: ConfigManager) {
     this.config = config;
     this.logger = new Logger('ZapierSlackService');
-    
+
     const slackToken = process.env.SLACK_BOT_TOKEN;
     if (!slackToken) {
       throw new Error('SLACK_BOT_TOKEN no encontrado en variables de entorno');
     }
-    
+
     this.slackClient = new WebClient(slackToken);
     this.zapierWebhookUrl = process.env.ZAPIER_WEBHOOK_URL || '';
-    
+
     if (!this.zapierWebhookUrl) {
       this.logger.error('ZAPIER_WEBHOOK_URL no configurada');
     }
@@ -51,13 +51,14 @@ export class ZapierSlackService {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: `*🧘 Ritual Silencioso Activado*\n\n` +
-                    `*Contacto:* ${contactData.name}\n` +
-                    `*Email:* ${contactData.email}\n` +
-                    `*ID Hubspot:* ${contactData.hubspot_contact_id}\n\n` +
-                    `El contacto ha activado el modo ritual silencioso. ` +
-                    `Se recomienda contacto mínimo y espaciado.`
-            }
+              text:
+                `*🧘 Ritual Silencioso Activado*\n\n` +
+                `*Contacto:* ${contactData.name}\n` +
+                `*Email:* ${contactData.email}\n` +
+                `*ID Hubspot:* ${contactData.hubspot_contact_id}\n\n` +
+                `El contacto ha activado el modo ritual silencioso. ` +
+                `Se recomienda contacto mínimo y espaciado.`,
+            },
           },
           {
             type: 'actions',
@@ -66,21 +67,25 @@ export class ZapierSlackService {
                 type: 'button',
                 text: {
                   type: 'plain_text',
-                  text: 'Ver en Hubspot'
+                  text: 'Ver en Hubspot',
                 },
                 url: `https://app.hubspot.com/contacts/${process.env.HUBSPOT_PORTAL_ID}/contact/${contactData.hubspot_contact_id}`,
-                style: 'primary'
-              }
-            ]
-          }
-        ]
+                style: 'primary',
+              },
+            ],
+          },
+        ],
       };
 
       await this.slackClient.chat.postMessage(message);
-      this.logger.info('Notificación de ritual silencioso enviada', { contactId: contactData.hubspot_contact_id });
-
+      this.logger.info('Notificación de ritual silencioso enviada', {
+        contactId: contactData.hubspot_contact_id,
+      });
     } catch (error) {
-      this.logger.error('Error enviando notificación de ritual silencioso:', error);
+      this.logger.error(
+        'Error enviando notificación de ritual silencioso:',
+        error
+      );
       throw error;
     }
   }
@@ -108,14 +113,15 @@ export class ZapierSlackService {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: `*⚠️ Retorno Imposible*\n\n` +
-                    `*Contacto:* ${contactData.name}\n` +
-                    `*Email:* ${contactData.email}\n` +
-                    `*ID Hubspot:* ${contactData.hubspot_contact_id}\n` +
-                    (contactData.reason ? `*Razón:* ${contactData.reason}\n` : '') +
-                    `\n❌ Este usuario ha sido marcado como retorno imposible. ` +
-                    `No continuar esfuerzos de reactivación.`
-            }
+              text:
+                `*⚠️ Retorno Imposible*\n\n` +
+                `*Contacto:* ${contactData.name}\n` +
+                `*Email:* ${contactData.email}\n` +
+                `*ID Hubspot:* ${contactData.hubspot_contact_id}\n` +
+                (contactData.reason ? `*Razón:* ${contactData.reason}\n` : '') +
+                `\n❌ Este usuario ha sido marcado como retorno imposible. ` +
+                `No continuar esfuerzos de reactivación.`,
+            },
           },
           {
             type: 'actions',
@@ -124,29 +130,33 @@ export class ZapierSlackService {
                 type: 'button',
                 text: {
                   type: 'plain_text',
-                  text: 'Ver en Hubspot'
+                  text: 'Ver en Hubspot',
                 },
                 url: `https://app.hubspot.com/contacts/${process.env.HUBSPOT_PORTAL_ID}/contact/${contactData.hubspot_contact_id}`,
-                style: 'danger'
+                style: 'danger',
               },
               {
                 type: 'button',
                 text: {
                   type: 'plain_text',
-                  text: 'Actualizar Estado'
+                  text: 'Actualizar Estado',
                 },
-                action_id: 'update_impossible_user'
-              }
-            ]
-          }
-        ]
+                action_id: 'update_impossible_user',
+              },
+            ],
+          },
+        ],
       };
 
       await this.slackClient.chat.postMessage(message);
-      this.logger.info('Notificación de retorno imposible enviada', { contactId: contactData.hubspot_contact_id });
-
+      this.logger.info('Notificación de retorno imposible enviada', {
+        contactId: contactData.hubspot_contact_id,
+      });
     } catch (error) {
-      this.logger.error('Error enviando notificación de retorno imposible:', error);
+      this.logger.error(
+        'Error enviando notificación de retorno imposible:',
+        error
+      );
       throw error;
     }
   }
@@ -163,15 +173,17 @@ export class ZapierSlackService {
         case 'ritual_silencioso':
           await this.notifyRitualSilencioso(webhookData.contact);
           break;
-        
+
         case 'usuario_imposible':
           await this.notifyRetornoImposible(webhookData.contact);
           break;
-        
-        default:
-          this.logger.warn('Tipo de evento desconocido desde Zapier:', webhookData.event_type);
-      }
 
+        default:
+          this.logger.warn(
+            'Tipo de evento desconocido desde Zapier:',
+            webhookData.event_type
+          );
+      }
     } catch (error) {
       this.logger.error('Error procesando webhook de Zapier:', error);
       throw error;
@@ -185,10 +197,10 @@ export class ZapierSlackService {
     try {
       // Verificar permisos del bot
       const authTest = await this.slackClient.auth.test();
-      this.logger.info('Bot de Slack autenticado:', { 
+      this.logger.info('Bot de Slack autenticado:', {
         team: authTest.team,
         user: authTest.user,
-        bot_id: authTest.bot_id 
+        bot_id: authTest.bot_id,
       });
 
       // Verificar canales requeridos
@@ -196,20 +208,25 @@ export class ZapierSlackService {
       for (const channelName of channels) {
         try {
           const channel = await this.slackClient.conversations.list({
-            types: 'public_channel,private_channel'
+            types: 'public_channel,private_channel',
           });
-          
-          const foundChannel = channel.channels?.find(c => c.name === channelName);
+
+          const foundChannel = channel.channels?.find(
+            (c) => c.name === channelName
+          );
           if (!foundChannel) {
-            this.logger.warn(`Canal #${channelName} no encontrado. Debe ser creado manualmente.`);
+            this.logger.warn(
+              `Canal #${channelName} no encontrado. Debe ser creado manualmente.`
+            );
           } else {
-            this.logger.info(`Canal #${channelName} encontrado`, { id: foundChannel.id });
+            this.logger.info(`Canal #${channelName} encontrado`, {
+              id: foundChannel.id,
+            });
           }
         } catch (error) {
           this.logger.error(`Error verificando canal #${channelName}:`, error);
         }
       }
-
     } catch (error) {
       this.logger.error('Error configurando webhooks de Slack:', error);
       throw error;
