@@ -46,7 +46,7 @@ describe('Integration Service', () => {
   describe('Configuration', () => {
     it('should use provided config manager', () => {
       expect(configManager).toBeDefined();
-      expect(configManager.getEnvironment()).toBe('development');
+      expect(configManager.getEnvironment()).toBe('test'); // En tests, NODE_ENV es 'test'
     });
 
     it('should handle webhook route setup', () => {
