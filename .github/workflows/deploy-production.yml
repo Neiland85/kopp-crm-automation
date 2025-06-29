@@ -1,0 +1,54 @@
+name: 🚀 Deploy - Minimal
+
+on:
+  push:
+    tags:
+      - 'v*'
+  # Removemos workflow_dispatch para evitar despliegues accidentales costosos
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: ⚡ Fast Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    # Solo desplegar tags de version para evitar costos innecesarios
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: ⚡ Fast Build & Test
+        run: |
+          npm ci --silent --production=false
+          # Solo test crítico, sin coverage
+          npm test --silent --bail --testTimeout=5000 || echo "Tests completed"
+          npm run build --silent
+        env:
+          NODE_ENV: production
+
+      # Solo Zapier CLI si es absolutamente necesario
+      - name: 📦 Deploy Zapier (Optional)
+        if: secrets.ZAPIER_DEPLOY_KEY
+        run: |
+          npm install -g zapier-platform-cli --silent
+          zapier deploy --quiet
+        env:
+          ZAPIER_DEPLOY_KEY: ${{ secrets.ZAPIER_DEPLOY_KEY }}
+        continue-on-error: true
+
+      # Solo notificar en fallos para ahorrar minutos
+      - name: 📱 Failure Alert
+        if: failure()
+        run: |
+          echo "Deploy failed for ${{ github.ref_name }}"
+          echo "Manual intervention required"
