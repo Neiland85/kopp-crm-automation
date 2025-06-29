@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { KoppCrmAutomation } from './core/KoppCrmAutomation';
 import { Logger } from './utils/Logger';
 import { ConfigManager } from './config/ConfigManager';
+import { IntegrationService } from './integrations/IntegrationService';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -10,6 +11,7 @@ dotenv.config();
 const app = express();
 const logger = new Logger('Main');
 const config = new ConfigManager();
+const integrationService = new IntegrationService(config);
 
 // Middleware básico
 app.use(express.json());
@@ -21,8 +23,28 @@ app.get('/health', (req: Request, res: Response) => {
     status: 'OK',
     timestamp: new Date().toISOString(),
     version: process.env.npm_package_version || '1.0.0',
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    uptime: process.uptime()
   });
+});
+
+// Configurar rutas de webhooks para integraciones
+integrationService.setupWebhookRoutes(app);
+
+// Endpoint para testing de integraciones
+app.get('/api/integrations/test', async (req: Request, res: Response) => {
+  try {
+    await integrationService.testIntegrations();
+    res.json({ 
+      success: true, 
+      message: 'Tests de integración ejecutados correctamente' 
+    });
+  } catch (error) {
+    logger.error('Error en tests de integración:', error);
+    res.status(500).json({ 
+      error: 'Error en tests de integración' 
+    });
+  }
 });
 
 // Función para encontrar un puerto disponible
@@ -53,6 +75,9 @@ async function startApplication() {
     const crmSystem = new KoppCrmAutomation(config);
     await crmSystem.initialize();
     
+    // Inicializar servicios de integración
+    await integrationService.initialize();
+    
     const preferredPort = parseInt(process.env.PORT || '3000');
     const port = await findAvailablePort(preferredPort);
     
@@ -60,6 +85,11 @@ async function startApplication() {
       logger.info(`🚀 Servidor ejecutándose en puerto ${port}`);
       logger.info(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
       logger.info(`🔗 Health check: http://localhost:${port}/health`);
+      logger.info(`🔌 Webhooks activos:`);
+      logger.info(`   📥 Zapier: http://localhost:${port}/webhooks/zapier`);
+      logger.info(`   💬 Slack: http://localhost:${port}/webhooks/slack`);
+      logger.info(`   📊 Hubspot: http://localhost:${port}/webhooks/hubspot`);
+      logger.info(`   🧪 Test: http://localhost:${port}/api/integrations/test`);
     });
 
     // Manejo de errores del servidor
@@ -103,7 +133,9 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
-// Iniciar aplicación
-startApplication();
+// Iniciar aplicación solo si no estamos en modo test
+if (process.env.NODE_ENV !== 'test') {
+  startApplication();
+}
 
 export default app;
