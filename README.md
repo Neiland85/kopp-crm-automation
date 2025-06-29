@@ -7,6 +7,38 @@
 
 Automatización estratégica de Slack y HubSpot para Kopp Stadium con integración futura a Firebase, reemplazo progresivo de Zapier y despliegue en Vercel.
 
+## 💰 Desarrollo Eficiente (Ahorro de Costos)
+
+**IMPORTANTE**: Para minimizar costos de GitHub Actions hasta el acuerdo con Kopp:
+
+### 🏠 Validación Local Prioritaria
+
+```bash
+# Valida TODO localmente antes de hacer push
+npm run validate:local
+
+# Test rápido durante desarrollo
+npm run test:fast
+
+# QA completo local (reemplaza CI)
+npm run qa:minimal
+```
+
+### 🚀 Workflow Optimizado
+
+1. **Desarrolla localmente** con `npm run dev`
+2. **Valida localmente** con `npm run validate:local`
+3. **Solo push cuando esté listo** (evita CI innecesario)
+4. **PR solo para features completas**
+
+### 📊 Workflows Minimizados
+
+- **CI**: Solo main branch, 4 min máximo
+- **Deploy**: Solo tags v\*, 6 min máximo
+- **Ahorro**: ~80% menos consumo de minutos
+
+📖 **Estrategia completa**: Ver [docs/COST_OPTIMIZATION_STRATEGY.md](./docs/COST_OPTIMIZATION_STRATEGY.md)
+
 ## 🚨 Resolución de GitHub Actions (Importante)
 
 Si ves el error: `"The job was not started because recent account payments have failed or your spending limit needs to be increased"`, necesitas:
