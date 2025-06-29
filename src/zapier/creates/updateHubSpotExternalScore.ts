@@ -24,7 +24,7 @@ const updateHubSpotExternalScore = async (
   const { email, external_score } = bundle.inputData;
 
   if (!email) {
-    throw new Error('Email is required to update contact external_score');
+    throw new Error('Email is required');
   }
 
   if (external_score === undefined || external_score === null) {
