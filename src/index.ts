@@ -133,7 +133,9 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
-// Iniciar aplicación
-startApplication();
+// Iniciar aplicación solo si no estamos en modo test
+if (process.env.NODE_ENV !== 'test') {
+  startApplication();
+}
 
 export default app;
