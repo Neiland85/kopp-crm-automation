@@ -81,7 +81,6 @@
     "zapier-platform-core": "^17.1.0"
   },
   "overrides": {
-    "path-to-regexp": "^8.0.0",
     "undici": "^6.0.0",
     "esbuild": "^0.24.0",
     "tar": "^6.2.1",
