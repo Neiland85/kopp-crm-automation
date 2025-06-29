@@ -1,0 +1,86 @@
+### Variables
+@baseUrl = http://localhost:3000
+@zapierTestPayload = {
+  "event_type": "ritual_silencioso",
+  "contact": {
+    "name": "Test Usuario",
+    "email": "test@example.com",
+    "ritual_silencioso": true,
+    "hubspot_contact_id": "12345"
+  }
+}
+
+### Health Check
+GET {{baseUrl}}/health
+
+### Test Zapier Webhook - Ritual Silencioso
+POST {{baseUrl}}/webhooks/zapier
+Content-Type: application/json
+
+{
+  "event_type": "ritual_silencioso",
+  "contact": {
+    "name": "Test Usuario Ritual",
+    "email": "ritual@example.com",
+    "ritual_silencioso": true,
+    "hubspot_contact_id": "12345"
+  }
+}
+
+### Test Zapier Webhook - Usuario Imposible
+POST {{baseUrl}}/webhooks/zapier
+Content-Type: application/json
+
+{
+  "event_type": "usuario_imposible",
+  "contact": {
+    "name": "Test Usuario Imposible",
+    "email": "imposible@example.com",
+    "usuario_imposible": true,
+    "hubspot_contact_id": "67890",
+    "reason": "Múltiples intentos de contacto fallidos"
+  }
+}
+
+### Test Slack URL Verification
+POST {{baseUrl}}/webhooks/slack
+Content-Type: application/json
+
+{
+  "type": "url_verification",
+  "challenge": "test_challenge_12345"
+}
+
+### Test Slack Message Event
+POST {{baseUrl}}/webhooks/slack
+Content-Type: application/json
+
+{
+  "type": "event_callback",
+  "event": {
+    "type": "message",
+    "channel": "C1234567890",
+    "user": "U1234567890",
+    "text": "Test message from channel",
+    "ts": "1609459200"
+  }
+}
+
+### Test Hubspot Property Change Webhook
+POST {{baseUrl}}/webhooks/hubspot
+Content-Type: application/json
+
+[
+  {
+    "subscriptionType": "contact.propertyChange",
+    "propertyName": "lifecyclestage",
+    "objectId": 12345,
+    "propertyValue": {
+      "value": "customer",
+      "previousValue": "lead"
+    }
+  }
+]
+
+### Test Integration Health Check
+GET {{baseUrl}}/api/integrations/test

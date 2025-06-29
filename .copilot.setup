@@ -1,0 +1,83 @@
+# 🤖 Copilot Setup - Fase 2: Integraciones Slack ↔ Zapier ↔ Hubspot
+
+## 🎯 Configuración Temporal - Desarrollo de APIs
+
+### Configuraciones Activas Durante Fase 2:
+- ✅ **Auto-completado de APIs** - Habilitado para Slack, Zapier, Hubspot
+- ✅ **Sugerencias de tipos TypeScript** - Mejoradas para interfaces de APIs
+- ✅ **Generación de payloads JSON** - Activada para webhooks
+- ✅ **Documentación inline** - Habilitada para métodos de integración
+- ⚠️ **Introspección experimental** - DESHABILITADA (mantener velocidad)
+
+### Variables de Entorno Requeridas:
+```bash
+# Slack Configuration
+SLACK_BOT_TOKEN=xoxb-your-bot-token-here
+SLACK_SIGNING_SECRET=your-signing-secret-here
+SLACK_APP_TOKEN=xapp-your-app-token-here
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
+
+# Hubspot Configuration  
+HUBSPOT_API_KEY=your-hubspot-api-key-here
+HUBSPOT_PORTAL_ID=your-portal-id-here
+HUBSPOT_ACCESS_TOKEN=your-access-token-here
+
+# Zapier Configuration
+ZAPIER_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/your-webhook-url
+ZAPIER_API_KEY=your-zapier-api-key-here
+```
+
+### Contexto para Copilot:
+- 🎯 **Foco actual**: Integraciones de webhooks entre plataformas
+- 🔄 **Flujos principales**: Zapier→Slack, Slack→Hubspot, Hubspot→Slack
+- 📱 **Canales monitoreados**: #growth-marketing, #soporte-y-clientes, #rituales-silenciosos, #privado-retornos
+- ⚡ **Eventos clave**: ritual_silencioso=true, usuario_imposible=true, lifecyclestage changes
+
+### Comandos de Desarrollo Activos:
+```bash
+# Desarrollo
+npm run dev              # Servidor con hot-reload
+npm run build:watch      # Compilación continua
+npm run test:integration # Tests de APIs
+
+# Testing de Integraciones
+curl -X POST http://localhost:3000/webhooks/zapier -H "Content-Type: application/json" -d '{"event_type":"ritual_silencioso","contact":{"name":"Test","email":"test@example.com","ritual_silencioso":true,"hubspot_contact_id":"12345"}}'
+
+curl -X POST http://localhost:3000/webhooks/slack -H "Content-Type: application/json" -d '{"type":"url_verification","challenge":"test_challenge"}'
+```
+
+## 🔧 Ajustes Temporales en settings.json
+
+Durante la Fase 2, aplicar estos ajustes:
+
+```json
+{
+  "github.copilot.advanced": {
+    "length": 500,
+    "temperature": 0.1,
+    "top_p": 1,
+    "stops": {
+      "javascript": ["\n\n", "\n//", "\n/*"],
+      "typescript": ["\n\n", "\n//", "\n/*", "\ninterface", "\ntype"]
+    }
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "json": true,
+    "markdown": false
+  },
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.suggest.autoImports": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggestSelection": "first"
+}
+```
+
+## 🔄 Post-Fase 2 Rollback
+
+Después de completar las integraciones, revertir:
+- ❌ Desactivar sugerencias agresivas de APIs
+- ❌ Reducir temperature de Copilot a 0.05
+- ❌ Quitar context hints específicos de integraciones
+- ✅ Mantener configuración base de Fase 1
