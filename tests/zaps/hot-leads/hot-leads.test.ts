@@ -193,7 +193,7 @@ describe('Hot Leads Handler', () => {
       expect(result.slackMessageSent).toBe(false);
     });
 
-    it('should throw error when both HubSpot and Slack fail', async () => {
+    it('should handle gracefully when both HubSpot and Slack fail', async () => {
       // Arrange
       mockHubSpotClient.crm.contacts.basicApi.update.mockRejectedValue(
         new Error('HubSpot error')
@@ -202,10 +202,14 @@ describe('Hot Leads Handler', () => {
         new Error('Slack error')
       );
 
-      // Act & Assert
-      await expect(
-        hotLeadsHandler(mockConfig, mockTriggerData)
-      ).rejects.toThrow();
+      // Act
+      const result = await hotLeadsHandler(mockConfig, mockTriggerData);
+
+      // Assert
+      expect(result.statusUpdated).toBe(false);
+      expect(result.slackMessageSent).toBe(false);
+      expect(result.contactId).toBe(mockTriggerData.contactId);
+      expect(result.email).toBe(mockTriggerData.email);
     });
   });
 
@@ -235,11 +239,18 @@ describe('Hot Leads Handler', () => {
       mockHubSpotClient.crm.contacts.basicApi.update.mockRejectedValue(
         persistentError
       );
+      mockSlackClient.chat.postMessage.mockResolvedValue({ ok: true });
 
-      // Act & Assert
-      await expect(
-        hotLeadsHandler(mockConfig, mockTriggerData)
-      ).rejects.toThrow();
+      // Act
+      const result = await hotLeadsHandler(mockConfig, mockTriggerData);
+
+      // Assert
+      expect(
+        mockHubSpotClient.crm.contacts.basicApi.update
+      ).toHaveBeenCalledTimes(3); // Default max retries
+      expect(result.statusUpdated).toBe(false);
+      expect(result.contactId).toBe(mockTriggerData.contactId);
+      expect(result.email).toBe(mockTriggerData.email);
     });
   });
 
