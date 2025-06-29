@@ -31,6 +31,16 @@
 - **Notificación**: Envía cupón a Slack `#scoring-leads`
 - **Scripts**: `npm run recompensas:test`, `npm run recompensas:logs`
 
+### 4. 💫 **Dropout Positivo** _(NUEVO)_
+
+**Ubicación**: `src/zaps/dropout-positivo/`
+
+- **Trigger**: HubSpot webhook en `last_engagement_date < now - 7 days`
+- **Acción**: Incrementa `lead_influence_score += 30` en HubSpot
+- **Notificación**: Alerta de reactivación a Slack `#auditoria-sagrada`
+- **Scripts**: `npm run dropout:test`, `npm run dropout:logs`, `npm run dropout:validate`
+- **Tests**: Mocha/Chai con nock para mocking de APIs
+
 ## 📁 Estructura de Archivos
 
 ```
@@ -43,28 +53,81 @@ src/zaps/
 │   ├── index.ts          # Webhook HubSpot + trigger
 │   ├── handler.ts        # Lógica de hot leads
 │   └── README.md         # Documentación
-└── recompensas-escasez/
-    ├── index.ts          # Webhook Google Sheets + trigger
-    ├── handler.ts        # Lógica de recompensas
+├── recompensas-escasez/
+│   ├── index.ts          # Webhook Google Sheets + trigger
+│   ├── handler.ts        # Lógica de recompensas
+│   └── README.md         # Documentación
+└── dropout-positivo/     # NUEVO
+    ├── index.ts          # Webhook HubSpot + trigger
+    ├── handler.ts        # Lógica de dropout positivo
     └── README.md         # Documentación
+
+src/scripts/              # NUEVO
+└── dailyReport.ts        # Reporte diario de scoring con node-cron
+## 📊 Scripts Adicionales
+
+### 5. 📈 **Daily Report** *(NUEVO)*
+
+**Ubicación**: `src/scripts/dailyReport.ts`
+
+- **Función**: Cron job que ejecuta cada día 08:00 CET
+- **Consulta**: HubSpot para obtener top 10 `lead_influence_score`
+- **Genera**: Archivo `reports/{{YYYY-MM-DD}}.md` con tabla Markdown
+- **Scripts**: `npm run daily-report:generate`, `npm run daily-report:start`
+- **Formato**: Tabla con Pos, Email, Score, Nombre, Empresa
+
+## 📁 Estructura de Archivos Completa
+
+```
+
+src/zaps/
+├── reputometro/
+│ ├── index.ts # Cron job + configuración
+│ ├── handler.ts # Lógica principal
+│ └── README.md # Documentación
+├── hot-leads/
+│ ├── index.ts # Webhook HubSpot + trigger
+│ ├── handler.ts # Lógica de hot leads
+│ └── README.md # Documentación
+├── recompensas-escasez/
+│ ├── index.ts # Webhook Google Sheets + trigger
+│ ├── handler.ts # Lógica de recompensas
+│ └── README.md # Documentación
+└── dropout-positivo/ # NUEVO
+├── index.ts # Webhook HubSpot + trigger
+├── handler.ts # Lógica de dropout positivo
+└── README.md # Documentación
+
+src/scripts/ # NUEVO
+└── dailyReport.ts # Reporte diario de scoring con node-cron
 
 tests/zaps/
 ├── reputometro.test.ts
 ├── hot-leads/
-│   └── hot-leads.test.ts
-└── recompensas-escasez/
-    └── recompensas-escasez.test.ts
+│ └── hot-leads.test.ts
+├── recompensas-escasez/
+│ └── recompensas-escasez.test.ts
+└── dropout-positivo/ # NUEVO - Tests con Mocha/Chai + nock
+└── dropout-positivo.test.ts
 
 logs/
-├── reputometro.log       # Logs del cron job
-├── hot_leads.log         # Logs de detección
-└── recompensas.log       # Logs de recompensas
+├── reputometro.log # Logs del cron job
+├── hot_leads.log # Logs de detección
+├── recompensas.log # Logs de recompensas
+└── dropout.log # NUEVO - Logs de dropout positivo
+
+reports/ # NUEVO - Reportes diarios
+├── 2025-06-29.md # Reporte Markdown
+├── 2025-06-29.json # Reporte JSON
+└── ...
 
 scripts/
 ├── test-reputometro.js
 ├── test-hot-leads.js
-└── test-recompensas-escasez.js
-```
+├── test-recompensas-escasez.js
+└── test-dropout-positivo.js # NUEVO
+
+````
 
 ## ⚙️ Variables de Entorno
 
@@ -90,7 +153,16 @@ HOT_LEAD_THRESHOLD=40
 # Configuración Recompensas
 RECOMPENSAS_ESCASEZ_ENABLED=true
 STOCK_THRESHOLD=20
-```
+
+# Configuración Dropout Positivo (NUEVO)
+DROPOUT_POSITIVO_ENABLED=true
+DROPOUT_THRESHOLD_DAYS=7
+DROPOUT_SCORE_BOOST=30
+
+# Configuración Daily Report (NUEVO)
+DAILY_REPORT_ENABLED=true
+DAILY_REPORT_TIMEZONE=Europe/Madrid
+````
 
 ## 🚀 Scripts NPM Disponibles
 
@@ -100,6 +172,7 @@ STOCK_THRESHOLD=20
 npm run reputometro:validate    # Tests del Reputómetro
 npm run hot-leads:validate      # Tests de Hot Leads
 npm run recompensas:validate    # Tests de Recompensas
+npm run dropout:validate        # Tests de Dropout Positivo (NUEVO)
 npm run zaps:test-all          # Todos los tests
 ```
 
@@ -109,6 +182,7 @@ npm run zaps:test-all          # Todos los tests
 npm run reputometro:test       # Test manual Reputómetro
 npm run hot-leads:test         # Test manual Hot Leads
 npm run recompensas:test       # Test manual Recompensas
+npm run dropout:test           # Test manual Dropout Positivo (NUEVO)
 ```
 
 ### Monitoreo de Logs
@@ -117,6 +191,15 @@ npm run recompensas:test       # Test manual Recompensas
 npm run reputometro:logs       # Ver logs en tiempo real
 npm run hot-leads:logs         # Ver logs en tiempo real
 npm run recompensas:logs       # Ver logs en tiempo real
+npm run dropout:logs           # Ver logs Dropout Positivo (NUEVO)
+```
+
+### Reportes Diarios (NUEVO)
+
+```bash
+npm run daily-report:generate  # Generar reporte manual
+npm run daily-report:start     # Iniciar cron job diario
+npm run daily-report:logs      # Ver último reporte generado
 ```
 
 ## 🎯 Flujos de Datos
