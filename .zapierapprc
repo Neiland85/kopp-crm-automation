@@ -1,0 +1,27 @@
+{
+  "name": "kopp-stadium-crm-integration",
+  "version": "1.0.0",
+  "description": "Integración HubSpot → Slack para entregas de formularios",
+  "main": "dist/zapier/index.js",
+  "author": "Kopp Stadium CRM Team",
+  "license": "MIT",
+  "zapier": {
+    "includeInBuild": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "excludeInBuild": [
+      "src/**/*",
+      "tests/**/*",
+      "*.md",
+      "tsconfig.json",
+      ".eslintrc.js",
+      ".prettierrc",
+      "jest.config.js"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
