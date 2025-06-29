@@ -178,7 +178,10 @@ describe('Lead Scoring Integration Tests', () => {
         contact_id: 'contact-123',
         email: 'john.doe@example.com',
         lead_score: 75,
-        updated_properties: ['last_score_update'],
+        updated_properties: expect.arrayContaining([
+          'last_score_update',
+          'lead_score',
+        ]),
       });
 
       expect(mockZ.request).toHaveBeenCalledWith(

@@ -93,7 +93,30 @@ export async function logZapAction(
  * Función para validar email
  */
 export function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || typeof email !== 'string') {
+    return false;
+  }
+
+  // Regex para validar emails - más permisiva pero segura
+  const emailRegex =
+    /^[a-zA-Z0-9]([a-zA-Z0-9._+-]*[a-zA-Z0-9])?@[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?\.[a-zA-Z]{2,}$/;
+
+  // Verificar que no tenga dobles puntos consecutivos
+  if (email.includes('..')) {
+    return false;
+  }
+
+  // Verificar que no empiece o termine con punto antes del @
+  const parts = email.split('@');
+  if (parts.length !== 2) {
+    return false;
+  }
+
+  const localPart = parts[0];
+  if (localPart.startsWith('.') || localPart.endsWith('.')) {
+    return false;
+  }
+
   return emailRegex.test(email);
 }
 

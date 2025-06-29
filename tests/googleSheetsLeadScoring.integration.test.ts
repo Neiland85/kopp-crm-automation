@@ -10,9 +10,16 @@ const mockRequest = jest.fn();
 
 // Mock para las utilidades comunes
 jest.mock('../src/zapier/utils/common', () => ({
-  withRetry: jest.fn().mockImplementation(async (fn: any) => await fn()),
+  withRetry: jest.fn(),
   logZapAction: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
+
+// Importar los mocks después de la configuración
+import { withRetry, logZapAction } from '../src/zapier/utils/common';
+const mockWithRetry = withRetry as jest.MockedFunction<typeof withRetry>;
+const mockLogZapAction = logZapAction as jest.MockedFunction<
+  typeof logZapAction
+>;
 
 /**
  * Test suite para la integración completa de Google Sheets Lead Scoring
@@ -61,10 +68,19 @@ describe('Google Sheets Lead Scoring Integration', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    // Configurar el mock por defecto de withRetry para que ejecute la función pasada
+    mockWithRetry.mockImplementation(async (fn: any) => {
+      // Llamar a la función original (que es z.request en la mayoría de casos)
+      return await fn();
+    });
   });
 
   describe('Google Sheets Trigger', () => {
     it('should fetch new lead scoring rows from Google Sheets', async () => {
+      // Usar timestamp actual para que las filas sean consideradas "nuevas"
+      const currentTime = new Date();
+      const recentTime = new Date(currentTime.getTime() - 5 * 60 * 1000); // 5 minutos atrás
+
       // Mock de respuesta de Google Sheets API
       const mockSheetsResponse = {
         status: 200,
@@ -81,7 +97,7 @@ describe('Google Sheets Lead Scoring Integration', () => {
             [
               'john.doe@example.com',
               '75',
-              '2024-01-15T10:30:00Z',
+              recentTime.toISOString(),
               'John Doe',
               'Example Corp',
               'Website',
@@ -89,7 +105,7 @@ describe('Google Sheets Lead Scoring Integration', () => {
             [
               'jane.smith@example.com',
               '45',
-              '2024-01-15T09:00:00Z',
+              currentTime.toISOString(),
               'Jane Smith',
               'Test Inc',
               'Referral',
@@ -349,6 +365,9 @@ describe('Google Sheets Lead Scoring Integration', () => {
 
   describe('End-to-End Integration Flow', () => {
     it('should complete full workflow: Google Sheets → HubSpot → Slack', async () => {
+      // Usar timestamp actual para que las filas sean consideradas "nuevas"
+      const currentTime = new Date();
+
       // 1. Simular trigger de Google Sheets
       const mockSheetsResponse = {
         status: 200,
@@ -358,7 +377,7 @@ describe('Google Sheets Lead Scoring Integration', () => {
             [
               'john.doe@example.com',
               '85',
-              '2024-01-15T10:30:00Z',
+              currentTime.toISOString(),
               'John Doe',
               'Example Corp',
             ],
