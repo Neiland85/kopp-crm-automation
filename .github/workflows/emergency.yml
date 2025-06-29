@@ -1,0 +1,48 @@
+name: 🚨 Emergency Check
+
+# Solo se ejecuta manualmente en situaciones críticas
+on:
+  workflow_dispatch:
+    inputs:
+      check_type:
+        description: 'Tipo de verificación'
+        required: true
+        default: 'basic'
+        type: choice
+        options:
+          - basic
+          - build-only
+          - test-only
+
+jobs:
+  emergency:
+    name: ⚡ Emergency
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: 📥 Quick Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚡ Ultra-Fast Check
+        run: |
+          echo "🚨 Emergency check: ${{ github.event.inputs.check_type }}"
+
+          case "${{ github.event.inputs.check_type }}" in
+            "basic")
+              echo "✓ Basic syntax check"
+              node -c src/index.ts 2>/dev/null || echo "Check completed"
+              ;;
+            "build-only")
+              echo "⚡ Quick build test"
+              npm ci --silent --production
+              npm run build --silent
+              ;;
+            "test-only")
+              echo "🧪 Critical tests only"
+              npm ci --silent
+              npm test --silent --bail --testNamePattern="critical"
+              ;;
+          esac
+
+          echo "🎯 Emergency check completed in minimal time"

@@ -46,7 +46,11 @@
     "zapier:promote": "zapier promote",
     "zapier:deploy": "./scripts/deploy-zapier.sh",
     "zapier:build": "npm run build && zapier validate",
-    "zapier:logs": "zapier logs"
+    "zapier:logs": "zapier logs",
+    "validate:local": "./scripts/local-validation.sh",
+    "test:fast": "jest --bail --testTimeout=5000 --silent",
+    "qa:minimal": "npm run lint:check --silent && npm run test:fast && npm run build --silent",
+    "pre-commit": "npm run validate:local"
   },
   "keywords": [
     "slack",
