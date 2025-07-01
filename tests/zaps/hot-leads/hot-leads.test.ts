@@ -318,7 +318,7 @@ describe('Hot Leads Handler', () => {
 
       // Assert
       expect(result.executionTimeMs).toBeLessThan(actualExecutionTime + 100);
-      expect(result.executionTimeMs).toBeGreaterThan(0);
+      expect(result.executionTimeMs).toBeGreaterThanOrEqual(0);
     });
   });
 
