@@ -84,7 +84,7 @@ export class ZapierSlackService {
     } catch (error) {
       this.logger.error(
         'Error enviando notificación de ritual silencioso:',
-        error
+        { error }
       );
       throw error;
     }
@@ -155,7 +155,7 @@ export class ZapierSlackService {
     } catch (error) {
       this.logger.error(
         'Error enviando notificación de retorno imposible:',
-        error
+        { error }
       );
       throw error;
     }
@@ -185,7 +185,7 @@ export class ZapierSlackService {
           );
       }
     } catch (error) {
-      this.logger.error('Error procesando webhook de Zapier:', error);
+      this.logger.error('Error procesando webhook de Zapier:', { error });
       throw error;
     }
   }
@@ -224,11 +224,11 @@ export class ZapierSlackService {
             });
           }
         } catch (error) {
-          this.logger.error(`Error verificando canal #${channelName}:`, error);
+          this.logger.error(`Error verificando canal #${channelName}:`, { error });
         }
       }
     } catch (error) {
-      this.logger.error('Error configurando webhooks de Slack:', error);
+      this.logger.error('Error configurando webhooks de Slack:', { error });
       throw error;
     }
   }

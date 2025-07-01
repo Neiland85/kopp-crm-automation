@@ -2,15 +2,36 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /**
+ * Interfaces para configuración tipada
+ */
+interface AppConfig {
+  name: string;
+  version: string;
+  environment: string;
+  port: number;
+}
+
+interface LoggingConfig {
+  level: 'debug' | 'info' | 'warn' | 'error';
+}
+
+interface Config {
+  app: AppConfig;
+  logging: LoggingConfig;
+  [key: string]: any;
+}
+
+/**
  * Gestor de configuración para Kopp CRM Automation
  */
 
 export class ConfigManager {
-  private config: any = {};
+  private config: Config;
   private environment: string;
 
   constructor() {
     this.environment = process.env.NODE_ENV || 'development';
+    this.config = this.getDefaultConfig();
     this.loadConfiguration();
   }
 
@@ -20,7 +41,7 @@ export class ConfigManager {
       const configPath = path.join(process.cwd(), 'config', 'app.json');
       if (fs.existsSync(configPath)) {
         const baseConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        this.config = { ...baseConfig };
+        this.config = { ...this.config, ...baseConfig };
       }
 
       // Cargar configuración específica del entorno
@@ -30,12 +51,11 @@ export class ConfigManager {
       console.log(`📋 Configuración cargada para entorno: ${this.environment}`);
     } catch (error) {
       console.error('❌ Error cargando configuración:', error);
-      // Usar configuración por defecto
-      this.config = this.getDefaultConfig();
+      // Mantener configuración por defecto
     }
   }
 
-  private getDefaultConfig(): any {
+  private getDefaultConfig(): Config {
     return {
       app: {
         name: 'Kopp CRM Automation',

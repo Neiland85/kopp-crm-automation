@@ -43,15 +43,26 @@
       "isBackground": true,
       "problemMatcher": {
         "owner": "jest",
+        "source": "jest",
         "fileLocation": "relative",
         "pattern": [
           {
-            "regexp": "^\\s*at\\s+.*\\((.*):(\\d+):(\\d+)\\)$",
+            "regexp": "^\\s*(●|✕)\\s+(.*)$",
+            "message": 2
+          },
+          {
+            "regexp": "^\\s+at\\s+.*\\((.*):(\\d+):(\\d+)\\)$",
             "file": 1,
             "line": 2,
-            "column": 3
+            "column": 3,
+            "loop": true
           }
-        ]
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\s*\\$\\s+jest --watch",
+          "endsPattern": "(^\\s*Watch Usage$|^\\s*press .* to show more\\.$)"
+        }
       }
     },
     {
@@ -173,6 +184,352 @@
         "panel": "new"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "📊 Generar Dashboard Emocional",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "dashboard:generate"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ]
+    },
+    {
+      "label": "🧪 Test Dashboard Emocional",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "dashboard:test"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📈 Ingerir Métricas a Notion",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "notion:ingest"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ]
+    },
+    {
+      "label": "💫 Test Dropout Positivo",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "dropout:validate"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📝 Ver Logs Dropout Actions",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "dropout:actions"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "📝 Test Slack Journal",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "journal:test"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🎯 Test Funcionalidades Avanzadas",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "test",
+        "--",
+        "--testPathPattern=(dashboard|dropout|journal)"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "dependsOn": [
+        "🔧 Build Proyecto"
+      ]
+    },
+    {
+      "label": "🚀 Demo Completo",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "'Ejecutando demo de funcionalidades avanzadas...'"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "🔧 Build Proyecto",
+        "📊 Generar Dashboard Emocional",
+        "🎯 Test Funcionalidades Avanzadas"
+      ]
+    },
+    {
+      "label": "🏗️ Compilar TypeScript",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "isBackground": false
+    },
+    {
+      "label": "🔍 Type Check",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "type-check"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "isBackground": false
+    },
+    {
+      "label": "✨ Lint y Fix",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "lint:fix"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
+      "isBackground": false
+    },
+    {
+      "label": "🎨 Format Code",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "format"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": false
+    },
+    {
+      "label": "🧪 Tests con Cobertura",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "test:coverage"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": false
+    },
+    {
+      "label": "🐛 Tests Debug",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "test:debug"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": false
+    },
+    {
+      "label": "🚀 Desarrollo con Debug",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "dev:debug"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "🏭 Build Producción",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "build:production"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "isBackground": false
+    },
+    {
+      "label": "🔧 QA Completo",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "'Ejecutando suite completa de QA...'"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "🔍 Type Check",
+        "✨ Lint y Fix",
+        "🎨 Format Code",
+        "🧪 Tests con Cobertura"
+      ]
+    },
+    {
+      "label": "🧹 Limpiar Cache",
+      "type": "shell",
+      "command": "rm",
+      "args": [
+        "-rf",
+        "node_modules/.cache",
+        ".jest-cache",
+        "dist",
+        "coverage"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": false
+    },
+    {
+      "label": "📊 Revisar Dependencias",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "audit"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": false
+    },
+    {
+      "label": "🔄 Reinstalar Dependencias",
+      "type": "shell",
+      "command": "rm",
+      "args": [
+        "-rf",
+        "node_modules",
+        "package-lock.json",
+        "&&",
+        "npm",
+        "install"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": false
     }
   ]
 }
