@@ -167,6 +167,7 @@ app.use(
     err: any,
     req: express.Request,
     res: express.Response,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _next: express.NextFunction
   ) => {
     console.error('Error:', err);

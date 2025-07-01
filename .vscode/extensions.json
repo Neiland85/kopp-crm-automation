@@ -1,41 +1,49 @@
 {
   "recommendations": [
-    // GitHub Copilot (esencial)
-    "github.copilot",
-    "github.copilot-chat",
-    // Extensiones específicas del stack Kopp
-    "slackapi.vscode-slack",
-    "zapier.vscode-zapier",
-    "hubspot.vscode-devtools",
-    // Core TypeScript/JavaScript
+    // ✅ ESENCIALES para TypeScript/Node.js
     "ms-vscode.vscode-typescript-next",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "orta.vscode-jest",
-    // Utilidades de desarrollo
+    // ✅ ÚTILES para desarrollo
     "redhat.vscode-yaml",
-    "ms-vscode.vscode-json",
     "mikestead.dotenv",
     "humao.rest-client",
-    // Git y GitHub
+    // ✅ Git (sin interferir con Copilot)
     "eamodio.gitlens",
-    "github.vscode-pull-request-github",
-    "ms-vscode.vscode-github-issue-notebooks",
-    // Productividad
-    "christian-kohler.path-intellisense",
-    "formulahendry.auto-rename-tag",
-    "bradlc.vscode-tailwindcss",
-    // Docker y containerización (opcional)
-    "ms-azuretools.vscode-docker",
-    "ms-vscode-remote.remote-containers",
-    // Herramientas adicionales
-    "ritwickdey.liveserver",
-    "ms-vscode.powershell"
+    // ✅ Productividad básica
+    "christian-kohler.path-intellisense"
   ],
   "unwantedRecommendations": [
-    // Extensiones que pueden causar conflictos
+    // ❌ CRÍTICO: Conflictos directos con el AI assistant
+    "github.copilot",
+    "github.copilot-chat",
+    "github.copilot-nightly",
+    "github.copilot-labs",
+    // ❌ Otras extensiones IA que pueden interferir
+    "tabnine.tabnine-vscode",
+    "amazonwebservices.aws-toolkit-vscode",
+    "ms-toolsai.jupyter",
+    "ms-toolsai.jupyter-keymap",
+    "ms-toolsai.jupyter-renderers",
+    "ms-toolsai.vscode-jupyter-cell-tags",
+    "ms-toolsai.vscode-jupyter-slideshow",
+    // ❌ Extensiones específicas del proyecto que pueden interferir
+    "slackapi.vscode-slack",
+    "zapier.vscode-zapier",
+    "hubspot.vscode-devtools",
+    // ❌ Extensiones innecesarias/problemáticas
+    "ms-azuretools.vscode-docker",
+    "ms-vscode-remote.remote-containers",
+    "ritwickdey.liveserver",
+    "ms-vscode.powershell",
+    "bradlc.vscode-tailwindcss",
+    // ❌ Conflictos de TypeScript
     "ms-vscode.vscode-typescript",
     "hookyqr.beautify",
-    "ms-vscode.typescript-javascript-grammar"
+    "ms-vscode.typescript-javascript-grammar",
+    // ❌ GitHub extensions que pueden confundir
+    "github.vscode-pull-request-github",
+    "ms-vscode.vscode-github-issue-notebooks"
   ]
 }

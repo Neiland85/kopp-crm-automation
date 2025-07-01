@@ -40,7 +40,7 @@ export class IntegrationService {
     } catch (error) {
       this.logger.error(
         '❌ Error inicializando servicios de integración:',
-        error
+        { error }
       );
       throw error;
     }
@@ -58,7 +58,7 @@ export class IntegrationService {
           await this.zapierSlackService.handleZapierWebhook(req.body);
           res.status(200).json({ success: true });
         } catch (error) {
-          this.logger.error('Error procesando webhook de Zapier:', error);
+          this.logger.error('Error procesando webhook de Zapier:', { error });
           res.status(500).json({ error: 'Error interno del servidor' });
         }
       }
@@ -87,7 +87,7 @@ export class IntegrationService {
 
           res.status(200).json({ success: true });
         } catch (error) {
-          this.logger.error('Error procesando webhook de Slack:', error);
+          this.logger.error('Error procesando webhook de Slack:', { error });
           res.status(500).json({ error: 'Error interno del servidor' });
         }
       }
@@ -124,7 +124,7 @@ export class IntegrationService {
 
           res.status(200).json({ success: true });
         } catch (error) {
-          this.logger.error('Error procesando webhook de Hubspot:', error);
+          this.logger.error('Error procesando webhook de Hubspot:', { error });
           res.status(500).json({ error: 'Error interno del servidor' });
         }
       }
@@ -156,7 +156,7 @@ export class IntegrationService {
     } catch (error) {
       this.logger.error(
         'Error obteniendo datos del contacto de Hubspot:',
-        error
+        { error }
       );
       return null;
     }
@@ -188,7 +188,7 @@ export class IntegrationService {
 
       this.logger.info('✅ Tests de integración completados');
     } catch (error) {
-      this.logger.error('❌ Error en tests de integración:', error);
+      this.logger.error('❌ Error en tests de integración:', { error });
     }
   }
 }
