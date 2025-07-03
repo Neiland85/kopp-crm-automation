@@ -1,0 +1,66 @@
+{
+  "copilot.enable": true,
+  "copilot.chat.mode": "gdpr-compliance",
+  "copilot.suggest.privacy": "strict",
+  "copilot.agent.context": {
+    "project_type": "crm_gdpr",
+    "compliance_framework": ["RGPD", "LOPD-GDD", "ePrivacy"],
+    "data_categories": ["personal", "behavioral", "technical"],
+    "legal_bases": ["consent", "contract", "legitimate_interest"],
+    "security_requirements": ["AES-256", "TLS-1.3", "MFA", "RBAC"],
+    "audit_level": "comprehensive"
+  },
+  "copilot.agent.rules": {
+    "data_minimization": "always",
+    "purpose_limitation": "strict",
+    "retention_limits": "enforce",
+    "security_by_design": "mandatory",
+    "consent_validation": "required",
+    "audit_logging": "comprehensive"
+  },
+  "copilot.agent.templates": {
+    "privacy_class": "gdpr/templates/privacy-class.template",
+    "consent_component": "gdpr/templates/consent-component.template",
+    "audit_service": "gdpr/templates/audit-service.template",
+    "dpo_report": "gdpr/templates/dpo-report.template",
+    "data_processor": "gdpr/templates/data-processor.template",
+    "rights_handler": "gdpr/templates/rights-handler.template"
+  },
+  "copilot.agent.patterns": {
+    "data_handling": {
+      "always_pseudonymize": true,
+      "validate_consent_first": true,
+      "implement_retention": true,
+      "audit_log_required": true
+    },
+    "security": {
+      "default_encryption": "AES-256",
+      "default_transport": "TLS-1.3",
+      "input_validation": "strict",
+      "sql_injection_prevention": true
+    },
+    "ui_components": {
+      "transparency_required": true,
+      "consent_controls": true,
+      "accessibility_compliant": true,
+      "multilingual_support": ["es", "en"]
+    }
+  },
+  "copilot.agent.restrictions": [
+    "no hardcoded personal data",
+    "no sensitive information in logs",
+    "no transfers without adequacy validation",
+    "no processing without legal basis",
+    "no cookies without consent (except essential)",
+    "no data collection without purpose",
+    "no retention beyond necessary period"
+  ],
+  "copilot.agent.auto_documentation": {
+    "privacy_notices": true,
+    "dpia_updates": true,
+    "consent_flows": true,
+    "audit_trails": true,
+    "data_flow_diagrams": true,
+    "retention_schedules": true
+  }
+}
