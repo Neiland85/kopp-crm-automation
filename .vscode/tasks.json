@@ -189,27 +189,19 @@
       "label": "📊 Generar Dashboard Emocional",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "dashboard:generate"
-      ],
+      "args": ["run", "dashboard:generate"],
       "group": "build",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       },
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "problemMatcher": ["$tsc"]
     },
     {
       "label": "🧪 Test Dashboard Emocional",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "dashboard:test"
-      ],
+      "args": ["run", "dashboard:test"],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -221,27 +213,19 @@
       "label": "📈 Ingerir Métricas a Notion",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "notion:ingest"
-      ],
+      "args": ["run", "notion:ingest"],
       "group": "build",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       },
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "problemMatcher": ["$tsc"]
     },
     {
       "label": "💫 Test Dropout Positivo",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "dropout:validate"
-      ],
+      "args": ["run", "dropout:validate"],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -253,10 +237,7 @@
       "label": "📝 Ver Logs Dropout Actions",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "dropout:actions"
-      ],
+      "args": ["run", "dropout:actions"],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -269,10 +250,7 @@
       "label": "📝 Test Slack Journal",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "journal:test"
-      ],
+      "args": ["run", "journal:test"],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -296,17 +274,13 @@
         "panel": "shared"
       },
       "problemMatcher": [],
-      "dependsOn": [
-        "🔧 Build Proyecto"
-      ]
+      "dependsOn": ["🔧 Build Proyecto"]
     },
     {
       "label": "🚀 Demo Completo",
       "type": "shell",
       "command": "echo",
-      "args": [
-        "'Ejecutando demo de funcionalidades avanzadas...'"
-      ],
+      "args": ["'Ejecutando demo de funcionalidades avanzadas...'"],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -324,64 +298,46 @@
       "label": "🏗️ Compilar TypeScript",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "build"
-      ],
+      "args": ["run", "build"],
       "group": "build",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       },
-      "problemMatcher": [
-        "$tsc"
-      ],
+      "problemMatcher": ["$tsc"],
       "isBackground": false
     },
     {
       "label": "🔍 Type Check",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "type-check"
-      ],
+      "args": ["run", "type-check"],
       "group": "build",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       },
-      "problemMatcher": [
-        "$tsc"
-      ],
+      "problemMatcher": ["$tsc"],
       "isBackground": false
     },
     {
       "label": "✨ Lint y Fix",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "lint:fix"
-      ],
+      "args": ["run", "lint:fix"],
       "group": "build",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       },
-      "problemMatcher": [
-        "$eslint-stylish"
-      ],
+      "problemMatcher": ["$eslint-stylish"],
       "isBackground": false
     },
     {
       "label": "🎨 Format Code",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "format"
-      ],
+      "args": ["run", "format"],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -394,10 +350,7 @@
       "label": "🧪 Tests con Cobertura",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "test:coverage"
-      ],
+      "args": ["run", "test:coverage"],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -410,10 +363,7 @@
       "label": "🐛 Tests Debug",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "test:debug"
-      ],
+      "args": ["run", "test:debug"],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -426,10 +376,7 @@
       "label": "🚀 Desarrollo con Debug",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "dev:debug"
-      ],
+      "args": ["run", "dev:debug"],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -442,27 +389,20 @@
       "label": "🏭 Build Producción",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "build:production"
-      ],
+      "args": ["run", "build:production"],
       "group": "build",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       },
-      "problemMatcher": [
-        "$tsc"
-      ],
+      "problemMatcher": ["$tsc"],
       "isBackground": false
     },
     {
       "label": "🔧 QA Completo",
       "type": "shell",
       "command": "echo",
-      "args": [
-        "'Ejecutando suite completa de QA...'"
-      ],
+      "args": ["'Ejecutando suite completa de QA...'"],
       "group": "test",
       "presentation": {
         "reveal": "always",
@@ -481,13 +421,7 @@
       "label": "🧹 Limpiar Cache",
       "type": "shell",
       "command": "rm",
-      "args": [
-        "-rf",
-        "node_modules/.cache",
-        ".jest-cache",
-        "dist",
-        "coverage"
-      ],
+      "args": ["-rf", "node_modules/.cache", ".jest-cache", "dist", "coverage"],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -500,9 +434,7 @@
       "label": "📊 Revisar Dependencias",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "audit"
-      ],
+      "args": ["audit"],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -530,6 +462,108 @@
       },
       "problemMatcher": [],
       "isBackground": false
+    },
+    // ===== TAREAS ESPECÍFICAS PARA PNPM =====
+    {
+      "label": "📦 pnpm: Install Workspace",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["install", "--recursive"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🧹 pnpm: Clean Workspace",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "workspace:clean"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📊 pnpm: Workspace Status",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["list", "--recursive", "--depth", "0"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🔍 pnpm: Audit Security",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["audit", "--audit-level", "moderate"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS ESPECÍFICAS PARA GDPR Y COMPLIANCE =====
+    {
+      "label": "🔒 GDPR: Validación Completa",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "gdpr:validate"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true
+      },
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "🛡️ Security: Snyk Scan",
+      "type": "shell",
+      "command": "npx",
+      "args": ["snyk", "test", "--severity-threshold=medium"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📋 GDPR: Generate Audit Report",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "gdpr:audit"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🔐 Security: Full Compliance Check",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "pnpm audit && pnpm run lint && pnpm run gdpr:validate"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": ["$eslint-stylish"],
+      "dependsOrder": "sequence"
     }
   ]
 }

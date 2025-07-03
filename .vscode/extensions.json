@@ -5,14 +5,39 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "orta.vscode-jest",
+
+    // ✅ GDPR y Compliance (Nuevas para Fase GDPR)
+    "snyk-security.snyk-vulnerability-scanner",
+    "sonarsource.sonarlint-vscode",
+    "ms-vscode.security-code-scan",
+    "securecodewarrior.securecodewarrior-vscode",
+
+    // ✅ Auditoría y Logging
+    "wallabyjs.console-ninja",
+    "ms-vscode.vscode-json",
+    "redhat.vscode-xml",
+
+    // ✅ PNPM Support (Nuevo)
+    "arcanis.vscode-zipfs",
+    "pnpm.pnpm",
+
+    // ✅ Security & Privacy Tools
+    "ms-vscode.security-rules",
+    "datadog.datadog-vscode",
+    "hashicorp.terraform",
+
     // ✅ ÚTILES para desarrollo
     "redhat.vscode-yaml",
     "mikestead.dotenv",
     "humao.rest-client",
+
     // ✅ Git (sin interferir con Copilot)
     "eamodio.gitlens",
+
     // ✅ Productividad básica
-    "christian-kohler.path-intellisense"
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-rename-tag",
+    "streetsidesoftware.code-spell-checker"
   ],
   "unwantedRecommendations": [
     // ❌ CRÍTICO: Conflictos directos con el AI assistant
