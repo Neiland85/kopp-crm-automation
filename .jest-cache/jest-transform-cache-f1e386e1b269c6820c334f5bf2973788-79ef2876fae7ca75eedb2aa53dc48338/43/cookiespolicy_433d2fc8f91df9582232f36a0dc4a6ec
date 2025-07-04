@@ -1,0 +1,468 @@
+234b7013e5073cba89fd4cc055a2c3fb
+"use strict";
+/**
+ * Política de Cookies Exhaustiva - Kopp Stadium CRM
+ * Cumple con estándares AEPD, RGPD y mejores prácticas internacionales
+ *
+ * @version 2.0.0
+ * @created 2025-07-04
+ * @author Kopp Stadium Development Team
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CookiesPolicyManager = void 0;
+class CookiesPolicyManager {
+    /**
+     * Obtener política de cookies completa
+     */
+    static getCookiesPolicy() {
+        return {
+            version: this.POLICY_VERSION,
+            lastUpdated: this.LAST_UPDATED,
+            categories: this.COOKIE_CATEGORIES,
+            legalFramework: {
+                rgpd: 'Reglamento General de Protección de Datos (UE) 2016/679',
+                lssi: 'Ley 34/2002 de Servicios de la Sociedad de la Información y Comercio Electrónico',
+                lopd: 'Ley Orgánica 3/2018 de Protección de Datos Personales y Garantía de los Derechos Digitales',
+                directiveCookies: 'Directiva 2009/136/CE sobre privacidad y comunicaciones electrónicas',
+                aepd: 'Guía sobre el uso de cookies - Agencia Española de Protección de Datos'
+            },
+            userRights: {
+                access: 'Derecho de acceso a sus datos personales',
+                rectification: 'Derecho de rectificación de datos inexactos',
+                erasure: 'Derecho de supresión ("derecho al olvido")',
+                portability: 'Derecho a la portabilidad de datos',
+                restriction: 'Derecho de limitación del tratamiento',
+                objection: 'Derecho de oposición al tratamiento',
+                withdraw: 'Derecho a retirar el consentimiento en cualquier momento',
+                complaint: 'Derecho a presentar reclamación ante la AEPD'
+            },
+            contactInfo: {
+                company: 'Kopp Stadium S.L.',
+                address: 'Calle Ejemplo, 123, 28001 Madrid, España',
+                email: 'privacidad@kopp-stadium.com',
+                phone: '+34 900 123 456',
+                dpo: 'dpo@kopp-stadium.com',
+                aepd: 'https://www.aepd.es/es/canales/canal-de-video-denuncia'
+            }
+        };
+    }
+    /**
+     * Validar consentimiento según estándares AEPD
+     */
+    static validateConsent(consent) {
+        const requiredFields = ['timestamp', 'version', 'categories', 'consentId'];
+        return requiredFields.every(field => consent[field] !== undefined);
+    }
+    /**
+     * Generar ID único de consentimiento
+     */
+    static generateConsentId() {
+        return `consent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    }
+    /**
+     * Verificar si una cookie específica está permitida
+     */
+    static isCookieAllowed(cookieName, consent) {
+        const cookie = this.COOKIE_CATEGORIES
+            .flatMap(category => category.cookies)
+            .find(c => c.name === cookieName);
+        if (!cookie)
+            return false;
+        const category = this.COOKIE_CATEGORIES.find(cat => cat.cookies.some(c => c.name === cookieName));
+        return category ? (category.essential || consent[category.id]) : false;
+    }
+    /**
+     * Obtener cookies por categoría
+     */
+    static getCookiesByCategory(categoryId) {
+        const category = this.COOKIE_CATEGORIES.find(cat => cat.id === categoryId);
+        return category?.cookies || [];
+    }
+    /**
+     * Generar reporte de cumplimiento
+     */
+    static generateComplianceReport() {
+        return {
+            timestamp: new Date().toISOString(),
+            version: this.POLICY_VERSION,
+            compliance: {
+                rgpd: true,
+                lssi: true,
+                aepd: true,
+                cookieDirective: true
+            },
+            categoriesCount: this.COOKIE_CATEGORIES.length,
+            totalCookies: this.COOKIE_CATEGORIES.reduce((sum, cat) => sum + cat.cookies.length, 0),
+            essentialCookies: this.COOKIE_CATEGORIES.filter(cat => cat.essential).length,
+            dataTransfers: this.COOKIE_CATEGORIES.flatMap(cat => cat.processors).filter((v, i, a) => a.indexOf(v) === i),
+            retentionPeriods: this.COOKIE_CATEGORIES.map(cat => cat.retention),
+            lastAudit: this.LAST_UPDATED
+        };
+    }
+}
+exports.CookiesPolicyManager = CookiesPolicyManager;
+CookiesPolicyManager.POLICY_VERSION = '2.0.0';
+CookiesPolicyManager.LAST_UPDATED = '2025-07-04';
+/**
+ * Definición completa de categorías de cookies
+ */
+CookiesPolicyManager.COOKIE_CATEGORIES = [
+    {
+        id: 'essential',
+        name: 'Cookies Esenciales',
+        description: 'Cookies técnicamente necesarias para el funcionamiento básico del sitio web. No requieren consentimiento según el artículo 22.2 de la LSSI.',
+        essential: true,
+        enabled: true,
+        purpose: 'Garantizar la funcionalidad básica, seguridad y navegación del sitio web',
+        legalBasis: 'Interés legítimo (Art. 6.1.f RGPD) - Funcionalidad esencial del servicio',
+        dataTransfer: 'Datos procesados en servidores UE (certificación adequacy)',
+        retention: '1 año máximo, generalmente sesión o 30 días',
+        processors: ['Kopp Stadium S.L.', 'Proveedor de hosting certificado ISO 27001'],
+        cookies: [
+            {
+                name: 'session_id',
+                domain: '.kopp-stadium.com',
+                purpose: 'Identificación de sesión de usuario autenticado',
+                duration: 'Sesión (se elimina al cerrar navegador)',
+                type: 'session',
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            },
+            {
+                name: 'csrf_token',
+                domain: '.kopp-stadium.com',
+                purpose: 'Protección contra ataques CSRF (Cross-Site Request Forgery)',
+                duration: '24 horas',
+                type: 'persistent',
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            },
+            {
+                name: 'cookie_consent',
+                domain: '.kopp-stadium.com',
+                purpose: 'Almacenamiento de preferencias de consentimiento de cookies',
+                duration: '13 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            },
+            {
+                name: 'language_preference',
+                domain: '.kopp-stadium.com',
+                purpose: 'Recordar idioma seleccionado por el usuario',
+                duration: '12 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            }
+        ]
+    },
+    {
+        id: 'analytics',
+        name: 'Cookies Analíticas',
+        description: 'Cookies que recopilan información sobre el uso del sitio web para mejorar el rendimiento y la experiencia del usuario. Procesamiento pseudoanonimizado.',
+        essential: false,
+        enabled: false,
+        purpose: 'Análisis de comportamiento de usuarios, métricas de rendimiento y optimización de experiencia',
+        legalBasis: 'Consentimiento (Art. 6.1.a RGPD) - Previa información y consentimiento específico',
+        dataTransfer: 'Datos transferidos a Google LLC (EE.UU.) bajo adequacy decision',
+        retention: '26 meses (Google Analytics 4) - Configuración personalizada: 14 meses',
+        processors: ['Google Ireland Limited', 'Google LLC', 'Kopp Stadium S.L.'],
+        cookies: [
+            {
+                name: '_ga',
+                domain: '.kopp-stadium.com',
+                purpose: 'Identificador único de usuario para Google Analytics',
+                duration: '2 años',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Google Ireland Limited',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            },
+            {
+                name: '_ga_[MEASUREMENT_ID]',
+                domain: '.kopp-stadium.com',
+                purpose: 'Identificador de sesión para Google Analytics 4',
+                duration: '2 años',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Google Ireland Limited',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            },
+            {
+                name: '_gid',
+                domain: '.kopp-stadium.com',
+                purpose: 'Identificador único de sesión para Google Analytics',
+                duration: '24 horas',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Google Ireland Limited',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            },
+            {
+                name: '_gat_gtag_[PROPERTY_ID]',
+                domain: '.kopp-stadium.com',
+                purpose: 'Limitación de velocidad de solicitudes en Google Analytics',
+                duration: '1 minuto',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Google Ireland Limited',
+                country: 'Irlanda/EE.UU.',
+                personalData: false
+            },
+            {
+                name: 'kopp_analytics',
+                domain: '.kopp-stadium.com',
+                purpose: 'Métricas internas de rendimiento y uso (datos pseudoanonimizados)',
+                duration: '12 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            }
+        ]
+    },
+    {
+        id: 'marketing',
+        name: 'Cookies de Marketing',
+        description: 'Cookies utilizadas para mostrar publicidad relevante y medir la efectividad de campañas publicitarias. Incluyen remarketing y segmentación.',
+        essential: false,
+        enabled: false,
+        purpose: 'Publicidad dirigida, remarketing, medición de campañas y segmentación de audiencias',
+        legalBasis: 'Consentimiento (Art. 6.1.a RGPD) - Consentimiento específico e informado',
+        dataTransfer: 'Múltiples países (EE.UU., Reino Unido) bajo adequacy decisions y BCR',
+        retention: 'Variable: 30 días - 2 años según proveedor',
+        processors: ['Google Ireland Limited', 'Meta Platforms Ireland', 'Microsoft Ireland', 'LinkedIn Ireland'],
+        cookies: [
+            {
+                name: '_fbp',
+                domain: '.kopp-stadium.com',
+                purpose: 'Seguimiento de conversiones de Facebook Pixel',
+                duration: '3 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Meta Platforms Ireland',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            },
+            {
+                name: '_fbc',
+                domain: '.kopp-stadium.com',
+                purpose: 'Almacenamiento de parámetros de campaña de Facebook',
+                duration: '3 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Meta Platforms Ireland',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            },
+            {
+                name: 'ads/ga-audiences',
+                domain: '.google.com',
+                purpose: 'Remarketing y audiencias similares de Google Ads',
+                duration: '540 días',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'none',
+                processor: 'Google Ireland Limited',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            },
+            {
+                name: 'li_sugr',
+                domain: '.linkedin.com',
+                purpose: 'Identificación de navegador para LinkedIn Ads',
+                duration: '3 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'none',
+                processor: 'LinkedIn Ireland',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            },
+            {
+                name: 'MUID',
+                domain: '.bing.com',
+                purpose: 'Identificador único de usuario para Microsoft Advertising',
+                duration: '13 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'none',
+                processor: 'Microsoft Ireland',
+                country: 'Irlanda/EE.UU.',
+                personalData: true
+            }
+        ]
+    },
+    {
+        id: 'functional',
+        name: 'Cookies Funcionales',
+        description: 'Cookies que mejoran la funcionalidad del sitio web recordando preferencias y configuraciones del usuario.',
+        essential: false,
+        enabled: false,
+        purpose: 'Personalización de experiencia, recordatorio de preferencias y configuraciones',
+        legalBasis: 'Consentimiento (Art. 6.1.a RGPD) - Consentimiento previo para funcionalidades mejoradas',
+        dataTransfer: 'Principalmente procesamiento local (España/UE)',
+        retention: '12 meses promedio',
+        processors: ['Kopp Stadium S.L.', 'Proveedores de chat (certificados UE)'],
+        cookies: [
+            {
+                name: 'theme_preference',
+                domain: '.kopp-stadium.com',
+                purpose: 'Recordar preferencia de tema claro/oscuro',
+                duration: '12 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            },
+            {
+                name: 'sidebar_state',
+                domain: '.kopp-stadium.com',
+                purpose: 'Estado de expansión/colapso de menú lateral',
+                duration: '6 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            },
+            {
+                name: 'notification_preferences',
+                domain: '.kopp-stadium.com',
+                purpose: 'Preferencias de notificaciones push y email',
+                duration: '12 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            },
+            {
+                name: 'chat_widget_minimized',
+                domain: '.kopp-stadium.com',
+                purpose: 'Estado del widget de chat (minimizado/expandido)',
+                duration: '30 días',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            }
+        ]
+    },
+    {
+        id: 'personalization',
+        name: 'Cookies de Personalización',
+        description: 'Cookies que permiten personalizar contenido y ofertas basándose en el comportamiento e intereses del usuario.',
+        essential: false,
+        enabled: false,
+        purpose: 'Personalización de contenido, recomendaciones y experiencia usuario',
+        legalBasis: 'Consentimiento (Art. 6.1.a RGPD) - Consentimiento específico para personalización',
+        dataTransfer: 'Procesamiento mixto (UE/terceros países con adequacy)',
+        retention: '6-24 meses según finalidad',
+        processors: ['Kopp Stadium S.L.', 'Proveedores de personalización certificados'],
+        cookies: [
+            {
+                name: 'user_segments',
+                domain: '.kopp-stadium.com',
+                purpose: 'Segmentación de usuario para personalización de contenido',
+                duration: '6 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: true
+            },
+            {
+                name: 'content_recommendations',
+                domain: '.kopp-stadium.com',
+                purpose: 'Historial de contenido visualizado para recomendaciones',
+                duration: '3 meses',
+                type: 'persistent',
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: true
+            },
+            {
+                name: 'ab_test_group',
+                domain: '.kopp-stadium.com',
+                purpose: 'Asignación de grupo para pruebas A/B',
+                duration: '30 días',
+                type: 'persistent',
+                secure: true,
+                httpOnly: false,
+                sameSite: 'lax',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: false
+            },
+            {
+                name: 'user_journey_stage',
+                domain: '.kopp-stadium.com',
+                purpose: 'Etapa del usuario en el customer journey',
+                duration: '90 días',
+                type: 'persistent',
+                secure: true,
+                httpOnly: true,
+                sameSite: 'strict',
+                processor: 'Kopp Stadium S.L.',
+                country: 'España',
+                personalData: true
+            }
+        ]
+    }
+];
+exports.default = CookiesPolicyManager;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL2VzdHVkaW8vUHJvamVjdHMvR2l0SHViL01JQ1JPU0VSVklDSU9TL2tvcHAtc3RhZGl1bS1jcm1fc2xhY2staHVic3BvdC16YXBwaWVyLW5vdGlvbi9rb3BwLWNybS1hdXRvbWF0aW9uL3NyYy9wb2xpY2llcy9jb29raWVzLXBvbGljeS50cyIsIm1hcHBpbmdzIjoiO0FBQUE7Ozs7Ozs7R0FPRzs7O0FBd0NILE1BQWEsb0JBQW9CO0lBOFcvQjs7T0FFRztJQUNILE1BQU0sQ0FBQyxnQkFBZ0I7UUFRckIsT0FBTztZQUNMLE9BQU8sRUFBRSxJQUFJLENBQUMsY0FBYztZQUM1QixXQUFXLEVBQUUsSUFBSSxDQUFDLFlBQVk7WUFDOUIsVUFBVSxFQUFFLElBQUksQ0FBQyxpQkFBaUI7WUFDbEMsY0FBYyxFQUFFO2dCQUNkLElBQUksRUFBRSx5REFBeUQ7Z0JBQy9ELElBQUksRUFBRSxrRkFBa0Y7Z0JBQ3hGLElBQUksRUFBRSw0RkFBNEY7Z0JBQ2xHLGdCQUFnQixFQUFFLHNFQUFzRTtnQkFDeEYsSUFBSSxFQUFFLHdFQUF3RTthQUMvRTtZQUNELFVBQVUsRUFBRTtnQkFDVixNQUFNLEVBQUUsMENBQTBDO2dCQUNsRCxhQUFhLEVBQUUsNkNBQTZDO2dCQUM1RCxPQUFPLEVBQUUsNENBQTRDO2dCQUNyRCxXQUFXLEVBQUUsb0NBQW9DO2dCQUNqRCxXQUFXLEVBQUUsdUNBQXVDO2dCQUNwRCxTQUFTLEVBQUUscUNBQXFDO2dCQUNoRCxRQUFRLEVBQUUsMERBQTBEO2dCQUNwRSxTQUFTLEVBQUUsOENBQThDO2FBQzFEO1lBQ0QsV0FBVyxFQUFFO2dCQUNYLE9BQU8sRUFBRSxtQkFBbUI7Z0JBQzVCLE9BQU8sRUFBRSwwQ0FBMEM7Z0JBQ25ELEtBQUssRUFBRSw2QkFBNkI7Z0JBQ3BDLEtBQUssRUFBRSxpQkFBaUI7Z0JBQ3hCLEdBQUcsRUFBRSxzQkFBc0I7Z0JBQzNCLElBQUksRUFBRSx3REFBd0Q7YUFDL0Q7U0FDRixDQUFDO0lBQ0osQ0FBQztJQUVEOztPQUVHO0lBQ0gsTUFB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QUFRLEVBQUUsSUFBSTtnQkFDZCxRQUFRLEVBQUUsUUFBUTtnQkFDbEIsU0FBUyxFQUFFLG1CQUFtQjtnQkFDOUIsT0FBTyxFQUFFLFFBQVE7Z0JBQ2pCLFlBQVksRUFBRSxJQUFJO2FBQ25CO1NBQ0Y7S0FDRjtDQUNGLENBQUM7QUE0R0osa0JBQWUsb0JBQW9CLENBQUMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiL1VzZXJzL2VzdHVkaW8vUHJvamVjdHMvR2l0SHViL01JQ1JPU0VSVklDSU9TL2tvcHAtc3RhZGl1bS1jcm1fc2xhY2staHVic3BvdC16YXBwaWVyLW5vdGlvbi9rb3BwLWNybS1hdXRvbWF0aW9uL3NyYy9wb2xpY2llcy9jb29raWVzLXBvbGljeS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIFBvbMOtdGljYSBkZSBDb29raWVzIEV4aGF1c3RpdmEgLSBLb3BwIFN0YWRpdW0gQ1JNXG4gKiBDdW1wbGUgY29uIGVzdMOhbmRhcmVzIEFFUEQsIFJHUEQgeSBtZWpvcmVzIHByw6FjdGljYXMgaW50ZXJuYWNpb25hbGVzXG4gKiBcbiAqIEB2ZXJzaW9uIDIuMC4wXG4gKiBAY3JlYXRlZCAyMDI1LTA3LTA0XG4gKiBAYXV0aG9yIEtvcHAgU3RhZGl1bSBEZXZlbG9wbWVudCBUZWFtXG4gKi9cblxuZXhwb3J0IGludGVyZmFjZSBDb29raWVDYXRlZ29yeSB7XG4gIGlkOiBzdHJpbmc7XG4gIG5hbWU6IHN0cmluZztcbiAgZGVzY3JpcHRpb246IHN0cmluZztcbiAgZXNzZW50aWFsOiBib29sZWFuO1xuICBlbmFibGVkOiBib29sZWFuO1xuICBjb29raWVzOiBDb29raWVEZWZpbml0aW9uW107XG4gIHB1cnBvc2U6IHN0cmluZztcbiAgbGVnYWxCYXNpczogc3RyaW5nO1xuICBkYXRhVHJhbnNmZXI6IHN0cmluZztcbiAgcmV0ZW50aW9uOiBzdHJpbmc7XG4gIHByb2Nlc3NvcnM6IHN0cmluZ1tdO1xufVxuXG5leHBvcnQgaW50ZXJmYWNlIENvb2tpZURlZmluaXRpb24ge1xuICBuYW1lOiBzdHJpbmc7XG4gIGRvbWFpbjogc3RyaW5nO1xuICBwdXJwb3NlOiBzdHJpbmc7XG4gIGR1cmF0aW9uOiBzdHJpbmc7XG4gIHR5cGU6ICdzZXNzaW9uJyB8ICdwZXJzaXN0ZW50JztcbiAgc2VjdXJlOiBib29sZWFuO1xuICBodHRwT25seTogYm9vbGVhbjtcbiAgc2FtZVNpdGU6ICdzdHJpY3QnIHwgJ2xheCcgfCAnbm9uZSc7XG4gIHByb2Nlc3Nvcjogc3RyaW5nO1xuICBjb3VudHJ5OiBzdHJpbmc7XG4gIHBlcnNvbmFsRGF0YTogYm9vbGVhbjtcbn1cblxuZXhwb3J0IGludGVyZmFjZSBDb29raWVDb25zZW50IHtcbiAgdGltZXN0YW1wOiBEYXRlO1xuICB2ZXJzaW9uOiBzdHJpbmc7XG4gIGNhdGVnb3JpZXM6IFJlY29yZDxzdHJpbmcsIGJvb2xlYW4+O1xuICBpcEFkZHJlc3M6IHN0cmluZztcbiAgdXNlckFnZW50OiBzdHJpbmc7XG4gIGNvbnNlbnRJZDogc3RyaW5nO1xuICBtZXRob2Q6ICdiYW5uZXInIHwgJ3NldHRpbmdzJyB8ICdhcGknO1xufVxuXG5leHBvcnQgY2xhc3MgQ29va2llc1BvbGljeU1hbmFnZXIge1xuICBwcml2YXRlIHN0YXRpYyByZWFkb25seSBQT0xJQ1lfVkVSU0lPTiA9ICcyLjAuMCc7XG4gIHByaXZhdGUgc3RhdGljIHJlYWRvbmx5IExBU1RfVVBEQVRFRCA9ICcyMDI1LTA3LTA0JztcblxuICAvKipcbiAgICogRGVmaW5pY2nDs24gY29tcGxldGEgZGUgY2F0ZWdvcsOtYXMgZGUgY29va2llc1xuICAgKi9cbiAgc3RhdGljIHJlYWRvbmx5IENPT0tJRV9DQVRFR09SSUVTOiBDb29raWVDYXRlZ29yeVtdID0gW1xuICAgIHtcbiAgICAgIGlkOiAnZXNzZW50aWFsJyxcbiAgICAgIG5hbWU6ICdDb29raWVzIEVzZW5jaWFsZXMnLFxuICAgICAgZGVzY3JpcHRpb246ICdDb29raWVzIHTDqWNuaWNhbWVudGUgbmVjZXNhcmlhcyBwYXJhIGVsIGZ1bmNpb25hbWllbnRvIGLDoXNpY28gZGVsIHNpdGlvIHdlYi4gTm8gcmVxdWllcmVuIGNvbnNlbnRpbWllbnRvIHNlZ8O6biBlbCBhcnTDrWN1bG8gMjIuMiBkZSBsYSBMU1NJLicsXG4gICAgICBlc3NlbnRpYWw6IHRydWUsXG4gICAgICBlbmFibGVkOiB0cnVlLFxuICAgICAgcHVycG9zZTogJ0dhcmFudGl6YXIgbGEgZnVuY2lvbmFsaWRhZCBiw6FzaWNhLCBzZWd1cmlkYWQgeSBuYXZlZ2FjacOzbiBkZWwgc2l0aW8gd2ViJyxcbiAgICAgIGxlZ2FsQmFzaXM6ICdJbnRlcsOpcyBsZWfDrXRpbW8gKEFydC4gNi4xLmYgUkdQRCkgLSBGdW5jaW9uYWxpZGFkIGVzZW5jaWFsIGRlbCBzZXJ2aWNpbycsXG4gICAgICBkYXRhVHJhbnNmZXI6ICdEYXRvcyBwcm9jZXNhZG9zIGVuIHNlcnZpZG9yZXMgVUUgKGNlcnRpZmljYWNpw7NuIGFkZXF1YWN5KScsXG4gICAgICByZXRlbnRpb246ICcxIGHDsW8gbcOheGltbywgZ2VuZXJhbG1lbnRlIHNlc2nDs24gbyAzMCBkw61hcycsXG4gICAgICBwcm9jZXNzb3JzOiBbJ0tvcHAgU3RhZGl1bSBTLkwuJywgJ1Byb3ZlZWRvciBkZSBob3N0aW5nIGNlcnRpZmljYWRvIElTTyAyNzAwMSddLFxuICAgICAgY29va2llczogW1xuICAgICAgICB7XG4gICAgICAgICAgbmFtZTogJ3Nlc3Npb25faWQnLFxuICAgICAgICAgIGRvbWFpbjogJy5rb3BwLXN0YWRpdW0uY29tJyxcbiAgICAgICAgICBwdXJwb3NlOiAnSWRlbnRpZmljYWNpw7NuIGRlIHNlc2nDs24gZGUgdXN1YXJpbyBhdXRlbnRpY2FkbycsXG4gICAgICAgICAgZHVyYXRpb246ICdTZXNpw7NuIChzZSBlbGltaW5hIGFsIGNlcnJhciBuYXZlZ2Fkb3IpJyxcbiAgICAgICAgICB0eXBlOiAnc2Vzc2lvbicsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiB0cnVlLFxuICAgICAgICAgIHNhbWVTaXRlOiAnc3RyaWN0JyxcbiAgICAgICAgICBwcm9jZXNzb3I6ICdLb3BwIFN0YWRpdW0gUy5MLicsXG4gICAgICAgICAgY291bnRyeTogJ0VzcGHDsWEnLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogZmFsc2VcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdjc3JmX3Rva2VuJyxcbiAgICAgICAgICBkb21haW46ICcua29wcC1zdGFkaXVtLmNvbScsXG4gICAgICAgICAgcHVycG9zZTogJ1Byb3RlY2Npw7NuIGNvbnRyYSBhdGFxdWVzIENTUkYgKENyb3NzLVNpdGUgUmVxdWVzdCBGb3JnZXJ5KScsXG4gICAgICAgICAgZHVyYXRpb246ICcyNCBob3JhcycsXG4gICAgICAgICAgdHlwZTogJ3BlcnNpc3RlbnQnLFxuICAgICAgICAgIHNlY3VyZTogdHJ1ZSxcbiAgICAgICAgICBodHRwT25seTogdHJ1ZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ3N0cmljdCcsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnS29wcCBTdGFkaXVtIFMuTC4nLFxuICAgICAgICAgIGNvdW50cnk6ICdFc3Bhw7FhJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IGZhbHNlXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBuYW1lOiAnY29va2llX2NvbnNlbnQnLFxuICAgICAgICAgIGRvbWFpbjogJy5rb3BwLXN0YWRpdW0uY29tJyxcbiAgICAgICAgICBwdXJwb3NlOiAnQWxtYWNlbmFtaWVudG8gZGUgcHJlZmVyZW5jaWFzIGRlIGNvbnNlbnRpbWllbnRvIGRlIGNvb2tpZXMnLFxuICAgICAgICAgIGR1cmF0aW9uOiAnMTMgbWVzZXMnLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IGZhbHNlLFxuICAgICAgICAgIHNhbWVTaXRlOiAnc3RyaWN0JyxcbiAgICAgICAgICBwcm9jZXNzb3I6ICdLb3BwIFN0YWRpdW0gUy5MLicsXG4gICAgICAgICAgY291bnRyeTogJ0VzcGHDsWEnLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogZmFsc2VcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdsYW5ndWFnZV9wcmVmZXJlbmNlJyxcbiAgICAgICAgICBkb21haW46ICcua29wcC1zdGFkaXVtLmNvbScsXG4gICAgICAgICAgcHVycG9zZTogJ1JlY29yZGFyIGlkaW9tYSBzZWxlY2Npb25hZG8gcG9yIGVsIHVzdWFyaW8nLFxuICAgICAgICAgIGR1cmF0aW9uOiAnMTIgbWVzZXMnLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IGZhbHNlLFxuICAgICAgICAgIHNhbWVTaXRlOiAnbGF4JyxcbiAgICAgICAgICBwcm9jZXNzb3I6ICdLb3BwIFN0YWRpdW0gUy5MLicsXG4gICAgICAgICAgY291bnRyeTogJ0VzcGHDsWEnLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogZmFsc2VcbiAgICAgICAgfVxuICAgICAgXVxuICAgIH0sXG4gICAge1xuICAgICAgaWQ6ICdhbmFseXRpY3MnLFxuICAgICAgbmFtZTogJ0Nvb2tpZXMgQW5hbMOtdGljYXMnLFxuICAgICAgZGVzY3JpcHRpb246ICdDb29raWVzIHF1ZSByZWNvcGlsYW4gaW5mb3JtYWNpw7NuIHNvYnJlIGVsIHVzbyBkZWwgc2l0aW8gd2ViIHBhcmEgbWVqb3JhciBlbCByZW5kaW1pZW50byB5IGxhIGV4cGVyaWVuY2lhIGRlbCB1c3VhcmlvLiBQcm9jZXNhbWllbnRvIHBzZXVkb2Fub25pbWl6YWRvLicsXG4gICAgICBlc3NlbnRpYWw6IGZhbHNlLFxuICAgICAgZW5hYmxlZDogZmFsc2UsXG4gICAgICBwdXJwb3NlOiAnQW7DoWxpc2lzIGRlIGNvbXBvcnRhbWllbnRvIGRlIHVzdWFyaW9zLCBtw6l0cmljYXMgZGUgcmVuZGltaWVudG8geSBvcHRpbWl6YWNpw7NuIGRlIGV4cGVyaWVuY2lhJyxcbiAgICAgIGxlZ2FsQmFzaXM6ICdDb25zZW50aW1pZW50byAoQXJ0LiA2LjEuYSBSR1BEKSAtIFByZXZpYSBpbmZvcm1hY2nDs24geSBjb25zZW50aW1pZW50byBlc3BlY8OtZmljbycsXG4gICAgICBkYXRhVHJhbnNmZXI6ICdEYXRvcyB0cmFuc2Zlcmlkb3MgYSBHb29nbGUgTExDIChFRS5VVS4pIGJham8gYWRlcXVhY3kgZGVjaXNpb24nLFxuICAgICAgcmV0ZW50aW9uOiAnMjYgbWVzZXMgKEdvb2dsZSBBbmFseXRpY3MgNCkgLSBDb25maWd1cmFjacOzbiBwZXJzb25hbGl6YWRhOiAxNCBtZXNlcycsXG4gICAgICBwcm9jZXNzb3JzOiBbJ0dvb2dsZSBJcmVsYW5kIExpbWl0ZWQnLCAnR29vZ2xlIExMQycsICdLb3BwIFN0YWRpdW0gUy5MLiddLFxuICAgICAgY29va2llczogW1xuICAgICAgICB7XG4gICAgICAgICAgbmFtZTogJ19nYScsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdJZGVudGlmaWNhZG9yIMO6bmljbyBkZSB1c3VhcmlvIHBhcmEgR29vZ2xlIEFuYWx5dGljcycsXG4gICAgICAgICAgZHVyYXRpb246ICcyIGHDsW9zJyxcbiAgICAgICAgICB0eXBlOiAncGVyc2lzdGVudCcsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiBmYWxzZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ2xheCcsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnR29vZ2xlIElyZWxhbmQgTGltaXRlZCcsXG4gICAgICAgICAgY291bnRyeTogJ0lybGFuZGEvRUUuVVUuJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IHRydWVcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdfZ2FfW01FQVNVUkVNRU5UX0lEXScsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdJZGVudGlmaWNhZG9yIGRlIHNlc2nDs24gcGFyYSBHb29nbGUgQW5hbHl0aWNzIDQnLFxuICAgICAgICAgIGR1cmF0aW9uOiAnMiBhw7FvcycsXG4gICAgICAgICAgdHlwZTogJ3BlcnNpc3RlbnQnLFxuICAgICAgICAgIHNlY3VyZTogdHJ1ZSxcbiAgICAgICAgICBodHRwT25seTogZmFsc2UsXG4gICAgICAgICAgc2FtZVNpdGU6ICdsYXgnLFxuICAgICAgICAgIHByb2Nlc3NvcjogJ0dvb2dsZSBJcmVsYW5kIExpbWl0ZWQnLFxuICAgICAgICAgIGNvdW50cnk6ICdJcmxhbmRhL0VFLlVVLicsXG4gICAgICAgICAgcGVyc29uYWxEYXRhOiB0cnVlXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBuYW1lOiAnX2dpZCcsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdJZGVudGlmaWNhZG9yIMO6bmljbyBkZSBzZXNpw7NuIHBhcmEgR29vZ2xlIEFuYWx5dGljcycsXG4gICAgICAgICAgZHVyYXRpb246ICcyNCBob3JhcycsXG4gICAgICAgICAgdHlwZTogJ3BlcnNpc3RlbnQnLFxuICAgICAgICAgIHNlY3VyZTogdHJ1ZSxcbiAgICAgICAgICBodHRwT25seTogZmFsc2UsXG4gICAgICAgICAgc2FtZVNpdGU6ICdsYXgnLFxuICAgICAgICAgIHByb2Nlc3NvcjogJ0dvb2dsZSBJcmVsYW5kIExpbWl0ZWQnLFxuICAgICAgICAgIGNvdW50cnk6ICdJcmxhbmRhL0VFLlVVLicsXG4gICAgICAgICAgcGVyc29uYWxEYXRhOiB0cnVlXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBuYW1lOiAnX2dhdF9ndGFnX1tQUk9QRVJUWV9JRF0nLFxuICAgICAgICAgIGRvbWFpbjogJy5rb3BwLXN0YWRpdW0uY29tJyxcbiAgICAgICAgICBwdXJwb3NlOiAnTGltaXRhY2nDs24gZGUgdmVsb2NpZGFkIGRlIHNvbGljaXR1ZGVzIGVuIEdvb2dsZSBBbmFseXRpY3MnLFxuICAgICAgICAgIGR1cmF0aW9uOiAnMSBtaW51dG8nLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IGZhbHNlLFxuICAgICAgICAgIHNhbWVTaXRlOiAnbGF4JyxcbiAgICAgICAgICBwcm9jZXNzb3I6ICdHb29nbGUgSXJlbGFuZCBMaW1pdGVkJyxcbiAgICAgICAgICBjb3VudHJ5OiAnSXJsYW5kYS9FRS5VVS4nLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogZmFsc2VcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdrb3BwX2FuYWx5dGljcycsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdNw6l0cmljYXMgaW50ZXJuYXMgZGUgcmVuZGltaWVudG8geSB1c28gKGRhdG9zIHBzZXVkb2Fub25pbWl6YWRvcyknLFxuICAgICAgICAgIGR1cmF0aW9uOiAnMTIgbWVzZXMnLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IHRydWUsXG4gICAgICAgICAgc2FtZVNpdGU6ICdzdHJpY3QnLFxuICAgICAgICAgIHByb2Nlc3NvcjogJ0tvcHAgU3RhZGl1bSBTLkwuJyxcbiAgICAgICAgICBjb3VudHJ5OiAnRXNwYcOxYScsXG4gICAgICAgICAgcGVyc29uYWxEYXRhOiBmYWxzZVxuICAgICAgICB9XG4gICAgICBdXG4gICAgfSxcbiAgICB7XG4gICAgICBpZDogJ21hcmtldGluZycsXG4gICAgICBuYW1lOiAnQ29va2llcyBkZSBNYXJrZXRpbmcnLFxuICAgICAgZGVzY3JpcHRpb246ICdDb29raWVzIHV0aWxpemFkYXMgcGFyYSBtb3N0cmFyIHB1YmxpY2lkYWQgcmVsZXZhbnRlIHkgbWVkaXIgbGEgZWZlY3RpdmlkYWQgZGUgY2FtcGHDsWFzIHB1YmxpY2l0YXJpYXMuIEluY2x1eWVuIHJlbWFya2V0aW5nIHkgc2VnbWVudGFjacOzbi4nLFxuICAgICAgZXNzZW50aWFsOiBmYWxzZSxcbiAgICAgIGVuYWJsZWQ6IGZhbHNlLFxuICAgICAgcHVycG9zZTogJ1B1YmxpY2lkYWQgZGlyaWdpZGEsIHJlbWFya2V0aW5nLCBtZWRpY2nDs24gZGUgY2FtcGHDsWFzIHkgc2VnbWVudGFjacOzbiBkZSBhdWRpZW5jaWFzJyxcbiAgICAgIGxlZ2FsQmFzaXM6ICdDb25zZW50aW1pZW50byAoQXJ0LiA2LjEuYSBSR1BEKSAtIENvbnNlbnRpbWllbnRvIGVzcGVjw61maWNvIGUgaW5mb3JtYWRvJyxcbiAgICAgIGRhdGFUcmFuc2ZlcjogJ03Dumx0aXBsZXMgcGHDrXNlcyAoRUUuVVUuLCBSZWlubyBVbmlkbykgYmFqbyBhZGVxdWFjeSBkZWNpc2lvbnMgeSBCQ1InLFxuICAgICAgcmV0ZW50aW9uOiAnVmFyaWFibGU6IDMwIGTDrWFzIC0gMiBhw7FvcyBzZWfDum4gcHJvdmVlZG9yJyxcbiAgICAgIHByb2Nlc3NvcnM6IFsnR29vZ2xlIElyZWxhbmQgTGltaXRlZCcsICdNZXRhIFBsYXRmb3JtcyBJcmVsYW5kJywgJ01pY3Jvc29mdCBJcmVsYW5kJywgJ0xpbmtlZEluIElyZWxhbmQnXSxcbiAgICAgIGNvb2tpZXM6IFtcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdfZmJwJyxcbiAgICAgICAgICBkb21haW46ICcua29wcC1zdGFkaXVtLmNvbScsXG4gICAgICAgICAgcHVycG9zZTogJ1NlZ3VpbWllbnRvIGRlIGNvbnZlcnNpb25lcyBkZSBGYWNlYm9vayBQaXhlbCcsXG4gICAgICAgICAgZHVyYXRpb246ICczIG1lc2VzJyxcbiAgICAgICAgICB0eXBlOiAncGVyc2lzdGVudCcsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiBmYWxzZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ2xheCcsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnTWV0YSBQbGF0Zm9ybXMgSXJlbGFuZCcsXG4gICAgICAgICAgY291bnRyeTogJ0lybGFuZGEvRUUuVVUuJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IHRydWVcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdfZmJjJyxcbiAgICAgICAgICBkb21haW46ICcua29wcC1zdGFkaXVtLmNvbScsXG4gICAgICAgICAgcHVycG9zZTogJ0FsbWFjZW5hbWllbnRvIGRlIHBhcsOhbWV0cm9zIGRlIGNhbXBhw7FhIGRlIEZhY2Vib29rJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzMgbWVzZXMnLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IGZhbHNlLFxuICAgICAgICAgIHNhbWVTaXRlOiAnbGF4JyxcbiAgICAgICAgICBwcm9jZXNzb3I6ICdNZXRhIFBsYXRmb3JtcyBJcmVsYW5kJyxcbiAgICAgICAgICBjb3VudHJ5OiAnSXJsYW5kYS9FRS5VVS4nLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogdHJ1ZVxuICAgICAgICB9LFxuICAgICAgICB7XG4gICAgICAgICAgbmFtZTogJ2Fkcy9nYS1hdWRpZW5jZXMnLFxuICAgICAgICAgIGRvbWFpbjogJy5nb29nbGUuY29tJyxcbiAgICAgICAgICBwdXJwb3NlOiAnUmVtYXJrZXRpbmcgeSBhdWRpZW5jaWFzIHNpbWlsYXJlcyBkZSBHb29nbGUgQWRzJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzU0MCBkw61hcycsXG4gICAgICAgICAgdHlwZTogJ3BlcnNpc3RlbnQnLFxuICAgICAgICAgIHNlY3VyZTogdHJ1ZSxcbiAgICAgICAgICBodHRwT25seTogZmFsc2UsXG4gICAgICAgICAgc2FtZVNpdGU6ICdub25lJyxcbiAgICAgICAgICBwcm9jZXNzb3I6ICdHb29nbGUgSXJlbGFuZCBMaW1pdGVkJyxcbiAgICAgICAgICBjb3VudHJ5OiAnSXJsYW5kYS9FRS5VVS4nLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogdHJ1ZVxuICAgICAgICB9LFxuICAgICAgICB7XG4gICAgICAgICAgbmFtZTogJ2xpX3N1Z3InLFxuICAgICAgICAgIGRvbWFpbjogJy5saW5rZWRpbi5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdJZGVudGlmaWNhY2nDs24gZGUgbmF2ZWdhZG9yIHBhcmEgTGlua2VkSW4gQWRzJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzMgbWVzZXMnLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IGZhbHNlLFxuICAgICAgICAgIHNhbWVTaXRlOiAnbm9uZScsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnTGlua2VkSW4gSXJlbGFuZCcsXG4gICAgICAgICAgY291bnRyeTogJ0lybGFuZGEvRUUuVVUuJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IHRydWVcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdNVUlEJyxcbiAgICAgICAgICBkb21haW46ICcuYmluZy5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdJZGVudGlmaWNhZG9yIMO6bmljbyBkZSB1c3VhcmlvIHBhcmEgTWljcm9zb2Z0IEFkdmVydGlzaW5nJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzEzIG1lc2VzJyxcbiAgICAgICAgICB0eXBlOiAncGVyc2lzdGVudCcsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiBmYWxzZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ25vbmUnLFxuICAgICAgICAgIHByb2Nlc3NvcjogJ01pY3Jvc29mdCBJcmVsYW5kJyxcbiAgICAgICAgICBjb3VudHJ5OiAnSXJsYW5kYS9FRS5VVS4nLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogdHJ1ZVxuICAgICAgICB9XG4gICAgICBdXG4gICAgfSxcbiAgICB7XG4gICAgICBpZDogJ2Z1bmN0aW9uYWwnLFxuICAgICAgbmFtZTogJ0Nvb2tpZXMgRnVuY2lvbmFsZXMnLFxuICAgICAgZGVzY3JpcHRpb246ICdDb29raWVzIHF1ZSBtZWpvcmFuIGxhIGZ1bmNpb25hbGlkYWQgZGVsIHNpdGlvIHdlYiByZWNvcmRhbmRvIHByZWZlcmVuY2lhcyB5IGNvbmZpZ3VyYWNpb25lcyBkZWwgdXN1YXJpby4nLFxuICAgICAgZXNzZW50aWFsOiBmYWxzZSxcbiAgICAgIGVuYWJsZWQ6IGZhbHNlLFxuICAgICAgcHVycG9zZTogJ1BlcnNvbmFsaXphY2nDs24gZGUgZXhwZXJpZW5jaWEsIHJlY29yZGF0b3JpbyBkZSBwcmVmZXJlbmNpYXMgeSBjb25maWd1cmFjaW9uZXMnLFxuICAgICAgbGVnYWxCYXNpczogJ0NvbnNlbnRpbWllbnRvIChBcnQuIDYuMS5hIFJHUEQpIC0gQ29uc2VudGltaWVudG8gcHJldmlvIHBhcmEgZnVuY2lvbmFsaWRhZGVzIG1lam9yYWRhcycsXG4gICAgICBkYXRhVHJhbnNmZXI6ICdQcmluY2lwYWxtZW50ZSBwcm9jZXNhbWllbnRvIGxvY2FsIChFc3Bhw7FhL1VFKScsXG4gICAgICByZXRlbnRpb246ICcxMiBtZXNlcyBwcm9tZWRpbycsXG4gICAgICBwcm9jZXNzb3JzOiBbJ0tvcHAgU3RhZGl1bSBTLkwuJywgJ1Byb3ZlZWRvcmVzIGRlIGNoYXQgKGNlcnRpZmljYWRvcyBVRSknXSxcbiAgICAgIGNvb2tpZXM6IFtcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICd0aGVtZV9wcmVmZXJlbmNlJyxcbiAgICAgICAgICBkb21haW46ICcua29wcC1zdGFkaXVtLmNvbScsXG4gICAgICAgICAgcHVycG9zZTogJ1JlY29yZGFyIHByZWZlcmVuY2lhIGRlIHRlbWEgY2xhcm8vb3NjdXJvJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzEyIG1lc2VzJyxcbiAgICAgICAgICB0eXBlOiAncGVyc2lzdGVudCcsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiBmYWxzZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ2xheCcsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnS29wcCBTdGFkaXVtIFMuTC4nLFxuICAgICAgICAgIGNvdW50cnk6ICdFc3Bhw7FhJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IGZhbHNlXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBuYW1lOiAnc2lkZWJhcl9zdGF0ZScsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdFc3RhZG8gZGUgZXhwYW5zacOzbi9jb2xhcHNvIGRlIG1lbsO6IGxhdGVyYWwnLFxuICAgICAgICAgIGR1cmF0aW9uOiAnNiBtZXNlcycsXG4gICAgICAgICAgdHlwZTogJ3BlcnNpc3RlbnQnLFxuICAgICAgICAgIHNlY3VyZTogdHJ1ZSxcbiAgICAgICAgICBodHRwT25seTogZmFsc2UsXG4gICAgICAgICAgc2FtZVNpdGU6ICdsYXgnLFxuICAgICAgICAgIHByb2Nlc3NvcjogJ0tvcHAgU3RhZGl1bSBTLkwuJyxcbiAgICAgICAgICBjb3VudHJ5OiAnRXNwYcOxYScsXG4gICAgICAgICAgcGVyc29uYWxEYXRhOiBmYWxzZVxuICAgICAgICB9LFxuICAgICAgICB7XG4gICAgICAgICAgbmFtZTogJ25vdGlmaWNhdGlvbl9wcmVmZXJlbmNlcycsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdQcmVmZXJlbmNpYXMgZGUgbm90aWZpY2FjaW9uZXMgcHVzaCB5IGVtYWlsJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzEyIG1lc2VzJyxcbiAgICAgICAgICB0eXBlOiAncGVyc2lzdGVudCcsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiB0cnVlLFxuICAgICAgICAgIHNhbWVTaXRlOiAnc3RyaWN0JyxcbiAgICAgICAgICBwcm9jZXNzb3I6ICdLb3BwIFN0YWRpdW0gUy5MLicsXG4gICAgICAgICAgY291bnRyeTogJ0VzcGHDsWEnLFxuICAgICAgICAgIHBlcnNvbmFsRGF0YTogZmFsc2VcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdjaGF0X3dpZGdldF9taW5pbWl6ZWQnLFxuICAgICAgICAgIGRvbWFpbjogJy5rb3BwLXN0YWRpdW0uY29tJyxcbiAgICAgICAgICBwdXJwb3NlOiAnRXN0YWRvIGRlbCB3aWRnZXQgZGUgY2hhdCAobWluaW1pemFkby9leHBhbmRpZG8pJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzMwIGTDrWFzJyxcbiAgICAgICAgICB0eXBlOiAncGVyc2lzdGVudCcsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiBmYWxzZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ2xheCcsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnS29wcCBTdGFkaXVtIFMuTC4nLFxuICAgICAgICAgIGNvdW50cnk6ICdFc3Bhw7FhJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IGZhbHNlXG4gICAgICAgIH1cbiAgICAgIF1cbiAgICB9LFxuICAgIHtcbiAgICAgIGlkOiAncGVyc29uYWxpemF0aW9uJyxcbiAgICAgIG5hbWU6ICdDb29raWVzIGRlIFBlcnNvbmFsaXphY2nDs24nLFxuICAgICAgZGVzY3JpcHRpb246ICdDb29raWVzIHF1ZSBwZXJtaXRlbiBwZXJzb25hbGl6YXIgY29udGVuaWRvIHkgb2ZlcnRhcyBiYXPDoW5kb3NlIGVuIGVsIGNvbXBvcnRhbWllbnRvIGUgaW50ZXJlc2VzIGRlbCB1c3VhcmlvLicsXG4gICAgICBlc3NlbnRpYWw6IGZhbHNlLFxuICAgICAgZW5hYmxlZDogZmFsc2UsXG4gICAgICBwdXJwb3NlOiAnUGVyc29uYWxpemFjacOzbiBkZSBjb250ZW5pZG8sIHJlY29tZW5kYWNpb25lcyB5IGV4cGVyaWVuY2lhIHVzdWFyaW8nLFxuICAgICAgbGVnYWxCYXNpczogJ0NvbnNlbnRpbWllbnRvIChBcnQuIDYuMS5hIFJHUEQpIC0gQ29uc2VudGltaWVudG8gZXNwZWPDrWZpY28gcGFyYSBwZXJzb25hbGl6YWNpw7NuJyxcbiAgICAgIGRhdGFUcmFuc2ZlcjogJ1Byb2Nlc2FtaWVudG8gbWl4dG8gKFVFL3RlcmNlcm9zIHBhw61zZXMgY29uIGFkZXF1YWN5KScsXG4gICAgICByZXRlbnRpb246ICc2LTI0IG1lc2VzIHNlZ8O6biBmaW5hbGlkYWQnLFxuICAgICAgcHJvY2Vzc29yczogWydLb3BwIFN0YWRpdW0gUy5MLicsICdQcm92ZWVkb3JlcyBkZSBwZXJzb25hbGl6YWNpw7NuIGNlcnRpZmljYWRvcyddLFxuICAgICAgY29va2llczogW1xuICAgICAgICB7XG4gICAgICAgICAgbmFtZTogJ3VzZXJfc2VnbWVudHMnLFxuICAgICAgICAgIGRvbWFpbjogJy5rb3BwLXN0YWRpdW0uY29tJyxcbiAgICAgICAgICBwdXJwb3NlOiAnU2VnbWVudGFjacOzbiBkZSB1c3VhcmlvIHBhcmEgcGVyc29uYWxpemFjacOzbiBkZSBjb250ZW5pZG8nLFxuICAgICAgICAgIGR1cmF0aW9uOiAnNiBtZXNlcycsXG4gICAgICAgICAgdHlwZTogJ3BlcnNpc3RlbnQnLFxuICAgICAgICAgIHNlY3VyZTogdHJ1ZSxcbiAgICAgICAgICBodHRwT25seTogdHJ1ZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ3N0cmljdCcsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnS29wcCBTdGFkaXVtIFMuTC4nLFxuICAgICAgICAgIGNvdW50cnk6ICdFc3Bhw7FhJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IHRydWVcbiAgICAgICAgfSxcbiAgICAgICAge1xuICAgICAgICAgIG5hbWU6ICdjb250ZW50X3JlY29tbWVuZGF0aW9ucycsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdIaXN0b3JpYWwgZGUgY29udGVuaWRvIHZpc3VhbGl6YWRvIHBhcmEgcmVjb21lbmRhY2lvbmVzJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzMgbWVzZXMnLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IHRydWUsXG4gICAgICAgICAgc2FtZVNpdGU6ICdzdHJpY3QnLFxuICAgICAgICAgIHByb2Nlc3NvcjogJ0tvcHAgU3RhZGl1bSBTLkwuJyxcbiAgICAgICAgICBjb3VudHJ5OiAnRXNwYcOxYScsXG4gICAgICAgICAgcGVyc29uYWxEYXRhOiB0cnVlXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBuYW1lOiAnYWJfdGVzdF9ncm91cCcsXG4gICAgICAgICAgZG9tYWluOiAnLmtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICAgIHB1cnBvc2U6ICdBc2lnbmFjacOzbiBkZSBncnVwbyBwYXJhIHBydWViYXMgQS9CJyxcbiAgICAgICAgICBkdXJhdGlvbjogJzMwIGTDrWFzJyxcbiAgICAgICAgICB0eXBlOiAncGVyc2lzdGVudCcsXG4gICAgICAgICAgc2VjdXJlOiB0cnVlLFxuICAgICAgICAgIGh0dHBPbmx5OiBmYWxzZSxcbiAgICAgICAgICBzYW1lU2l0ZTogJ2xheCcsXG4gICAgICAgICAgcHJvY2Vzc29yOiAnS29wcCBTdGFkaXVtIFMuTC4nLFxuICAgICAgICAgIGNvdW50cnk6ICdFc3Bhw7FhJyxcbiAgICAgICAgICBwZXJzb25hbERhdGE6IGZhbHNlXG4gICAgICAgIH0sXG4gICAgICAgIHtcbiAgICAgICAgICBuYW1lOiAndXNlcl9qb3VybmV5X3N0YWdlJyxcbiAgICAgICAgICBkb21haW46ICcua29wcC1zdGFkaXVtLmNvbScsXG4gICAgICAgICAgcHVycG9zZTogJ0V0YXBhIGRlbCB1c3VhcmlvIGVuIGVsIGN1c3RvbWVyIGpvdXJuZXknLFxuICAgICAgICAgIGR1cmF0aW9uOiAnOTAgZMOtYXMnLFxuICAgICAgICAgIHR5cGU6ICdwZXJzaXN0ZW50JyxcbiAgICAgICAgICBzZWN1cmU6IHRydWUsXG4gICAgICAgICAgaHR0cE9ubHk6IHRydWUsXG4gICAgICAgICAgc2FtZVNpdGU6ICdzdHJpY3QnLFxuICAgICAgICAgIHByb2Nlc3NvcjogJ0tvcHAgU3RhZGl1bSBTLkwuJyxcbiAgICAgICAgICBjb3VudHJ5OiAnRXNwYcOxYScsXG4gICAgICAgICAgcGVyc29uYWxEYXRhOiB0cnVlXG4gICAgICAgIH1cbiAgICAgIF1cbiAgICB9XG4gIF07XG5cbiAgLyoqXG4gICAqIE9idGVuZXIgcG9sw610aWNhIGRlIGNvb2tpZXMgY29tcGxldGFcbiAgICovXG4gIHN0YXRpYyBnZXRDb29raWVzUG9saWN5KCk6IHtcbiAgICB2ZXJzaW9uOiBzdHJpbmc7XG4gICAgbGFzdFVwZGF0ZWQ6IHN0cmluZztcbiAgICBjYXRlZ29yaWVzOiBDb29raWVDYXRlZ29yeVtdO1xuICAgIGxlZ2FsRnJhbWV3b3JrOiBhbnk7XG4gICAgdXNlclJpZ2h0czogYW55O1xuICAgIGNvbnRhY3RJbmZvOiBhbnk7XG4gIH0ge1xuICAgIHJldHVybiB7XG4gICAgICB2ZXJzaW9uOiB0aGlzLlBPTElDWV9WRVJTSU9OLFxuICAgICAgbGFzdFVwZGF0ZWQ6IHRoaXMuTEFTVF9VUERBVEVELFxuICAgICAgY2F0ZWdvcmllczogdGhpcy5DT09LSUVfQ0FURUdPUklFUyxcbiAgICAgIGxlZ2FsRnJhbWV3b3JrOiB7XG4gICAgICAgIHJncGQ6ICdSZWdsYW1lbnRvIEdlbmVyYWwgZGUgUHJvdGVjY2nDs24gZGUgRGF0b3MgKFVFKSAyMDE2LzY3OScsXG4gICAgICAgIGxzc2k6ICdMZXkgMzQvMjAwMiBkZSBTZXJ2aWNpb3MgZGUgbGEgU29jaWVkYWQgZGUgbGEgSW5mb3JtYWNpw7NuIHkgQ29tZXJjaW8gRWxlY3Ryw7NuaWNvJyxcbiAgICAgICAgbG9wZDogJ0xleSBPcmfDoW5pY2EgMy8yMDE4IGRlIFByb3RlY2Npw7NuIGRlIERhdG9zIFBlcnNvbmFsZXMgeSBHYXJhbnTDrWEgZGUgbG9zIERlcmVjaG9zIERpZ2l0YWxlcycsXG4gICAgICAgIGRpcmVjdGl2ZUNvb2tpZXM6ICdEaXJlY3RpdmEgMjAwOS8xMzYvQ0Ugc29icmUgcHJpdmFjaWRhZCB5IGNvbXVuaWNhY2lvbmVzIGVsZWN0csOzbmljYXMnLFxuICAgICAgICBhZXBkOiAnR3XDrWEgc29icmUgZWwgdXNvIGRlIGNvb2tpZXMgLSBBZ2VuY2lhIEVzcGHDsW9sYSBkZSBQcm90ZWNjacOzbiBkZSBEYXRvcydcbiAgICAgIH0sXG4gICAgICB1c2VyUmlnaHRzOiB7XG4gICAgICAgIGFjY2VzczogJ0RlcmVjaG8gZGUgYWNjZXNvIGEgc3VzIGRhdG9zIHBlcnNvbmFsZXMnLFxuICAgICAgICByZWN0aWZpY2F0aW9uOiAnRGVyZWNobyBkZSByZWN0aWZpY2FjacOzbiBkZSBkYXRvcyBpbmV4YWN0b3MnLFxuICAgICAgICBlcmFzdXJlOiAnRGVyZWNobyBkZSBzdXByZXNpw7NuIChcImRlcmVjaG8gYWwgb2x2aWRvXCIpJyxcbiAgICAgICAgcG9ydGFiaWxpdHk6ICdEZXJlY2hvIGEgbGEgcG9ydGFiaWxpZGFkIGRlIGRhdG9zJyxcbiAgICAgICAgcmVzdHJpY3Rpb246ICdEZXJlY2hvIGRlIGxpbWl0YWNpw7NuIGRlbCB0cmF0YW1pZW50bycsXG4gICAgICAgIG9iamVjdGlvbjogJ0RlcmVjaG8gZGUgb3Bvc2ljacOzbiBhbCB0cmF0YW1pZW50bycsXG4gICAgICAgIHdpdGhkcmF3OiAnRGVyZWNobyBhIHJldGlyYXIgZWwgY29uc2VudGltaWVudG8gZW4gY3VhbHF1aWVyIG1vbWVudG8nLFxuICAgICAgICBjb21wbGFpbnQ6ICdEZXJlY2hvIGEgcHJlc2VudGFyIHJlY2xhbWFjacOzbiBhbnRlIGxhIEFFUEQnXG4gICAgICB9LFxuICAgICAgY29udGFjdEluZm86IHtcbiAgICAgICAgY29tcGFueTogJ0tvcHAgU3RhZGl1bSBTLkwuJyxcbiAgICAgICAgYWRkcmVzczogJ0NhbGxlIEVqZW1wbG8sIDEyMywgMjgwMDEgTWFkcmlkLCBFc3Bhw7FhJyxcbiAgICAgICAgZW1haWw6ICdwcml2YWNpZGFkQGtvcHAtc3RhZGl1bS5jb20nLFxuICAgICAgICBwaG9uZTogJyszNCA5MDAgMTIzIDQ1NicsXG4gICAgICAgIGRwbzogJ2Rwb0Brb3BwLXN0YWRpdW0uY29tJyxcbiAgICAgICAgYWVwZDogJ2h0dHBzOi8vd3d3LmFlcGQuZXMvZXMvY2FuYWxlcy9jYW5hbC1kZS12aWRlby1kZW51bmNpYSdcbiAgICAgIH1cbiAgICB9O1xuICB9XG5cbiAgLyoqXG4gICAqIFZhbGlkYXIgY29uc2VudGltaWVudG8gc2Vnw7puIGVzdMOhbmRhcmVzIEFFUERcbiAgICovXG4gIHN0YXRpYyB2YWxpZGF0ZUNvbnNlbnQoY29uc2VudDogQ29va2llQ29uc2VudCk6IGJvb2xlYW4ge1xuICAgIGNvbnN0IHJlcXVpcmVkRmllbGRzID0gWyd0aW1lc3RhbXAnLCAndmVyc2lvbicsICdjYXRlZ29yaWVzJywgJ2NvbnNlbnRJZCddO1xuICAgIHJldHVybiByZXF1aXJlZEZpZWxkcy5ldmVyeShmaWVsZCA9PiBjb25zZW50W2ZpZWxkIGFzIGtleW9mIENvb2tpZUNvbnNlbnRdICE9PSB1bmRlZmluZWQpO1xuICB9XG5cbiAgLyoqXG4gICAqIEdlbmVyYXIgSUQgw7puaWNvIGRlIGNvbnNlbnRpbWllbnRvXG4gICAqL1xuICBzdGF0aWMgZ2VuZXJhdGVDb25zZW50SWQoKTogc3RyaW5nIHtcbiAgICByZXR1cm4gYGNvbnNlbnRfJHtEYXRlLm5vdygpfV8ke01hdGgucmFuZG9tKCkudG9TdHJpbmcoMzYpLnN1YnN0cigyLCA5KX1gO1xuICB9XG5cbiAgLyoqXG4gICAqIFZlcmlmaWNhciBzaSB1bmEgY29va2llIGVzcGVjw61maWNhIGVzdMOhIHBlcm1pdGlkYVxuICAgKi9cbiAgc3RhdGljIGlzQ29va2llQWxsb3dlZChjb29raWVOYW1lOiBzdHJpbmcsIGNvbnNlbnQ6IFJlY29yZDxzdHJpbmcsIGJvb2xlYW4+KTogYm9vbGVhbiB7XG4gICAgY29uc3QgY29va2llID0gdGhpcy5DT09LSUVfQ0FURUdPUklFU1xuICAgICAgLmZsYXRNYXAoY2F0ZWdvcnkgPT4gY2F0ZWdvcnkuY29va2llcylcbiAgICAgIC5maW5kKGMgPT4gYy5uYW1lID09PSBjb29raWVOYW1lKTtcbiAgICBcbiAgICBpZiAoIWNvb2tpZSkgcmV0dXJuIGZhbHNlO1xuICAgIFxuICAgIGNvbnN0IGNhdGVnb3J5ID0gdGhpcy5DT09LSUVfQ0FURUdPUklFUy5maW5kKGNhdCA9PiBcbiAgICAgIGNhdC5jb29raWVzLnNvbWUoYyA9PiBjLm5hbWUgPT09IGNvb2tpZU5hbWUpXG4gICAgKTtcbiAgICBcbiAgICByZXR1cm4gY2F0ZWdvcnkgPyAoY2F0ZWdvcnkuZXNzZW50aWFsIHx8IGNvbnNlbnRbY2F0ZWdvcnkuaWRdKSA6IGZhbHNlO1xuICB9XG5cbiAgLyoqXG4gICAqIE9idGVuZXIgY29va2llcyBwb3IgY2F0ZWdvcsOtYVxuICAgKi9cbiAgc3RhdGljIGdldENvb2tpZXNCeUNhdGVnb3J5KGNhdGVnb3J5SWQ6IHN0cmluZyk6IENvb2tpZURlZmluaXRpb25bXSB7XG4gICAgY29uc3QgY2F0ZWdvcnkgPSB0aGlzLkNPT0tJRV9DQVRFR09SSUVTLmZpbmQoY2F0ID0+IGNhdC5pZCA9PT0gY2F0ZWdvcnlJZCk7XG4gICAgcmV0dXJuIGNhdGVnb3J5Py5jb29raWVzIHx8IFtdO1xuICB9XG5cbiAgLyoqXG4gICAqIEdlbmVyYXIgcmVwb3J0ZSBkZSBjdW1wbGltaWVudG9cbiAgICovXG4gIHN0YXRpYyBnZW5lcmF0ZUNvbXBsaWFuY2VSZXBvcnQoKTogYW55IHtcbiAgICByZXR1cm4ge1xuICAgICAgdGltZXN0YW1wOiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksXG4gICAgICB2ZXJzaW9uOiB0aGlzLlBPTElDWV9WRVJTSU9OLFxuICAgICAgY29tcGxpYW5jZToge1xuICAgICAgICByZ3BkOiB0cnVlLFxuICAgICAgICBsc3NpOiB0cnVlLFxuICAgICAgICBhZXBkOiB0cnVlLFxuICAgICAgICBjb29raWVEaXJlY3RpdmU6IHRydWVcbiAgICAgIH0sXG4gICAgICBjYXRlZ29yaWVzQ291bnQ6IHRoaXMuQ09PS0lFX0NBVEVHT1JJRVMubGVuZ3RoLFxuICAgICAgdG90YWxDb29raWVzOiB0aGlzLkNPT0tJRV9DQVRFR09SSUVTLnJlZHVjZSgoc3VtLCBjYXQpID0+IHN1bSArIGNhdC5jb29raWVzLmxlbmd0aCwgMCksXG4gICAgICBlc3NlbnRpYWxDb29raWVzOiB0aGlzLkNPT0tJRV9DQVRFR09SSUVTLmZpbHRlcihjYXQgPT4gY2F0LmVzc2VudGlhbCkubGVuZ3RoLFxuICAgICAgZGF0YVRyYW5zZmVyczogdGhpcy5DT09LSUVfQ0FURUdPUklFUy5mbGF0TWFwKGNhdCA9PiBjYXQucHJvY2Vzc29ycykuZmlsdGVyKCh2LCBpLCBhKSA9PiBhLmluZGV4T2YodikgPT09IGkpLFxuICAgICAgcmV0ZW50aW9uUGVyaW9kczogdGhpcy5DT09LSUVfQ0FURUdPUklFUy5tYXAoY2F0ID0+IGNhdC5yZXRlbnRpb24pLFxuICAgICAgbGFzdEF1ZGl0OiB0aGlzLkxBU1RfVVBEQVRFRFxuICAgIH07XG4gIH1cbn1cblxuZXhwb3J0IGRlZmF1bHQgQ29va2llc1BvbGljeU1hbmFnZXI7XG4iXSwidmVyc2lvbiI6M30=
