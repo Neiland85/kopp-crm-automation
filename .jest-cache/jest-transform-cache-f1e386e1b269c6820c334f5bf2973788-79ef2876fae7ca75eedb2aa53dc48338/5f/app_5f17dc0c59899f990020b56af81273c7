@@ -1,0 +1,215 @@
+d858cdc4daac1b93d7cf20ab01cb1104
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const swagger_1 = require("./config/swagger");
+const health_1 = __importDefault(require("./routes/health"));
+const slack_1 = __importDefault(require("./routes/slack"));
+const hubspot_1 = __importDefault(require("./routes/hubspot"));
+const zapier_1 = __importDefault(require("./routes/zapier"));
+const app = (0, express_1.default)();
+const PORT = process.env.PORT || 3000;
+// Middleware básico
+app.use((0, cors_1.default)());
+app.use(express_1.default.json({ limit: '10mb' }));
+app.use(express_1.default.urlencoded({ extended: true }));
+// Middleware de logging simple
+app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`${timestamp} - ${req.method} ${req.path}`);
+    next();
+});
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     tags: [Health]
+ *     summary: Endpoint raíz de la API
+ *     description: |
+ *       Endpoint de bienvenida que proporciona información básica sobre la API de Kopp Stadium CRM.
+ *
+ *       **Información incluida:**
+ *       - 🎯 Nombre y versión de la API
+ *       - 📚 Enlaces a documentación
+ *       - 🔗 Endpoints disponibles
+ *       - 📊 Estado general del sistema
+ *       - 🚀 Información de despliegue
+ *     responses:
+ *       200:
+ *         description: Información de bienvenida de la API
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de bienvenida
+ *                 api:
+ *                   type: object
+ *                   properties:
+ *                     name: { type: string }
+ *                     version: { type: string }
+ *                     description: { type: string }
+ *                 documentation:
+ *                   type: object
+ *                   properties:
+ *                     swagger_ui: { type: string }
+ *                     openapi_json: { type: string }
+ *                     openapi_yaml: { type: string }
+ *                 endpoints:
+ *                   type: object
+ *                   properties:
+ *                     health: { type: array, items: { type: string } }
+ *                     slack: { type: array, items: { type: string } }
+ *                     hubspot: { type: array, items: { type: string } }
+ *                     zapier: { type: array, items: { type: string } }
+ *                 integrations:
+ *                   type: object
+ *                   properties:
+ *                     slack: { type: string }
+ *                     hubspot: { type: string }
+ *                     zapier: { type: string }
+ *                     google_sheets: { type: string }
+ *                 features:
+ *                   type: array
+ *                   items: { type: string }
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ *             example:
+ *               message: "🏟️ Bienvenido a Kopp Stadium CRM API"
+ *               api:
+ *                 name: "Kopp Stadium CRM API"
+ *                 version: "1.0.0"
+ *                 description: "Automatización estratégica de CRM con integración completa"
+ *               documentation:
+ *                 swagger_ui: "/api-docs"
+ *                 openapi_json: "/api-docs.json"
+ *                 openapi_yaml: "/api-docs.yaml"
+ *               endpoints:
+ *                 health: ["/health", "/health/detailed", "/version"]
+ *                 slack: ["/slack/notify", "/slack/channels", "/slack/webhook"]
+ *                 hubspot: ["/hubspot/contacts", "/hubspot/contacts/{id}/score"]
+ *                 zapier: ["/zapier/webhook/lead-scoring", "/zapier/webhook/form-submission", "/zapier/status"]
+ *               integrations:
+ *                 slack: "Notificaciones y alertas en tiempo real"
+ *                 hubspot: "Gestión de leads y contactos CRM"
+ *                 zapier: "Automatización de workflows"
+ *                 google_sheets: "Lead scoring y análisis"
+ *               features:
+ *                 - "🔒 Seguridad implementada con validación de tokens"
+ *                 - "⚡ Ultra cost-optimized CI/CD"
+ *                 - "📊 Lead scoring automático"
+ *                 - "🔔 Notificaciones inteligentes"
+ *                 - "🧪 Testing completo y coverage"
+ *                 - "📋 ADRs implementados"
+ *                 - "🎯 Rate limiting y validaciones"
+ *               timestamp: "2024-06-29T18:00:00.000Z"
+ */
+app.get('/', (req, res) => {
+    res.json({
+        message: '🏟️ Bienvenido a Kopp Stadium CRM API',
+        api: {
+            name: 'Kopp Stadium CRM API',
+            version: '1.0.0',
+            description: 'Automatización estratégica de CRM con integración completa',
+        },
+        documentation: {
+            swagger_ui: '/api-docs',
+            openapi_json: '/api-docs.json',
+            openapi_yaml: '/api-docs.yaml',
+        },
+        endpoints: {
+            health: ['/health', '/health/detailed', '/version'],
+            slack: ['/slack/notify', '/slack/channels', '/slack/webhook'],
+            hubspot: ['/hubspot/contacts', '/hubspot/contacts/{id}/score'],
+            zapier: [
+                '/zapier/webhook/lead-scoring',
+                '/zapier/webhook/form-submission',
+                '/zapier/status',
+            ],
+        },
+        integrations: {
+            slack: 'Notificaciones y alertas en tiempo real',
+            hubspot: 'Gestión de leads y contactos CRM',
+            zapier: 'Automatización de workflows',
+            google_sheets: 'Lead scoring y análisis',
+        },
+        features: [
+            '🔒 Seguridad implementada con validación de tokens',
+            '⚡ Ultra cost-optimized CI/CD',
+            '📊 Lead scoring automático',
+            '🔔 Notificaciones inteligentes',
+            '🧪 Testing completo y coverage',
+            '📋 ADRs implementados',
+            '🎯 Rate limiting y validaciones',
+        ],
+        timestamp: new Date().toISOString(),
+    });
+});
+// Configurar rutas
+app.use('/', health_1.default);
+app.use('/slack', slack_1.default);
+app.use('/hubspot', hubspot_1.default);
+app.use('/zapier', zapier_1.default);
+// Configurar Swagger
+(0, swagger_1.setupSwagger)(app);
+// Middleware de manejo de errores
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err, req, res, 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+_next) => {
+    console.error('Error:', err);
+    res.status(500).json({
+        error: 'INTERNAL_SERVER_ERROR',
+        message: 'Error interno del servidor',
+        timestamp: new Date().toISOString(),
+    });
+});
+// Middleware para rutas no encontradas
+app.use('*', (req, res) => {
+    res.status(404).json({
+        error: 'ENDPOINT_NOT_FOUND',
+        message: `Endpoint ${req.method} ${req.originalUrl} no encontrado`,
+        available_endpoints: {
+            documentation: '/api-docs',
+            health: '/health',
+            slack: '/slack/*',
+            hubspot: '/hubspot/*',
+            zapier: '/zapier/*',
+        },
+        timestamp: new Date().toISOString(),
+    });
+});
+// Iniciar servidor solo si no estamos en entorno de testing
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        console.log('🚀 Kopp Stadium CRM API iniciada exitosamente!');
+        console.log(`📍 Servidor ejecutándose en http://localhost:${PORT}`);
+        console.log(`📚 Documentación Swagger: http://localhost:${PORT}/api-docs`);
+        console.log(`🔍 Health Check: http://localhost:${PORT}/health`);
+        console.log(`⚡ Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log('');
+        console.log('🎯 Endpoints principales:');
+        console.log('   - GET  /health - Verificación de salud');
+        console.log('   - POST /slack/notify - Notificaciones Slack');
+        console.log('   - POST /hubspot/contacts - Crear contactos');
+        console.log('   - POST /zapier/webhook/lead-scoring - Webhook scoring');
+        console.log('   - POST /zapier/webhook/form-submission - Webhook formularios');
+        console.log('');
+        console.log('🔗 Integraciones activas:');
+        console.log('   - 📢 Slack API');
+        console.log('   - 📊 HubSpot CRM');
+        console.log('   - ⚡ Zapier Webhooks');
+        console.log('   - 📈 Google Sheets');
+        console.log('');
+        console.log('✨ ¡API lista para automatizar Kopp Stadium CRM!');
+    });
+}
+exports.default = app;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL2VzdHVkaW8vUHJvamVjdHMvR2l0SHViL01JQ1JPU0VSVklDSU9TL2tvcHAtc3RhZGl1bS1jcm1fc2xhY2staHVic3BvdC16YXBwaWVyLW5vdGlvbi9rb3BwLWNybS1hdXRvbWF0aW9uL3NyYy9hcHAudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxzREFBOEI7QUFDOUIsZ0RBQXdCO0FBQ3hCLDhDQUFnRDtBQUNoRCw2REFBMkM7QUFDM0MsMkRBQXlDO0FBQ3pDLCtEQUE2QztBQUM3Qyw2REFBMkM7QUFFM0MsTUFBTSxHQUFHLEdBQUcsSUFBQSxpQkFBTyxHQUFFLENBQUM7QUFDdEIsTUFBTSxJQUFJLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxJQUFJLElBQUksSUFBSSxDQUFDO0FBRXRDLG9CQUFvQjtBQUNwQixHQUFHLENBQUMsR0FBRyxDQUFDLElBQUEsY0FBSSxHQUFFLENBQUMsQ0FBQztBQUNoQixHQUFHLENBQUMsR0FBRyxDQUFDLGlCQUFPLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLE1BQU0sRUFBRSxDQUFDLENBQUMsQ0FBQztBQUN6QyxHQUFHLENBQUMsR0FBRyxDQUFDLGlCQUFPLENBQUMsVUFBVSxDQUFDLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxDQUFDLENBQUMsQ0FBQztBQUVoRCwrQkFBK0I7QUFDL0IsR0FBRyxDQUFDLEdBQUcsQ0FBQyxDQUFDLEdBQUcsRUFBRSxHQUFHLEVBQUUsSUFBSSxFQUFFLEVBQUU7SUFDekIsTUFBTSxTQUFTLEdBQUcsSUFBSSxJQUFJLEVBQUUsQ0FBQyxXQUFXLEVBQUUsQ0FBQztJQUMzQyxPQUFPLENBQUMsR0FBRyxDQUFDLEdBQUcsU0FBUyxNQUFNLEdBQUcsQ0FBQyxNQUFNLElBQUksR0FBRyxDQUFDLElBQUksRUFBRSxDQUFDLENBQUM7SUFDeEQsSUFBSSxFQUFFLENBQUM7QUFDVCxDQUFDLENBQUMsQ0FBQztBQUVIOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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Q3pDLE9BQU8sQ0FBQyxHQUFHLENBQUMsbUJBQW1CLENBQUMsQ0FBQztRQUNqQyxPQUFPLENBQUMsR0FBRyxDQUFDLHFCQUFxQixDQUFDLENBQUM7UUFDbkMsT0FBTyxDQUFDLEdBQUcsQ0FBQyx3QkFBd0IsQ0FBQyxDQUFDO1FBQ3RDLE9BQU8sQ0FBQyxHQUFHLENBQUMsdUJBQXVCLENBQUMsQ0FBQztRQUNyQyxPQUFPLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxDQUFDO1FBQ2hCLE9BQU8sQ0FBQyxHQUFHLENBQUMsaURBQWlELENBQUMsQ0FBQztJQUNqRSxDQUFDLENBQUMsQ0FBQztBQUNMLENBQUM7QUFFRCxrQkFBZSxHQUFHLENBQUMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiL1VzZXJzL2VzdHVkaW8vUHJvamVjdHMvR2l0SHViL01JQ1JPU0VSVklDSU9TL2tvcHAtc3RhZGl1bS1jcm1fc2xhY2staHVic3BvdC16YXBwaWVyLW5vdGlvbi9rb3BwLWNybS1hdXRvbWF0aW9uL3NyYy9hcHAudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGV4cHJlc3MgZnJvbSAnZXhwcmVzcyc7XG5pbXBvcnQgY29ycyBmcm9tICdjb3JzJztcbmltcG9ydCB7IHNldHVwU3dhZ2dlciB9IGZyb20gJy4vY29uZmlnL3N3YWdnZXInO1xuaW1wb3J0IGhlYWx0aFJvdXRlcyBmcm9tICcuL3JvdXRlcy9oZWFsdGgnO1xuaW1wb3J0IHNsYWNrUm91dGVzIGZyb20gJy4vcm91dGVzL3NsYWNrJztcbmltcG9ydCBodWJzcG90Um91dGVzIGZyb20gJy4vcm91dGVzL2h1YnNwb3QnO1xuaW1wb3J0IHphcGllclJvdXRlcyBmcm9tICcuL3JvdXRlcy96YXBpZXInO1xuXG5jb25zdCBhcHAgPSBleHByZXNzKCk7XG5jb25zdCBQT1JUID0gcHJvY2Vzcy5lbnYuUE9SVCB8fCAzMDAwO1xuXG4vLyBNaWRkbGV3YXJlIGLDoXNpY29cbmFwcC51c2UoY29ycygpKTtcbmFwcC51c2UoZXhwcmVzcy5qc29uKHsgbGltaXQ6ICcxMG1iJyB9KSk7XG5hcHAudXNlKGV4cHJlc3MudXJsZW5jb2RlZCh7IGV4dGVuZGVkOiB0cnVlIH0pKTtcblxuLy8gTWlkZGxld2FyZSBkZSBsb2dnaW5nIHNpbXBsZVxuYXBwLnVzZSgocmVxLCByZXMsIG5leHQpID0+IHtcbiAgY29uc3QgdGltZXN0YW1wID0gbmV3IERhdGUoKS50b0lTT1N0cmluZygpO1xuICBjb25zb2xlLmxvZyhgJHt0aW1lc3RhbXB9IC0gJHtyZXEubWV0aG9kfSAke3JlcS5wYXRofWApO1xuICBuZXh0KCk7XG59KTtcblxuLyoqXG4gKiBAc3dhZ2dlclxuICogLzpcbiAqICAgZ2V0OlxuICogICAgIHRhZ3M6IFtIZWFsdGhdXG4gKiAgICAgc3VtbWFyeTogRW5kcG9pbnQgcmHDrXogZGUgbGEgQVBJXG4gKiAgICAgZGVzY3JpcHRpb246IHxcbiAqICAgICAgIEVuZHBvaW50IGRlIGJpZW52ZW5pZGEgcXVlIHByb3BvcmNpb25hIGluZm9ybWFjacOzbiBiw6FzaWNhIHNvYnJlIGxhIEFQSSBkZSBLb3BwIFN0YWRpdW0gQ1JNLlxuICpcbiAqICAgICAgICoqSW5mb3JtYWNpw7NuIGluY2x1aWRhOioqXG4gKiAgICAgICAtIPCfjq8gTm9tYnJlIHkgdmVyc2nDs24gZGUgbGEgQVBJXG4gKiAgICAgICAtIPCfk5ogRW5sYWNlcyBhIGRvY3VtZW50YWNpw7NuXG4gKiAgICAgICAtIPCflJcgRW5kcG9pbnRzIGRpc3BvbmlibGVzXG4gKiAgICAgICAtIPCfk4ogRXN0YWRvIGdlbmVyYWwgZGVsIHNpc3RlbWFcbiAqICAgICAgIC0g8J+agCBJbmZvcm1hY2nDs24gZGUgZGVzcGxpZWd1ZVxuICogICAgIHJlc3BvbnNlczpcbiAqICAgICAgIDIwMDpcbiAqICAgICAgICAgZGVzY3JpcHRpb246IEluZm9ybWFjacOzbiBkZSBiaWVudmVuaWRhIGRlIGxhIEFQSVxuICogICAgICAgICBjb250ZW50OlxuICogICAgICAgICAgIGFwcGxpY2F0aW9uL2pzb246XG4gKiAgICAgICAgICAgICBzY2hlbWE6XG4gKiAgICAgICAgICAgICAgIHR5cGU6IG9iamVjdFxuICogICAgICAgICAgICAgICBwcm9wZXJ0aWVzOlxuICogICAgICAgICAgICAgICAgIG1lc3NhZ2U6XG4gKiAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmdcbiAqICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBNZW5zYWplIGRlIGJpZW52ZW5pZGFcbiAqICAgICAgICAgICAgICAgICBhcGk6XG4gKiAgICAgICAgICAgICAgICAgICB0eXBlOiBvYmplY3RcbiAqICAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXM6XG4gKiAgICAgICAgICAgICAgICAgICAgIG5hbWU6IHsgdHlwZTogc3RyaW5nIH1cbiAqICAgICAgICAgICAgICAgICAgICAgdmVyc2lvbjogeyB0eXBlOiBzdHJpbmcgfVxuICogICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogeyB0eXBlOiBzdHJpbmcgfVxuICogICAgICAgICAgICAgICAgIGRvY3VtZW50YXRpb246XG4gKiAgICAgICAgICAgICAgICAgICB0eXBlOiBvYmplY3RcbiAqICAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXM6XG4gKiAgICAgICAgICAgICAgICAgICAgIHN3YWdnZXJfdWk6IHsgdHlwZTogc3RyaW5nIH1cbiAqICAgICAgICAgICAgICAgICAgICAgb3BlbmFwaV9qc29uOiB7IHR5cGU6IHN0cmluZyB9XG4gKiAgICAgICAgICAgICAgICAgICAgIG9wZW5hcGlfeWFtbDogeyB0eXBlOiBzdHJpbmcgfVxuICogICAgICAgICAgICAgICAgIGVuZHBvaW50czpcbiAqICAgICAgICAgICAgICAgICAgIHR5cGU6IG9iamVjdFxuICogICAgICAgICAgICAgICAgICAgcHJvcGVydGllczpcbiAqICAgICAgICAgICAgICAgICAgICAgaGVhbHRoOiB7IHR5cGU6IGFycmF5LCBpdGVtczogeyB0eXBlOiBzdHJpbmcgfSB9XG4gKiAgICAgICAgICAgICAgICAgICAgIHNsYWNrOiB7IHR5cGU6IGFycmF5LCBpdGVtczogeyB0eXBlOiBzdHJpbmcgfSB9XG4gKiAgICAgICAgICAgICAgICAgICAgIGh1YnNwb3Q6IHsgdHlwZTogYXJyYXksIGl0ZW1zOiB7IHR5cGU6IHN0cmluZyB9IH1cbiAqICAgICAgICAgICAgICAgICAgICAgemFwaWVyOiB7IHR5cGU6IGFycmF5LCBpdGVtczogeyB0eXBlOiBzdHJpbmcgfSB9XG4gKiAgICAgICAgICAgICAgICAgaW50ZWdyYXRpb25zOlxuICogICAgICAgICAgICAgICAgICAgdHlwZTogb2JqZWN0XG4gKiAgICAgICAgICAgICAgICAgICBwcm9wZXJ0aWVzOlxuICogICAgICAgICAgICAgICAgICAgICBzbGFjazogeyB0eXBlOiBzdHJpbmcgfVxuICogICAgICAgICAgICAgICAgICAgICBodWJzcG90OiB7IHR5cGU6IHN0cmluZyB9XG4gKiAgICAgICAgICAgICAgICAgICAgIHphcGllcjogeyB0eXBlOiBzdHJpbmcgfVxuICogICAgICAgICAgICAgICAgICAgICBnb29nbGVfc2hlZXRzOiB7IHR5cGU6IHN0cmluZyB9XG4gKiAgICAgICAgICAgICAgICAgZmVhdHVyZXM6XG4gKiAgICAgICAgICAgICAgICAgICB0eXBlOiBhcnJheVxuICogICAgICAgICAgICAgICAgICAgaXRlbXM6IHsgdHlwZTogc3RyaW5nIH1cbiAqICAgICAgICAgICAgICAgICB0aW1lc3RhbXA6XG4gKiAgICAgICAgICAgICAgICAgICB0eXBlOiBzdHJpbmdcbiAqICAgICAgICAgICAgICAgICAgIGZvcm1hdDogZGF0ZS10aW1lXG4gKiAgICAgICAgICAgICBleGFtcGxlOlxuICogICAgICAgICAgICAgICBtZXNzYWdlOiBcIvCfj5/vuI8gQmllbnZlbmlkbyBhIEtvcHAgU3RhZGl1bSBDUk0gQVBJXCJcbiAqICAgICAgICAgICAgICAgYXBpOlxuICogICAgICAgICAgICAgICAgIG5hbWU6IFwiS29wcCBTdGFkaXVtIENSTSBBUElcIlxuICogICAgICAgICAgICAgICAgIHZlcnNpb246IFwiMS4wLjBcIlxuICogICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uOiBcIkF1dG9tYXRpemFjacOzbiBlc3RyYXTDqWdpY2EgZGUgQ1JNIGNvbiBpbnRlZ3JhY2nDs24gY29tcGxldGFcIlxuICogICAgICAgICAgICAgICBkb2N1bWVudGF0aW9uOlxuICogICAgICAgICAgICAgICAgIHN3YWdnZXJfdWk6IFwiL2FwaS1kb2NzXCJcbiAqICAgICAgICAgICAgICAgICBvcGVuYXBpX2pzb246IFwiL2FwaS1kb2NzLmpzb25cIlxuICogICAgICAgICAgICAgICAgIG9wZW5hcGlfeWFtbDogXCIvYXBpLWRvY3MueWFtbFwiXG4gKiAgICAgICAgICAgICAgIGVuZHBvaW50czpcbiAqICAgICAgICAgICAgICAgICBoZWFsdGg6IFtcIi9oZWFsdGhcIiwgXCIvaGVhbHRoL2RldGFpbGVkXCIsIFwiL3ZlcnNpb25cIl1cbiAqICAgICAgICAgICAgICAgICBzbGFjazogW1wiL3NsYWNrL25vdGlmeVwiLCBcIi9zbGFjay9jaGFubmVsc1wiLCBcIi9zbGFjay93ZWJob29rXCJdXG4gKiAgICAgICAgICAgICAgICAgaHVic3BvdDogW1wiL2h1YnNwb3QvY29udGFjdHNcIiwgXCIvaHVic3BvdC9jb250YWN0cy97aWR9L3Njb3JlXCJdXG4gKiAgICAgICAgICAgICAgICAgemFwaWVyOiBbXCIvemFwaWVyL3dlYmhvb2svbGVhZC1zY29yaW5nXCIsIFwiL3phcGllci93ZWJob29rL2Zvcm0tc3VibWlzc2lvblwiLCBcIi96YXBpZXIvc3RhdHVzXCJdXG4gKiAgICAgICAgICAgICAgIGludGVncmF0aW9uczpcbiAqICAgICAgICAgICAgICAgICBzbGFjazogXCJOb3RpZmljYWNpb25lcyB5IGFsZXJ0YXMgZW4gdGllbXBvIHJlYWxcIlxuICogICAgICAgICAgICAgICAgIGh1YnNwb3Q6IFwiR2VzdGnDs24gZGUgbGVhZHMgeSBjb250YWN0b3MgQ1JNXCJcbiAqICAgICAgICAgICAgICAgICB6YXBpZXI6IFwiQXV0b21hdGl6YWNpw7NuIGRlIHdvcmtmbG93c1wiXG4gKiAgICAgICAgICAgICAgICAgZ29vZ2xlX3NoZWV0czogXCJMZWFkIHNjb3JpbmcgeSBhbsOhbGlzaXNcIlxuICogICAgICAgICAgICAgICBmZWF0dXJlczpcbiAqICAgICAgICAgICAgICAgICAtIFwi8J+UkiBTZWd1cmlkYWQgaW1wbGVtZW50YWRhIGNvbiB2YWxpZGFjacOzbiBkZSB0b2tlbnNcIlxuICogICAgICAgICAgICAgICAgIC0gXCLimqEgVWx0cmEgY29zdC1vcHRpbWl6ZWQgQ0kvQ0RcIlxuICogICAgICAgICAgICAgICAgIC0gXCLwn5OKIExlYWQgc2NvcmluZyBhdXRvbcOhdGljb1wiXG4gKiAgICAgICAgICAgICAgICAgLSBcIvCflJQgTm90aWZpY2FjaW9uZXMgaW50ZWxpZ2VudGVzXCJcbiAqICAgICAgICAgICAgICAgICAtIFwi8J+nqiBUZXN0aW5nIGNvbXBsZXRvIHkgY292ZXJhZ2VcIlxuICogICAgICAgICAgICAgICAgIC0gXCLwn5OLIEFEUnMgaW1wbGVtZW50YWRvc1wiXG4gKiAgICAgICAgICAgICAgICAgLSBcIvCfjq8gUmF0ZSBsaW1pdGluZyB5IHZhbGlkYWNpb25lc1wiXG4gKiAgICAgICAgICAgICAgIHRpbWVzdGFtcDogXCIyMDI0LTA2LTI5VDE4OjAwOjAwLjAwMFpcIlxuICovXG5hcHAuZ2V0KCcvJywgKHJlcSwgcmVzKSA9PiB7XG4gIHJlcy5qc29uKHtcbiAgICBtZXNzYWdlOiAn8J+Pn++4jyBCaWVudmVuaWRvIGEgS29wcCBTdGFkaXVtIENSTSBBUEknLFxuICAgIGFwaToge1xuICAgICAgbmFtZTogJ0tvcHAgU3RhZGl1bSBDUk0gQVBJJyxcbiAgICAgIHZlcnNpb246ICcxLjAuMCcsXG4gICAgICBkZXNjcmlwdGlvbjogJ0F1dG9tYXRpemFjacOzbiBlc3RyYXTDqWdpY2EgZGUgQ1JNIGNvbiBpbnRlZ3JhY2nDs24gY29tcGxldGEnLFxuICAgIH0sXG4gICAgZG9jdW1lbnRhdGlvbjoge1xuICAgICAgc3dhZ2dlcl91aTogJy9hcGktZG9jcycsXG4gICAgICBvcGVuYXBpX2pzb246ICcvYXBpLWRvY3MuanNvbicsXG4gICAgICBvcGVuYXBpX3lhbWw6ICcvYXBpLWRvY3MueWFtbCcsXG4gICAgfSxcbiAgICBlbmRwb2ludHM6IHtcbiAgICAgIGhlYWx0aDogWycvaGVhbHRoJywgJy9oZWFsdGgvZGV0YWlsZWQnLCAnL3ZlcnNpb24nXSxcbiAgICAgIHNsYWNrOiBbJy9zbGFjay9ub3RpZnknLCAnL3NsYWNrL2NoYW5uZWxzJywgJy9zbGFjay93ZWJob29rJ10sXG4gICAgICBodWJzcG90OiBbJy9odWJzcG90L2NvbnRhY3RzJywgJy9odWJzcG90L2NvbnRhY3RzL3tpZH0vc2NvcmUnXSxcbiAgICAgIHphcGllcjogW1xuICAgICAgICAnL3phcGllci93ZWJob29rL2xlYWQtc2NvcmluZycsXG4gICAgICAgICcvemFwaWVyL3dlYmhvb2svZm9ybS1zdWJtaXNzaW9uJyxcbiAgICAgICAgJy96YXBpZXIvc3RhdHVzJyxcbiAgICAgIF0sXG4gICAgfSxcbiAgICBpbnRlZ3JhdGlvbnM6IHtcbiAgICAgIHNsYWNrOiAnTm90aWZpY2FjaW9uZXMgeSBhbGVydGFzIGVuIHRpZW1wbyByZWFsJyxcbiAgICAgIGh1YnNwb3Q6ICdHZXN0acOzbiBkZSBsZWFkcyB5IGNvbnRhY3RvcyBDUk0nLFxuICAgICAgemFwaWVyOiAnQXV0b21hdGl6YWNpw7NuIGRlIHdvcmtmbG93cycsXG4gICAgICBnb29nbGVfc2hlZXRzOiAnTGVhZCBzY29yaW5nIHkgYW7DoWxpc2lzJyxcbiAgICB9LFxuICAgIGZlYXR1cmVzOiBbXG4gICAgICAn8J+UkiBTZWd1cmlkYWQgaW1wbGVtZW50YWRhIGNvbiB2YWxpZGFjacOzbiBkZSB0b2tlbnMnLFxuICAgICAgJ+KaoSBVbHRyYSBjb3N0LW9wdGltaXplZCBDSS9DRCcsXG4gICAgICAn8J+TiiBMZWFkIHNjb3JpbmcgYXV0b23DoXRpY28nLFxuICAgICAgJ/CflJQgTm90aWZpY2FjaW9uZXMgaW50ZWxpZ2VudGVzJyxcbiAgICAgICfwn6eqIFRlc3RpbmcgY29tcGxldG8geSBjb3ZlcmFnZScsXG4gICAgICAn8J+TiyBBRFJzIGltcGxlbWVudGFkb3MnLFxuICAgICAgJ/Cfjq8gUmF0ZSBsaW1pdGluZyB5IHZhbGlkYWNpb25lcycsXG4gICAgXSxcbiAgICB0aW1lc3RhbXA6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSxcbiAgfSk7XG59KTtcblxuLy8gQ29uZmlndXJhciBydXRhc1xuYXBwLnVzZSgnLycsIGhlYWx0aFJvdXRlcyk7XG5hcHAudXNlKCcvc2xhY2snLCBzbGFja1JvdXRlcyk7XG5hcHAudXNlKCcvaHVic3BvdCcsIGh1YnNwb3RSb3V0ZXMpO1xuYXBwLnVzZSgnL3phcGllcicsIHphcGllclJvdXRlcyk7XG5cbi8vIENvbmZpZ3VyYXIgU3dhZ2dlclxuc2V0dXBTd2FnZ2VyKGFwcCk7XG5cbi8vIE1pZGRsZXdhcmUgZGUgbWFuZWpvIGRlIGVycm9yZXNcbi8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBAdHlwZXNjcmlwdC1lc2xpbnQvbm8tdW51c2VkLXZhcnNcbmFwcC51c2UoXG4gIChcbiAgICBlcnI6IGFueSxcbiAgICByZXE6IGV4cHJlc3MuUmVxdWVzdCxcbiAgICByZXM6IGV4cHJlc3MuUmVzcG9uc2UsXG4gICAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIEB0eXBlc2NyaXB0LWVzbGludC9uby11bnVzZWQtdmFyc1xuICAgIF9uZXh0OiBleHByZXNzLk5leHRGdW5jdGlvblxuICApID0+IHtcbiAgICBjb25zb2xlLmVycm9yKCdFcnJvcjonLCBlcnIpO1xuICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHtcbiAgICAgIGVycm9yOiAnSU5URVJOQUxfU0VSVkVSX0VSUk9SJyxcbiAgICAgIG1lc3NhZ2U6ICdFcnJvciBpbnRlcm5vIGRlbCBzZXJ2aWRvcicsXG4gICAgICB0aW1lc3RhbXA6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSxcbiAgICB9KTtcbiAgfVxuKTtcblxuLy8gTWlkZGxld2FyZSBwYXJhIHJ1dGFzIG5vIGVuY29udHJhZGFzXG5hcHAudXNlKCcqJywgKHJlcSwgcmVzKSA9PiB7XG4gIHJlcy5zdGF0dXMoNDA0KS5qc29uKHtcbiAgICBlcnJvcjogJ0VORFBPSU5UX05PVF9GT1VORCcsXG4gICAgbWVzc2FnZTogYEVuZHBvaW50ICR7cmVxLm1ldGhvZH0gJHtyZXEub3JpZ2luYWxVcmx9IG5vIGVuY29udHJhZG9gLFxuICAgIGF2YWlsYWJsZV9lbmRwb2ludHM6IHtcbiAgICAgIGRvY3VtZW50YXRpb246ICcvYXBpLWRvY3MnLFxuICAgICAgaGVhbHRoOiAnL2hlYWx0aCcsXG4gICAgICBzbGFjazogJy9zbGFjay8qJyxcbiAgICAgIGh1YnNwb3Q6ICcvaHVic3BvdC8qJyxcbiAgICAgIHphcGllcjogJy96YXBpZXIvKicsXG4gICAgfSxcbiAgICB0aW1lc3RhbXA6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSxcbiAgfSk7XG59KTtcblxuLy8gSW5pY2lhciBzZXJ2aWRvciBzb2xvIHNpIG5vIGVzdGFtb3MgZW4gZW50b3JubyBkZSB0ZXN0aW5nXG5pZiAocHJvY2Vzcy5lbnYuTk9ERV9FTlYgIT09ICd0ZXN0Jykge1xuICBhcHAubGlzdGVuKFBPUlQsICgpID0+IHtcbiAgICBjb25zb2xlLmxvZygn8J+agCBLb3BwIFN0YWRpdW0gQ1JNIEFQSSBpbmljaWFkYSBleGl0b3NhbWVudGUhJyk7XG4gICAgY29uc29sZS5sb2coYPCfk40gU2Vydmlkb3IgZWplY3V0w6FuZG9zZSBlbiBodHRwOi8vbG9jYWxob3N0OiR7UE9SVH1gKTtcbiAgICBjb25zb2xlLmxvZyhg8J+TmiBEb2N1bWVudGFjacOzbiBTd2FnZ2VyOiBodHRwOi8vbG9jYWxob3N0OiR7UE9SVH0vYXBpLWRvY3NgKTtcbiAgICBjb25zb2xlLmxvZyhg8J+UjSBIZWFsdGggQ2hlY2s6IGh0dHA6Ly9sb2NhbGhvc3Q6JHtQT1JUfS9oZWFsdGhgKTtcbiAgICBjb25zb2xlLmxvZyhg4pqhIEVudmlyb25tZW50OiAke3Byb2Nlc3MuZW52Lk5PREVfRU5WIHx8ICdkZXZlbG9wbWVudCd9YCk7XG4gICAgY29uc29sZS5sb2coJycpO1xuICAgIGNvbnNvbGUubG9nKCfwn46vIEVuZHBvaW50cyBwcmluY2lwYWxlczonKTtcbiAgICBjb25zb2xlLmxvZygnICAgLSBHRVQgIC9oZWFsdGggLSBWZXJpZmljYWNpw7NuIGRlIHNhbHVkJyk7XG4gICAgY29uc29sZS5sb2coJyAgIC0gUE9TVCAvc2xhY2svbm90aWZ5IC0gTm90aWZpY2FjaW9uZXMgU2xhY2snKTtcbiAgICBjb25zb2xlLmxvZygnICAgLSBQT1NUIC9odWJzcG90L2NvbnRhY3RzIC0gQ3JlYXIgY29udGFjdG9zJyk7XG4gICAgY29uc29sZS5sb2coJyAgIC0gUE9TVCAvemFwaWVyL3dlYmhvb2svbGVhZC1zY29yaW5nIC0gV2ViaG9vayBzY29yaW5nJyk7XG4gICAgY29uc29sZS5sb2coXG4gICAgICAnICAgLSBQT1NUIC96YXBpZXIvd2ViaG9vay9mb3JtLXN1Ym1pc3Npb24gLSBXZWJob29rIGZvcm11bGFyaW9zJ1xuICAgICk7XG4gICAgY29uc29sZS5sb2coJycpO1xuICAgIGNvbnNvbGUubG9nKCfwn5SXIEludGVncmFjaW9uZXMgYWN0aXZhczonKTtcbiAgICBjb25zb2xlLmxvZygnICAgLSDwn5OiIFNsYWNrIEFQSScpO1xuICAgIGNvbnNvbGUubG9nKCcgICAtIPCfk4ogSHViU3BvdCBDUk0nKTtcbiAgICBjb25zb2xlLmxvZygnICAgLSDimqEgWmFwaWVyIFdlYmhvb2tzJyk7XG4gICAgY29uc29sZS5sb2coJyAgIC0g8J+TiCBHb29nbGUgU2hlZXRzJyk7XG4gICAgY29uc29sZS5sb2coJycpO1xuICAgIGNvbnNvbGUubG9nKCfinKggwqFBUEkgbGlzdGEgcGFyYSBhdXRvbWF0aXphciBLb3BwIFN0YWRpdW0gQ1JNIScpO1xuICB9KTtcbn1cblxuZXhwb3J0IGRlZmF1bHQgYXBwO1xuIl0sInZlcnNpb24iOjN9
