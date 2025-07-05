@@ -127,8 +127,8 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@types/supertest": "^6.0.3",
-    "@typescript-eslint/eslint-plugin": "^8.35.0",
-    "@typescript-eslint/parser": "^8.35.0",
+    "@typescript-eslint/eslint-plugin": "8.35.1",
+    "@typescript-eslint/parser": "8.35.1",
     "chai": "5.2.0",
     "eslint": "^8.0.0",
     "eslint-plugin-import": "2.32.0",
@@ -210,5 +210,6 @@
     "*.{sh,bash}": [
       "chmod +x"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }

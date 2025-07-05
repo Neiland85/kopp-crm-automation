@@ -5,7 +5,7 @@
 import express, { Request, Response } from 'express';
 
 // Crear la app de testing sin inicializar servicios externos
-const app = express();
+const app: express.Application = express();
 
 // Middleware básico
 app.use(express.json());
