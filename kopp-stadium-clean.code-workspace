@@ -12,7 +12,6 @@
     "copilot.experimental.introspection.enable": false,
     "workbench.startupEditor": "welcomePage",
     "workbench.statusBar.visible": true,
-    "workbench.activityBar.visible": true,
     "workbench.sideBar.location": "left",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.shell.osx": "/bin/zsh",
