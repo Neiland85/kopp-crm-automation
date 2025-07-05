@@ -190,6 +190,7 @@
   },
   "overrides": {
     "crypto-js": "^4.2.0",
+    "cross-spawn": "^7.0.6",
     "undici": "^6.0.0",
     "esbuild": "^0.24.0",
     "tar": "^6.2.1",
@@ -214,7 +215,8 @@
   },
   "pnpm": {
     "overrides": {
-      "crypto-js": "^4.2.0"
+      "crypto-js": "^4.2.0",
+      "cross-spawn": "^7.0.6"
     }
   },
   "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
