@@ -5,7 +5,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { CookiesPolicyManager, CookieCategory, CookieConsent } from '../policies/cookies-policy';
+import {
+  CookiesPolicyManager,
+  CookieCategory,
+  CookieConsent,
+} from '../../policies/cookies-policy';
 
 interface CookieConsentBannerProps {
   onConsentChange?: (consent: Record<string, boolean>) => void;
