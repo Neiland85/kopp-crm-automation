@@ -11,6 +11,12 @@
     "copy-assets": "cp -r config/ dist/ && cp .env.example dist/",
     "deploy": "npm run build && npm run deploy:vercel",
     "deploy:vercel": "vercel --prod",
+    "deploy:production": "./scripts/deploy-production.sh",
+    "deploy:staging": "vercel --target staging",
+    "deploy:preview": "vercel",
+    "production:setup": "npm run build:production && npm run test:ci",
+    "production:deploy": "npm run production:setup && npm run deploy:production",
+    "production:health": "curl https://kopp-crm-automation.vercel.app/health",
     "lint": "eslint \"src/**/*.{js,ts}\" --fix",
     "lint:check": "eslint \"src/**/*.{js,ts}\"",
     "lint:staged": "lint-staged",
@@ -89,20 +95,9 @@
     "lint:md:fix": "markdownlint '**/*.md' --ignore node_modules --fix",
     "format:all": "prettier --write '**/*.{ts,js,json,yaml,yml,md}' --ignore-path .gitignore",
     "prepare": "husky install",
-    "workspace:install": "pnpm install --recursive",
-    "workspace:clean": "pnpm exec rimraf node_modules && pnpm store prune",
-    "workspace:outdated": "pnpm outdated --recursive",
-    "workspace:update": "pnpm update --recursive",
-    "gdpr:validate": "pnpm exec eslint \"gdpr/**/*.{js,ts}\" && node gdpr/validate-cookies-policy.js",
-    "gdpr:audit": "node scripts/gdpr-audit.js",
-    "gdpr:generate-report": "node scripts/gdpr-report-generator.js",
-    "gdpr:test": "pnpm exec jest --testPathPattern=gdpr",
-    "security:scan": "pnpm audit --audit-level moderate && npx snyk test",
-    "security:fix": "pnpm audit --fix && npx snyk fix",
-    "security:report": "node scripts/security-report.js",
-    "dev:pnpm": "pnpm exec ts-node-dev --respawn --transpile-only src/index.ts",
-    "build:pnpm": "pnpm exec tsc && pnpm run copy-assets",
-    "test:pnpm": "pnpm exec jest"
+    "security:scan": "npm audit --audit-level moderate",
+    "security:fix": "npm audit --fix",
+    "security:report": "node scripts/security-report.js"
   },
   "keywords": [
     "slack",
@@ -143,7 +138,6 @@
     "nock": "14.0.5",
     "pre-commit": "^1.0.10",
     "prettier": "^3.0.0",
-    "snyk": "1.1297.3",
     "supertest": "^7.1.1",
     "ts-jest": "^29.4.0",
     "ts-node-dev": "^2.0.0",
@@ -167,8 +161,6 @@
     "@types/swagger-ui-express": "^4.1.8",
     "axios": "^1.10.0",
     "cookie-parser": "1.4.7",
-    "cookie-universal": "2.2.2",
-    "cookie-universal-nuxt": "2.2.2",
     "cors": "^2.8.5",
     "cross-spawn": "^7.0.6",
     "crypto-js": "4.2.0",
@@ -176,20 +168,16 @@
     "estree-util-value-to-estree": "^3.4.0",
     "express": "^4.18.0",
     "firebase-admin": "^12.0.0",
-    "gdpr-consent": "5.0.4",
     "js-cookie": "3.0.5",
     "node-cron": "^4.1.1",
     "react": "^18.2.0",
-    "react-cookie-consent": "9.0.0",
     "react-dom": "^18.2.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "vanilla-cookieconsent": "3.1.0",
     "yaml": "^2.8.0",
     "zapier-platform-core": "^17.1.0"
   },
   "overrides": {
-    "crypto-js": "^4.2.0",
     "cross-spawn": "^7.0.6",
     "undici": "^6.0.0",
     "esbuild": "^0.24.0",
@@ -212,12 +200,6 @@
     "*.{sh,bash}": [
       "chmod +x"
     ]
-  },
-  "pnpm": {
-    "overrides": {
-      "crypto-js": "^4.2.0",
-      "cross-spawn": "^7.0.6"
-    }
   },
   "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }

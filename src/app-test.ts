@@ -3,6 +3,7 @@
  */
 
 import express, { Request, Response } from 'express';
+import { healthCheck, readinessCheck } from './controllers/healthController';
 
 // Crear la app de testing sin inicializar servicios externos
 const app: express.Application = express();
@@ -11,16 +12,9 @@ const app: express.Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health check endpoint
-app.get('/health', (req: Request, res: Response) => {
-  res.json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    version: process.env.npm_package_version || '1.0.0',
-    environment: process.env.NODE_ENV || 'test',
-    uptime: process.uptime(),
-  });
-});
+// Health check endpoints using the actual controller
+app.get('/health', healthCheck);
+app.get('/ready', readinessCheck);
 
 // Mock integrations endpoint para testing
 app.get('/api/integrations/test', (req: Request, res: Response) => {

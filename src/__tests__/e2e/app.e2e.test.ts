@@ -7,12 +7,18 @@ import app from '../../app-test';
 
 describe('E2E Tests', () => {
   describe('Health Check', () => {
-    it('should return 200 for health endpoint', async () => {
-      const response = await request(app).get('/health').expect(200);
+    it('should return healthy status for health endpoint', async () => {
+      const response = await request(app).get('/health');
 
-      expect(response.body).toHaveProperty('status', 'OK');
+      // Accept both 200 (healthy) and 206 (degraded with unknown services)
+      expect([200, 206]).toContain(response.status);
+
+      expect(response.body).toHaveProperty('status');
+      expect(['healthy', 'degraded']).toContain(response.body.status);
       expect(response.body).toHaveProperty('timestamp');
       expect(response.body).toHaveProperty('uptime');
+      expect(response.body).toHaveProperty('services');
+      expect(response.body).toHaveProperty('metrics');
     });
   });
 
