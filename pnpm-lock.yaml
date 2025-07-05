@@ -6,6 +6,7 @@ settings:
 
 overrides:
   crypto-js: ^4.2.0
+  cross-spawn: ^7.0.6
 
 importers:
   .:
@@ -5693,12 +5694,6 @@ packages:
         integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==,
       }
 
-  cross-spawn@5.1.0:
-    resolution:
-      {
-        integrity: sha512-pTgQJ5KC0d2hcY8eyL1IzlBPYjTkyH72XRZPnLyKus2mBfNjQs3klqbJU2VILqZryAZUt9JOb3h/mWMy23/f5A==,
-      }
-
   cross-spawn@7.0.6:
     resolution:
       {
@@ -9527,12 +9522,6 @@ packages:
       }
     engines: { node: 20 || >=22 }
 
-  lru-cache@4.1.5:
-    resolution:
-      {
-        integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==,
-      }
-
   lru-cache@5.1.1:
     resolution:
       {
@@ -11671,12 +11660,6 @@ packages:
         integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==,
       }
 
-  pseudomap@1.0.2:
-    resolution:
-      {
-        integrity: sha512-b/YwNhb8lk1Zz2+bXXpS/LK9OisiZZ1SNsSLxN1x2OXVEhW2Ckr/7mWE5vrC1ZTiJlD9g19jWszTmJsB+oEpFQ==,
-      }
-
   pump@2.0.1:
     resolution:
       {
@@ -12511,26 +12494,12 @@ packages:
       }
     engines: { node: '>=8' }
 
-  shebang-command@1.2.0:
-    resolution:
-      {
-        integrity: sha512-EV3L1+UQWGor21OmnvojK36mhg+TyIKDh3iFBKBohr5xeXIhNBcx8oWdgkTEEQ+BEFFYdLRuqMfd5L84N1V5Vg==,
-      }
-    engines: { node: '>=0.10.0' }
-
   shebang-command@2.0.0:
     resolution:
       {
         integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==,
       }
     engines: { node: '>=8' }
-
-  shebang-regex@1.0.0:
-    resolution:
-      {
-        integrity: sha512-wpoSFAxys6b2a2wHZ1XpDSgD7N9iVjg29Ph9uV/uaP9Ex/KXlkTZTeddxDPSYQpgvzKLGJke2UU0AzoGCjNIvQ==,
-      }
-    engines: { node: '>=0.10.0' }
 
   shebang-regex@3.0.0:
     resolution:
@@ -14312,12 +14281,6 @@ packages:
         integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==,
       }
     engines: { node: '>=10' }
-
-  yallist@2.1.2:
-    resolution:
-      {
-        integrity: sha512-ncTzHV7NvsQZkYe1DW7cbDLm0YpzHmZF5r/iyP3ZnQtMiJ+pjzisCiMNI+Sj+xQF5pXhSHxSB3uDbsBTzY/c2A==,
-      }
 
   yallist@3.1.1:
     resolution:
@@ -18287,12 +18250,6 @@ snapshots:
 
   create-require@1.1.1: {}
 
-  cross-spawn@5.1.0:
-    dependencies:
-      lru-cache: 4.1.5
-      shebang-command: 1.2.0
-      which: 1.2.14
-
   cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
@@ -20963,11 +20920,6 @@ snapshots:
 
   lru-cache@11.1.0: {}
 
-  lru-cache@4.1.5:
-    dependencies:
-      pseudomap: 1.0.2
-      yallist: 2.1.2
-
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
@@ -22520,7 +22472,7 @@ snapshots:
 
   pre-commit@1.2.2:
     dependencies:
-      cross-spawn: 5.1.0
+      cross-spawn: 7.0.6
       spawn-sync: 1.0.15
       which: 1.2.14
 
@@ -22623,8 +22575,6 @@ snapshots:
       - supports-color
 
   proxy-from-env@1.1.0: {}
-
-  pseudomap@1.0.2: {}
 
   pump@2.0.1:
     dependencies:
@@ -23213,15 +23163,9 @@ snapshots:
     dependencies:
       kind-of: 6.0.3
 
-  shebang-command@1.2.0:
-    dependencies:
-      shebang-regex: 1.0.0
-
   shebang-command@2.0.0:
     dependencies:
       shebang-regex: 3.0.0
-
-  shebang-regex@1.0.0: {}
 
   shebang-regex@3.0.0: {}
 
@@ -24421,8 +24365,6 @@ snapshots:
   xtend@4.0.2: {}
 
   y18n@5.0.8: {}
-
-  yallist@2.1.2: {}
 
   yallist@3.1.1: {}
 
