@@ -29,20 +29,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: 📦 Fast Install
-        run: npm ci --silent
+        run: pnpm install --frozen-lockfile
 
       - name: ⚡ Quick Validation
         run: |
           # Solo validación mínima para ahorrar tiempo
           echo "Running minimal checks..."
-          npm run lint:check --silent || echo "✓ Lint check done"
+          pnpm run lint:check --silent || echo "✓ Lint check done"
           echo "Running core tests..."
-          npm test --silent --testTimeout=10000 || echo "✓ Tests done"
+          pnpm test --silent --testTimeout=10000 || echo "✓ Tests done"
           echo "Building..."
-          npm run build --silent || echo "✓ Build done"
+          pnpm run build --silent || echo "✓ Build done"
         env:
           NODE_ENV: test
           CI: true
