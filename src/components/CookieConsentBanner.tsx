@@ -34,13 +34,13 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
   }, [getConsentState]);
 
   const loadCookieCategories = () => {
-    const policyManager = new CookiesPolicyManager();
-    const cookieCategories = policyManager.getCookieCategories();
+    const cookiePolicy = CookiesPolicyManager.getCookiesPolicy();
+    const cookieCategories = cookiePolicy.categories;
     setCategories(cookieCategories);
     
     // Inicializar estado de consentimiento personalizado
     const initialConsent: Record<string, boolean> = {};
-    cookieCategories.forEach(category => {
+    cookieCategories.forEach((category: CookieCategory) => {
       initialConsent[category.id] = category.essential; // Esenciales siempre activadas
     });
     setCustomConsent(initialConsent);

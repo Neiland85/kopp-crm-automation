@@ -7,7 +7,6 @@
     "orta.vscode-jest",
 
     // ✅ GDPR y Compliance (Nuevas para Fase GDPR)
-    "snyk-security.snyk-vulnerability-scanner",
     "sonarsource.sonarlint-vscode",
     "ms-vscode.security-code-scan",
     "securecodewarrior.securecodewarrior-vscode",

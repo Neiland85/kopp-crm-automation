@@ -8,6 +8,7 @@ interface CookieConsentState {
   consentId: string;
 }
 
+/* eslint-disable no-unused-vars */
 interface UseCookiesReturn {
   hasConsent: boolean;
   consentState: CookieConsentState | null;
@@ -17,6 +18,7 @@ interface UseCookiesReturn {
   isConsentValid: () => boolean;
   checkCategoryConsent: (categoryId: string) => boolean;
 }
+/* eslint-enable no-unused-vars */
 
 const CONSENT_STORAGE_KEY = 'kopp_cookie_consent';
 const CONSENT_VERSION = '2.0.0';
@@ -41,12 +43,8 @@ export const useCookies = (): UseCookiesReturn => {
    * Obtiene la dirección IP del usuario (simulada en cliente)
    */
   const getUserIP = async (): Promise<string> => {
-    try {
-      // En producción, esto debería obtenerse del servidor
-      return 'unknown';
-    } catch {
-      return 'unknown';
-    }
+    // En producción, esto debería obtenerse del servidor
+    return 'unknown';
   };
 
   /**
@@ -321,8 +319,10 @@ export const useCookies = (): UseCookiesReturn => {
 };
 
 // Declaración de tipos globales para gtag
+/* eslint-disable no-unused-vars */
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
   }
 }
+/* eslint-enable no-unused-vars */

@@ -529,19 +529,7 @@
       "problemMatcher": ["$eslint-stylish"]
     },
     {
-      "label": "🛡️ Security: Snyk Scan",
-      "type": "shell",
-      "command": "npx",
-      "args": ["snyk", "test", "--severity-threshold=medium"],
-      "group": "test",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "📋 GDPR: Generate Audit Report",
+      "label": " GDPR: Generate Audit Report",
       "type": "shell",
       "command": "pnpm",
       "args": ["run", "gdpr:audit"],
