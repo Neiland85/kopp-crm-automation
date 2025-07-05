@@ -2,19 +2,20 @@ module.exports = {
   env: {
     node: true,
     es6: true,
-    jest: true, // Añadir entorno Jest
+    jest: true,
   },
   extends: ['eslint:recommended'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
   rules: {
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'warn',
+    // Reglas básicas mínimas
+    'no-unused-vars': 'warn',
     'no-console': 'off',
+    'prefer-const': 'error',
+    'no-var': 'error',
   },
   // Configuración específica para archivos de test
   overrides: [
@@ -26,10 +27,6 @@ module.exports = {
       ],
       env: {
         jest: true,
-      },
-      rules: {
-        // Reglas específicas para tests
-        '@typescript-eslint/no-explicit-any': 'off',
       },
     },
   ],

@@ -24,6 +24,17 @@ jobs:
       - name: 📥 Quick Checkout
         uses: actions/checkout@v4
 
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: ⚡ Ultra-Fast Check
         run: |
           echo "🚨 Emergency check: ${{ github.event.inputs.check_type }}"
@@ -35,13 +46,13 @@ jobs:
               ;;
             "build-only")
               echo "⚡ Quick build test"
-              npm ci --silent --production
-              npm run build --silent
+              pnpm install --frozen-lockfile --production
+              pnpm run build --silent
               ;;
             "test-only")
               echo "🧪 Critical tests only"
-              npm ci --silent
-              npm test --silent --bail --testNamePattern="critical"
+              pnpm install --frozen-lockfile
+              pnpm test --silent --bail --testNamePattern="critical"
               ;;
           esac
 
