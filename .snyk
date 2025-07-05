@@ -1,0 +1,39 @@
+# Snyk (https://snyk.io) policy file
+# This file contains vulnerable dependencies and paths that are ignored
+
+# Ignoring dev dependencies vulnerabilities that don't affect production runtime
+ignore:
+  # VM2 Sandbox Escape vulnerabilities (CRITICAL) - Issues #31, #32
+  SNYK-JS-VM2-5537100:
+    - '*':
+        reason: vm2 vulnerability in Vercel CLI dev tools only, not used in production runtime
+        expires: 2025-12-31T00:00:00.000Z
+  SNYK-JS-VM2-6218167:
+    - '*':
+        reason: vm2 sandbox escape in Vercel CLI degenerator, dev dependency only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # IP SSRF vulnerability (HIGH) - Issue #33
+  SNYK-JS-IP-8068204:
+    - '*':
+        reason: ip SSRF in Vercel CLI pac-resolver, development dependency only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # path-to-regexp backtracking RegExp (HIGH) - Issue #7
+  SNYK-JS-PATHTOREG-8068204:
+    - '*':
+        reason: path-to-regexp vulnerability in Vercel CLI tools, not in production Express app
+        expires: 2025-12-31T00:00:00.000Z
+  SNYK-JS-PATHTOREG-6217873:
+    - '*':
+        reason: path-to-regexp in @vercel/node and @vercel/routing-utils, dev tools only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # esbuild dev server vulnerability (MODERATE)
+  SNYK-JS-ESBUILD-6752093:
+    - '*':
+        reason: esbuild vulnerability in Vercel CLI dev tools, not used in production runtime
+        expires: 2025-12-31T00:00:00.000Z
+
+# Patches are manually managed
+patch: {}
