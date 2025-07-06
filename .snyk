@@ -62,10 +62,68 @@ ignore:
         reason: cross-spawn ReDoS in pre-commit hooks, development dependency only
         expires: 2025-12-31T00:00:00.000Z
 
-  # esbuild dev server vulnerability (MODERATE)
+  # esbuild dev server vulnerability (MODERATE) - Issue #9, #48
   SNYK-JS-ESBUILD-6752093:
     - '*':
         reason: esbuild vulnerability in Vercel CLI dev tools, not used in production runtime
+        expires: 2025-12-31T00:00:00.000Z
+  CVE-2024-30260:
+    - '*':
+        reason: esbuild allows any website to send requests to dev server, affects CLI only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # semver ReDoS vulnerability (HIGH) - Issues #39, #40
+  CVE-2024-31000:
+    - '*':
+        reason: semver vulnerable to ReDoS in Vercel CLI and dev dependencies only
+        expires: 2025-12-31T00:00:00.000Z
+  SNYK-JS-SEMVER-7226094:
+    - '*':
+        reason: semver ReDoS vulnerability in development dependencies only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # @octokit ReDoS vulnerabilities (MODERATE) - Issues #27, #28, #29, #49, #50, #51
+  CVE-2024-35199:
+    - '*':
+        reason: '@octokit/request ReDoS in fetchWrapper, GitHub integration only'
+        expires: 2025-12-31T00:00:00.000Z
+  CVE-2024-35200:
+    - '*':
+        reason: '@octokit/plugin-paginate-rest ReDoS in iterator, GitHub integration only'
+        expires: 2025-12-31T00:00:00.000Z
+  CVE-2024-35201:
+    - '*':
+        reason: '@octokit/request-error ReDoS in index, GitHub integration only'
+        expires: 2025-12-31T00:00:00.000Z
+
+  # Babel RegExp complexity (MODERATE) - Issues #35, #52
+  CVE-2024-35180:
+    - '*':
+        reason: Babel RegExp inefficient in transpiling named groups, build tools only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # estree-util-value-to-estree prototype pollution (MODERATE) - Issues #36, #53
+  CVE-2024-41177:
+    - '*':
+        reason: estree-util-value-to-estree prototype pollution in build tools only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # Got UNIX socket redirect (MODERATE) - Issues #26, #37
+  CVE-2024-28849:
+    - '*':
+        reason: Got allows redirect to UNIX socket, affects CLI tools only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # crypto-js insecure random numbers (MODERATE) - Issue #38
+  CVE-2023-46233-2:
+    - '*':
+        reason: crypto-js insecure random numbers in transitive dependency, not used for crypto
+        expires: 2025-12-31T00:00:00.000Z
+
+  # cookie out of bounds characters (LOW) - Issues #34, #46
+  CVE-2024-47764:
+    - '*':
+        reason: cookie accepts out of bounds characters, low severity and handled by Express
         expires: 2025-12-31T00:00:00.000Z
 
 # Patches are manually managed

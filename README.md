@@ -215,6 +215,12 @@ pnpm run test:watch                   # Tests en modo watch
 pnpm run test:coverage                # Tests con reporte de cobertura
 pnpm run gdpr:test                    # 🆕 Tests específicos GDPR
 
+# 🆕 Desarrollo de Slack con ngrok
+pnpm run dev:slack                    # Servidor Slack Bolt.js
+pnpm run dev:ngrok                    # Túnel ngrok para desarrollo local
+pnpm run dev:slack-setup              # Setup interactivo completo
+pnpm run slack:test                   # Tests de comandos Slack
+
 # Linting y calidad
 pnpm run lint                         # Linting y autofix (con reglas seguridad)
 pnpm run lint:check                   # Solo verificar linting
@@ -646,5 +652,3 @@ Las siguientes extensiones se instalarán automáticamente al abrir el workspace
 - **Auto Rename Tag**: Productividad en desarrollo
 - **Code Spell Checker**: Corrección ortográfica
 - **Path Intellisense**: Autocompletado de rutas
-
----
