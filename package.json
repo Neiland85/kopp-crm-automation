@@ -78,6 +78,10 @@
     "zapier:build": "npm run build && zapier validate",
     "zapier:logs": "zapier logs",
     "validate:local": "./scripts/local-validation.sh",
+    "security:audit": "node scripts/security-audit.js",
+    "security:check": "npm audit && node scripts/security-audit.js",
+    "security:report": "npm audit --json > security-audit.json && node scripts/security-audit.js",
+    "dependabot:check": "node scripts/security-audit.js && echo '✅ All Dependabot alerts documented and handled'",
     "test:fast": "jest --bail --testTimeout=5000 --silent",
     "qa:minimal": "npm run lint:check --silent && npm run test:fast && npm run build --silent",
     "pre-commit": "npm run validate:local",
@@ -100,7 +104,7 @@
     "prepare": "husky install",
     "security:scan": "npm audit --audit-level moderate",
     "security:fix": "npm audit --fix",
-    "security:report": "node scripts/security-report.js"
+    "security:report": "npm audit --json > security-audit.json && node scripts/security-audit.js"
   },
   "keywords": [
     "slack",
