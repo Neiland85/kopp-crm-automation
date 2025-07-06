@@ -22,13 +22,13 @@
 ## 🔒 **CORRECCIONES DE SEGURIDAD APLICADAS**
 
 ### **Commit 63cd058 - SECURITY FIX:**
-- ❌ Removido: `xoxb-9155273277588-9153065131602-mgNsZuTwQtdabsGofQA5t81F`
+- ❌ Removido: `xoxb-915527xxxx-915306xxxx-mgNsZuTwQtxxxxQA5t81F`
 - ❌ Removido: `9155273277588.9155036764963`
 - ❌ Removido: `1e2ab1b362b342b47d8e62278aa8a082`
 - ❌ Removido: `6641bb0274c9b73a2196e71cf778ffe1`
 
 ### **Commit 222a5d2 - URGENT NGROK FIX:**
-- ❌ Removido: URL ngrok real `2bc16bb5b5dd.ngrok.io`
+- ❌ Removido: URL ngrok real `2bc16bb5xxxx.ngrok.io`
 - ❌ Sanitizados: 10 archivos (docs, código fuente, scripts)
 - ✅ GitGuardian incidents #18352372 y #18352388 resueltos
 
