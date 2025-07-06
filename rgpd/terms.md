@@ -107,7 +107,7 @@ El Servicio se ofrece en diferentes modalidades:
 - **Plan Empresarial:** Solución completa para grandes organizaciones
 - **Plan Personalizado:** Adaptado a necesidades específicas
 
-Los detalles específicos de cada plan están disponibles en www.kopp-stadium.com/planes y pueden actualizarse periódicamente.
+Los detalles específicos de cada plan están disponibles en <www.kopp-stadium.com/planes> y pueden actualizarse periódicamente.
 
 ### 4.3 Modificaciones del Servicio
 
@@ -182,7 +182,7 @@ El Usuario es responsable de:
 
 ### 6.1 Precios y Facturación
 
-- Los precios están disponibles en www.kopp-stadium.com/precios
+- Los precios están disponibles en <www.kopp-stadium.com/precios>
 - Todas las tarifas se expresan sin IVA u otros impuestos aplicables
 - La facturación se realiza por adelantado (mensual o anualmente)
 - Los pagos anuales disfrutan de un descuento especificado en la web
@@ -395,7 +395,7 @@ El Usuario puede terminar su suscripción:
 
 - No renovando al final del periodo contratado (aviso 15 días antes)
 - Solicitando la cancelación desde el panel de administración
-- Notificando por escrito a support@kopp-stadium.com
+- Notificando por escrito a <support@kopp-stadium.com>
 - En caso de modificaciones sustanciales de estos Términos
 
 ### 11.3 Terminación por Kopp Stadium
@@ -450,7 +450,7 @@ No seremos responsables por incumplimientos debidos a:
 ### 12.4 Notificaciones
 
 - Las notificaciones al Usuario se enviarán al email registrado
-- Las notificaciones a Kopp Stadium deben enviarse a legal@kopp-stadium.com
+- Las notificaciones a Kopp Stadium deben enviarse a <legal@kopp-stadium.com>
 - Se consideran entregadas: inmediatamente (electrónicas) o 3 días (postales)
 - Es responsabilidad del Usuario mantener datos de contacto actualizados
 
@@ -501,11 +501,11 @@ Estos Términos se rigen por la legislación española, incluyendo pero no limit
 
 Para cualquier consulta relacionada con estos Términos:
 
-- **Email:** legal@kopp-stadium.com
+- **Email:** <legal@kopp-stadium.com>
 - **Teléfono:** +34 900 123 456
 - **Dirección postal:** Kopp Stadium S.L., Calle Ejemplo 123, 28001 Madrid, España
-- **Formulario web:** www.kopp-stadium.com/contacto
-- **Atención al cliente:** support@kopp-stadium.com
+- **Formulario web:** <www.kopp-stadium.com/contacto>
+- **Atención al cliente:** <support@kopp-stadium.com>
 
 ---
 

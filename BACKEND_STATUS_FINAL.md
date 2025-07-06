@@ -14,7 +14,7 @@ El backend de automatización CRM está **completamente implementado y desplegad
 
 - 🎯 **4 Automatizaciones Zapier**: Reputómetro, Hot Leads, Recompensas, Dropout Positivo
 - 🔗 **5 Integraciones Core**: HubSpot, Slack, Zapier, Notion, Google Sheets
-- 🚀 **Producción**: https://kopp-crm-automation.vercel.app (LIVE)
+- 🚀 **Producción**: <https://kopp-crm-automation.vercel.app> (LIVE)
 - 🧪 **Testing**: 148/148 tests pasando (100% success rate)
 
 ---
@@ -133,7 +133,7 @@ curl https://kopp-crm-automation.vercel.app/health
 
 ## 📞 SIGUIENTE ACCIÓN RECOMENDADA
 
-### Ejecutar el script de configuración final:
+### Ejecutar el script de configuración final
 
 ```bash
 # 1. Configurar variables en Vercel

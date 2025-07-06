@@ -78,14 +78,14 @@ Coverage:    38.98% statements, 23.55% branches, 39.2% lines
 
 ### 🛠️ Estructura Técnica Final
 
-#### Configuraciones Clave:
+#### Configuraciones Clave
 
 - **TypeScript**: Strict mode, path mapping, incremental compilation
 - **Jest**: TS integration, coverage reporting, parallel execution
 - **ESLint**: TypeScript support, strict rules, auto-fix
 - **VS Code**: Blindado contra IA, optimizado para TS/Node
 
-#### Arquitectura:
+#### Arquitectura
 
 - **Core**: Express app con middleware robusto
 - **Integrations**: HubSpot, Slack, Zapier con retry logic

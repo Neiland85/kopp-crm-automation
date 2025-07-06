@@ -3,7 +3,7 @@
 **Fecha de Certificación:** 5 de Enero, 2025  
 **Status:** ✅ CERTIFICADO PARA PRODUCCIÓN  
 **Versión:** 1.0.0  
-**URL Producción:** https://kopp-crm-automation.vercel.app
+**URL Producción:** <https://kopp-crm-automation.vercel.app>
 
 ---
 

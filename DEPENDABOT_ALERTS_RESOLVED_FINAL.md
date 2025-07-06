@@ -62,7 +62,7 @@ npm run dependabot:check    # Verificar estado alerts
 - ✅ **crypto-js@4.2.0** en producción (versión segura)
 - ✅ **Express routing** usa path-to-regexp@0.1.12 (seguro)
 - ✅ **vm2, ip, cross-spawn** solo en dev tools
-- ✅ **Health check** funcionando: https://kopp-crm-automation.vercel.app/health
+- ✅ **Health check** funcionando: <https://kopp-crm-automation.vercel.app/health>
 - ✅ **148 tests** pasando sin issues de seguridad
 
 ---

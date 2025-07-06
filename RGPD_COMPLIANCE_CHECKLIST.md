@@ -290,13 +290,13 @@
 ### 📞 CONTACTO RGPD
 
 **Data Protection Officer (DPO):**  
-Email: dpo@kopp-stadium.com  
+Email: <dpo@kopp-stadium.com>  
 Teléfono: +34 XXX XXX XXX  
 Dirección: [Dirección física de la empresa]
 
 **Para ejercer derechos RGPD:**  
-Portal: https://kopp-crm-automation.vercel.app/rgpd  
-Email: privacidad@kopp-stadium.com  
+Portal: <https://kopp-crm-automation.vercel.app/rgpd>  
+Email: <privacidad@kopp-stadium.com>  
 Formulario: [Link al formulario de derechos]
 
 ---

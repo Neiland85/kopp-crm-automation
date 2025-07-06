@@ -110,4 +110,4 @@ Los issues reportados son falsos positivos que afectan únicamente a herramienta
 ---
 
 _Última actualización: 5 de julio de 2025_
-_Estado de la aplicación: https://kopp-crm-automation.vercel.app/health_ ✅
+_Estado de la aplicación: <https://kopp-crm-automation.vercel.app/health>_ ✅
