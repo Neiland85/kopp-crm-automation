@@ -288,11 +288,11 @@ graph TD
 
 ### 6.2 Canales de Contacto
 
-- **Email DPO:** dpo@kopp-stadium.com
-- **Formulario web:** www.kopp-stadium.com/dpo
+- **Email DPO:** <dpo@kopp-stadium.com>
+- **Formulario web:** <www.kopp-stadium.com/dpo>
 - **Teléfono directo:** +34 900 123 456
 - **Dirección postal:** A/A DPO, Calle Ejemplo 123, 28001 Madrid
-- **Canal interno:** dpo.interno@kopp-stadium.com
+- **Canal interno:** <dpo.interno@kopp-stadium.com>
 
 ---
 

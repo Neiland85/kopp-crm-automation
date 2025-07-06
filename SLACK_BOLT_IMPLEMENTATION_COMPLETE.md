@@ -81,6 +81,7 @@ ngrok http 3000
 2. Selecciona tu app "Kopp Stadium"
 3. Ve a "Slash Commands"
 4. Actualiza Request URL para cada comando:
+
    ```
    https://[tu-ngrok-url].ngrok.io/slack/events
    ```

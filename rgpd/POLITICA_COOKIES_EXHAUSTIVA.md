@@ -7,6 +7,7 @@ Esta implementación proporciona una **política de cookies exhaustiva** que sup
 ### 🎯 Características Principales
 
 #### ✅ **Cumplimiento Legal Total**
+
 - **RGPD** (Reglamento General de Protección de Datos)
 - **LSSI** (Ley de Servicios de la Sociedad de la Información)
 - **LOPD-GDD** (Ley Orgánica de Protección de Datos)
@@ -14,6 +15,7 @@ Esta implementación proporciona una **política de cookies exhaustiva** que sup
 - **Estándares AEPD** (Agencia Española de Protección de Datos)
 
 #### 🏗️ **Arquitectura Modular**
+
 - **CookiesPolicyManager**: Gestión centralizada de políticas
 - **CookieManager**: Servicio de gestión de consentimiento
 - **CookieConsentBanner**: Componente React para banner de consentimiento
@@ -128,28 +130,33 @@ function CookiePolicyRoute() {
 ## Características Avanzadas
 
 ### 1. **Consentimiento Granular**
+
 - Aceptación/rechazo por categoría individual
 - Configuración detallada por cookie específica
 - Memoria de preferencias del usuario
 
 ### 2. **Gestión Inteligente**
+
 - Limpieza automática de cookies no consentidas
 - Validación de versiones de política
 - Renovación automática de consentimiento
 
 ### 3. **Transparencia Total**
+
 - Información detallada de cada cookie
 - Procesadores y transferencias internacionales
 - Períodos de retención específicos
 - Base legal para cada categoría
 
 ### 4. **Experiencia de Usuario Superior**
+
 - Interfaz intuitiva y accesible
 - Búsqueda dentro de la política
 - Versión imprimible y descargable
 - Tema claro/oscuro
 
 ### 5. **Cumplimiento Automático**
+
 - Validación automática de consentimiento
 - Reportes de cumplimiento en tiempo real
 - Auditoría de cookies activas
@@ -191,16 +198,19 @@ const customCategories = [
 ## Cumplimiento Automático
 
 ### Validación Automática de Consentimiento
+
 - Verificación continua de versiones de política
 - Renovación automática de consentimiento vencido
 - Limpieza automática de cookies no consentidas
 
 ### Reportes de Cumplimiento en Tiempo Real
+
 - Monitoreo de cookies activas
 - Alertas de incumplimiento
 - Auditoría de consentimientos
 
 ### Gestión Proactiva
+
 - Notificaciones de renovación
 - Actualizaciones automáticas de política
 - Mantenimiento de registros de consentimiento
@@ -229,12 +239,14 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 ## 🔒 Seguridad y Privacidad
 
 ### Medidas de Seguridad
+
 - Todas las cookies marcadas como `Secure` en HTTPS
 - Configuración `SameSite` para prevenir CSRF
 - Cookies de sesión con `HttpOnly` cuando corresponde
 - Validación de dominios y rutas
 
 ### Privacidad por Diseño
+
 - Consentimiento explícito para cookies no esenciales
 - Minimización de datos recopilados
 - Transparencia total sobre el procesamiento
@@ -243,12 +255,14 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 ## 🌍 Transferencias Internacionales
 
 ### Procesadores Certificados
+
 - **Google Ireland Limited** (Irlanda/EE.UU.)
 - **Meta Platforms Ireland** (Irlanda/EE.UU.)
 - **Microsoft Ireland** (Irlanda/EE.UU.)
 - **LinkedIn Ireland** (Irlanda/EE.UU.)
 
 ### Salvaguardas Legales
+
 - Decisiones de adecuación de la Comisión Europea
 - Normas corporativas vinculantes (BCR)
 - Cláusulas contractuales tipo
@@ -257,6 +271,7 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 ## 📋 Checklist de Implementación
 
 ### ✅ Implementación Base
+
 - [ ] Configurar CookiesPolicyManager
 - [ ] Implementar CookieManager
 - [ ] Integrar banner de consentimiento
@@ -264,6 +279,7 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 - [ ] Configurar hook useCookies
 
 ### ✅ Configuración Legal
+
 - [ ] Revisar categorías de cookies
 - [ ] Validar bases legales
 - [ ] Configurar información de contacto
@@ -271,6 +287,7 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 - [ ] Documentar transferencias internacionales
 
 ### ✅ Experiencia de Usuario
+
 - [ ] Probar banner en diferentes dispositivos
 - [ ] Validar accesibilidad
 - [ ] Configurar temas claro/oscuro
@@ -278,6 +295,7 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 - [ ] Probar funcionalidad de descarga
 
 ### ✅ Cumplimiento y Monitoreo
+
 - [ ] Configurar reportes de cumplimiento
 - [ ] Implementar alertas de renovación
 - [ ] Establecer proceso de auditoría
@@ -287,12 +305,14 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 ## 📞 Soporte y Contacto
 
 ### Información de Contacto
-- **Email General**: privacidad@kopp-stadium.com
-- **Delegado de Protección de Datos**: dpo@kopp-stadium.com
+
+- **Email General**: <privacidad@kopp-stadium.com>
+- **Delegado de Protección de Datos**: <dpo@kopp-stadium.com>
 - **Teléfono**: +34 900 123 456
 - **Dirección**: Calle Ejemplo, 123, 28001 Madrid, España
 
 ### Derechos del Usuario
+
 - Derecho de acceso, rectificación y supresión
 - Derecho a la portabilidad de datos
 - Derecho de oposición y limitación
@@ -338,12 +358,14 @@ console.log('Próxima revisión:', compliance.nextReviewDate);
 ## 📊 Métricas de Éxito
 
 ### KPIs de Cumplimiento
+
 - **100%** de cookies categorizadas correctamente
 - **< 2 segundos** tiempo de carga del banner
 - **> 95%** de usuarios que completan configuración
 - **0** incidencias de cumplimiento reportadas
 
 ### Métricas de Usuario
+
 - Tasa de aceptación de cookies opcionales
 - Tiempo promedio en configuración
 - Usuarios que utilizan configuración avanzada

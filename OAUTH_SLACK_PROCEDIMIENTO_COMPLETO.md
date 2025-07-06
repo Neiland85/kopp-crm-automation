@@ -22,7 +22,7 @@ https://your-ngrok-url.ngrok.io
 
 ## 🎯 URLs OAuth para api.slack.com
 
-### En [api.slack.com](https://api.slack.com/apps) > Tu App:
+### En [api.slack.com](https://api.slack.com/apps) > Tu App
 
 #### 1. OAuth & Permissions > Redirect URLs
 
@@ -261,7 +261,7 @@ Una vez completado el flujo OAuth:
 4. ✅ **Permisos granulares** configurados
 5. ✅ **Autenticación segura** con state verification
 
-### Comandos Finales Disponibles:
+### Comandos Finales Disponibles
 
 - `/kop-test` - Test básico de conectividad OAuth
 - `/kop-status` - Estado completo del sistema CRM

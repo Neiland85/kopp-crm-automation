@@ -155,7 +155,7 @@ npm run slack:ngrok
 
 ## 📊 Ejemplo de Salida Esperada
 
-### Servidor iniciado correctamente:
+### Servidor iniciado correctamente
 
 ```
 🚀 Iniciando servidor de desarrollo para Slack Bolt...
@@ -171,7 +171,7 @@ npm run slack:ngrok
    • /kop-help     - Ayuda y comandos
 ```
 
-### ngrok funcionando:
+### ngrok funcionando
 
 ```
 ngrok by @inconshreveable
@@ -185,7 +185,7 @@ Forwarding        http://abc123.ngrok.io -> http://localhost:3000
 Forwarding        https://abc123.ngrok.io -> http://localhost:3000
 ```
 
-### Comando funcionando en Slack:
+### Comando funcionando en Slack
 
 Al escribir `/kop-test`, deberías ver:
 

@@ -57,12 +57,14 @@
 ## 🎯 Active Functionalities
 
 ### 🔌 **Core Integrations**
+
 - ✅ **Slack Bot & OAuth** - Complete slash commands & webhook handling
 - ✅ **HubSpot CRM** - Contact management & lead scoring automation  
 - ✅ **Zapier CLI** - 6 triggers + 6 actions with TypeScript
 - ✅ **Google Sheets** - Lead scoring data synchronization
 
 ### 🤖 **Slack Commands Available**
+
 ```bash
 /kop-test     # 🔍 Test system connectivity & health
 /kop-status   # 📊 Complete CRM system status dashboard  
@@ -71,6 +73,7 @@
 ```
 
 ### ⚡ **Zapier Automations**
+
 - **📊 Lead Scoring Trigger** - Google Sheets ↔ HubSpot sync
 - **📝 Form Submissions** - Automated contact creation
 - **👁️ Page View Tracking** - Behavioral scoring updates
@@ -79,6 +82,7 @@
 - **⏰ Timestamp Updates** - Activity logging automation
 
 ### 🛡️ **Security & Compliance**
+
 - ✅ **GDPR Compliance** - Complete data protection implementation
 - ✅ **Cookie Policy** - Comprehensive privacy documentation
 - ✅ **Environment Security** - No hardcoded secrets
@@ -86,6 +90,7 @@
 - ✅ **Dependency Audit** - Regular security updates
 
 ### 🧪 **Quality Assurance**
+
 - ✅ **65+ Test Suite** - Unit & integration tests
 - ✅ **TypeScript Strict** - Type-safe development
 - ✅ **ESLint + Prettier** - Code quality enforcement
@@ -151,6 +156,7 @@ kopp-crm-automation/
 ## 🚀 Quick Start Guide
 
 ### 📋 **Prerequisites**
+
 ```bash
 Node.js >= 18.x
 npm >= 8.x
@@ -158,6 +164,7 @@ TypeScript >= 5.x
 ```
 
 ### ⚡ **Installation & Setup**
+
 ```bash
 # 1. Clone the repository
 git clone https://github.com/Neiland85/kopp-crm-automation.git
@@ -178,6 +185,7 @@ npm run dev
 ```
 
 ### 🧪 **Testing**
+
 ```bash
 # Run all tests
 npm test
@@ -193,10 +201,25 @@ npm run test -- --testPathPattern="zapier|slack|hubspot"
 ```
 
 ### 🔧 **Available Scripts**
+
 ```bash
 npm run dev              # 🚀 Start development server
 npm run build            # 🏗️ Build for production
 npm run lint             # 🎯 Lint code
+npm run arch             # 🏗️ Show project architecture tree
+```
+
+### 🏗️ **Project Architecture**
+
+```bash
+# Visualize complete project architecture
+npm run arch
+
+# View architectural decisions
+cat docs/01_ADR_Principales-Decisiones.md
+
+# See architecture guide
+cat docs/ARCHITECTURE_VISUALIZATION_GUIDE.md
 ```
 
 ---
@@ -217,6 +240,7 @@ npm run lint             # 🎯 Lint code
 ## 🏆 Project Achievements
 
 ### 🎯 **Technical Milestones**
+
 - ✅ **Complete Slack OAuth 2.0** implementation with production security
 - ✅ **Advanced Zapier CLI** with 6 triggers + 6 actions
 - ✅ **HubSpot CRM integration** with real-time lead scoring
@@ -227,6 +251,7 @@ npm run lint             # 🎯 Lint code
 - ✅ **Security hardening** with GitGuardian validation
 
 ### 📊 **Business Impact**
+
 - 🚀 **Automated lead scoring** reducing manual work by 90%
 - ⚡ **Real-time notifications** improving response time by 75%  
 - 📈 **Centralized CRM data** increasing team productivity
@@ -238,12 +263,14 @@ npm run lint             # 🎯 Lint code
 ## 📞 Support & Contact
 
 ### 🆘 **Getting Help**
+
 - 📚 **Documentation**: Check the [docs/](docs/) directory
 - 🐛 **Issues**: Report bugs via [GitHub Issues](https://github.com/Neiland85/kopp-crm-automation/issues)
 - 💬 **Slack**: Use `/kop-help` command for interactive assistance
 - 📧 **Email**: Technical support available for enterprise users
 
 ### 🔧 **Troubleshooting**
+
 - **Slack OAuth issues**: See [OAUTH_SLACK_PROCEDIMIENTO_COMPLETO.md](OAUTH_SLACK_PROCEDIMIENTO_COMPLETO.md)
 - **Zapier integration**: Check [ZAPIER_INTEGRATION.md](docs/ZAPIER_INTEGRATION.md)
 - **HubSpot connection**: Review [HUBSPOT_INTEGRATION.md](docs/HUBSPOT_INTEGRATION.md)

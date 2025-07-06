@@ -226,7 +226,7 @@ jobs:
 
 ### 4.2 Excepciones y Falsos Positivos
 
-- **Archivos de prueba:** Reglas relajadas en archivos _.test.js y _.spec.js
+- **Archivos de prueba:** Reglas relajadas en archivos _.test.js y_.spec.js
 - **Documentación:** Permitido en comentarios con tag especial `@gdpr-approved`
 - **Datos anónimos:** Permitido cuando se comprueba pseudoanonimización
 - **Exclusiones justificadas:** Documentadas en archivo `.gdprignore`

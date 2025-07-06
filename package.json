@@ -1,7 +1,7 @@
 {
   "name": "kopp-crm-automation",
   "version": "1.0.0",
-  "description": "Automatización estratégica de Slack y Hubspot para Kopp Stadium con integración futura a Firebase, reemplazo progresivo de Zapier y despliegue en Vercel.",
+  "description": "Automatización estratégica de Slack y Hubspot para Kopp Stadium con integración futura a Firebase, reemplazo progresivo de Zapier y despliegue en Vercel. Use 'npm run arch' to visualize project architecture.",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
@@ -105,7 +105,10 @@
     "prepare": "husky install",
     "security:scan": "npm audit --audit-level moderate",
     "security:fix": "npm audit --fix",
-    "security:report": "npm audit --json > security-audit.json && node scripts/security-audit.js"
+    "security:report": "npm audit --json > security-audit.json && node scripts/security-audit.js",
+    "architecture:show": "./scripts/show-architecture-tree.sh",
+    "architecture:tree": "./scripts/show-architecture-tree.sh",
+    "arch": "./scripts/show-architecture-tree.sh"
   },
   "keywords": [
     "slack",
