@@ -102,7 +102,7 @@
     "oauth:verify": "echo '🔐 Verificando configuración OAuth...' && node -e \"console.log('Client ID:', process.env.SLACK_CLIENT_ID); console.log('Secret configured:', !!process.env.SLACK_CLIENT_SECRET);\"",
     "oauth:ngrok": "bash scripts/verify-ngrok-oauth.sh",
     "oauth:ngrok:verify": "node scripts/oauth-ngrok-verify.js",
-    "oauth:test": "npm run oauth:ngrok:verify && echo '🎯 OAuth listo para probar en: https://2bc16bb5b5dd.ngrok.io/slack/install'",
+    "oauth:test": "npm run oauth:ngrok:verify && echo '🎯 OAuth listo para probar en: https://your-ngrok-url.ngrok.io/slack/install'",
     "oauth:start": "bash scripts/start-oauth-server.sh",
     "ngrok:update": "bash scripts/ngrok-update-guide.sh",
     "ngrok:get-url": "bash scripts/get-new-ngrok-url.sh",

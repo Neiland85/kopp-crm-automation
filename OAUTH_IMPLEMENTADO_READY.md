@@ -5,7 +5,7 @@
 ### 📍 Tu URL ngrok configurada:
 
 ```
-https://2bc16bb5b5dd.ngrok.io
+https://your-ngrok-url.ngrok.io
 ```
 
 ### 🔐 Variables OAuth en .env:
@@ -15,7 +15,7 @@ SLACK_CLIENT_ID=1234567890.0987654321
 SLACK_CLIENT_SECRET=abcd1234efgh5678ijkl9012mnop3456
 SLACK_SIGNING_SECRET=abcd1234efgh5678ijkl9012mnop3456
 SLACK_STATE_SECRET=your-custom-oauth-state-secret-2025
-SLACK_BOT_TOKEN=xoxb-1234567890-0987654321-AbCdEfGhIjKlMnOpQrStUvWx
+SLACK_BOT_TOKEN=xoxb-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 ---
@@ -50,19 +50,19 @@ npm run dev:oauth            # Desarrollo OAuth
 #### OAuth & Permissions > Redirect URLs:
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect
+https://your-ngrok-url.ngrok.io/slack/oauth_redirect
 ```
 
 #### Event Subscriptions > Request URL:
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/events
+https://your-ngrok-url.ngrok.io/slack/events
 ```
 
 #### Manage Distribution > Sharable URL:
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/install
+https://your-ngrok-url.ngrok.io/slack/install
 ```
 
 ---
@@ -86,9 +86,9 @@ const receiver = new ExpressReceiver({
 
 ### Flujo OAuth configurado:
 
-1. **🏠 Install URL:** `https://2bc16bb5b5dd.ngrok.io/slack/install`
+1. **🏠 Install URL:** `https://your-ngrok-url.ngrok.io/slack/install`
 2. **🔐 Usuario autoriza** en Slack workspace
-3. **🔄 Slack redirige a:** `https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect`
+3. **🔄 Slack redirige a:** `https://your-ngrok-url.ngrok.io/slack/oauth_redirect`
 4. **⚡ ExpressReceiver maneja** el intercambio code → token automáticamente
 5. **✅ Comandos disponibles** inmediatamente
 
@@ -105,7 +105,7 @@ npm run oauth:start
 ### 2. Probar instalación OAuth:
 
 ```
-🌐 Abre en navegador: https://2bc16bb5b5dd.ngrok.io/slack/install
+🌐 Abre en navegador: https://your-ngrok-url.ngrok.io/slack/install
 ```
 
 ### 3. Autorizar en Slack y probar comandos:
@@ -136,7 +136,7 @@ npm run oauth:ngrok:verify
 ### ✅ Conectividad ngrok:
 
 ```bash
-curl https://2bc16bb5b5dd.ngrok.io/health
+curl https://your-ngrok-url.ngrok.io/health
 ```
 
 ---
@@ -175,7 +175,7 @@ curl https://2bc16bb5b5dd.ngrok.io/health
 
 ```bash
 npm run oauth:start
-# Luego abrir: https://2bc16bb5b5dd.ngrok.io/slack/install
+# Luego abrir: https://your-ngrok-url.ngrok.io/slack/install
 ```
 
 ### 2. **Validar comandos en Slack:**
@@ -204,7 +204,7 @@ npm run oauth:start
 ### 🎯 URL FINAL DE INSTALACIÓN:
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/install
+https://your-ngrok-url.ngrok.io/slack/install
 ```
 
 🚀 **¡Listo para usar OAuth Slack en producción!**

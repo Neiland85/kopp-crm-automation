@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script para verificar la configuración OAuth con ngrok específico
-# URL configurada: https://2bc16bb5b5dd.ngrok.io
+# URL configurada: https://your-ngrok-url.ngrok.io
 
 set -e
 
@@ -9,7 +9,7 @@ echo "🔍 Verificando configuración OAuth con ngrok..."
 echo "================================================"
 
 # Variables de configuración
-NGROK_URL="https://2bc16bb5b5dd.ngrok.io"
+NGROK_URL="https://your-ngrok-url.ngrok.io"
 LOCAL_PORT="${PORT:-3000}"
 
 echo "📍 NGROK URL configurada: $NGROK_URL"

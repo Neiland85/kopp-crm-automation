@@ -24,7 +24,7 @@ if (missingVars.length > 0) {
 
 /**
  * Configurar ExpressReceiver con OAuth endpoints
- * URL OAuth configurada: https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect
+ * URL OAuth configurada: https://your-ngrok-url.ngrok.io/slack/oauth_redirect
  */
 const receiver = new ExpressReceiver({
   signingSecret: process.env.SLACK_SIGNING_SECRET!,
@@ -34,7 +34,7 @@ const receiver = new ExpressReceiver({
 
   // Configuración de rutas OAuth para ngrok URL específica
   endpoints: '/slack',                           // Base path para Slack endpoints
-  redirectUri: '/slack/oauth_redirect',          // Ruta callback OAuth (configurada en Slack como https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect)
+  redirectUri: '/slack/oauth_redirect',          // Ruta callback OAuth (configurada en Slack como https://your-ngrok-url.ngrok.io/slack/oauth_redirect)
 
   // Configuración adicional de OAuth
   scopes: [
@@ -383,7 +383,7 @@ export async function startSlackOAuthApp(): Promise<void> {
 🔧 Configuración OAuth:
    • Port: ${port}
    • Install URL: /slack/install
-   • OAuth Redirect: /slack/oauth_redirect (configurado para https://2bc16bb5b5dd.ngrok.io)
+   • OAuth Redirect: /slack/oauth_redirect (configurado para https://your-ngrok-url.ngrok.io)
    • Slack Events: /slack/events
 
 📋 Variables de entorno OAuth:
@@ -393,20 +393,20 @@ export async function startSlackOAuthApp(): Promise<void> {
    • SLACK_STATE_SECRET: ${process.env.SLACK_STATE_SECRET ? '✅ Configurado' : '❌ Faltante'}
 
 🌐 URL de ngrok configurada:
-   📍 NGROK URL: https://2bc16bb5b5dd.ngrok.io
-   🔗 OAuth Redirect configurado en Slack: https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect
-   📨 Request URL (Events): https://2bc16bb5b5dd.ngrok.io/slack/events
-   🏠 Install URL: https://2bc16bb5b5dd.ngrok.io/slack/install
+   📍 NGROK URL: https://your-ngrok-url.ngrok.io
+   🔗 OAuth Redirect configurado en Slack: https://your-ngrok-url.ngrok.io/slack/oauth_redirect
+   📨 Request URL (Events): https://your-ngrok-url.ngrok.io/slack/events
+   🏠 Install URL: https://your-ngrok-url.ngrok.io/slack/install
 
 � Pasos para probar OAuth:
-   1. ✅ ngrok ya configurado en: https://2bc16bb5b5dd.ngrok.io
+   1. ✅ ngrok ya configurado en: https://your-ngrok-url.ngrok.io
    2. ✅ OAuth Redirect URL configurado en Slack App
-   3. 🎯 Usar URL de instalación: https://2bc16bb5b5dd.ngrok.io/slack/install
-   4. 🔄 Tras autorización, Slack redirigirá a: https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect
+   3. 🎯 Usar URL de instalación: https://your-ngrok-url.ngrok.io/slack/install
+   4. 🔄 Tras autorización, Slack redirigirá a: https://your-ngrok-url.ngrok.io/slack/oauth_redirect
    5. ⚡ Los comandos estarán disponibles inmediatamente
 
 🎯 URL COMPLETA DE INSTALACIÓN:
-   https://2bc16bb5b5dd.ngrok.io/slack/install
+   https://your-ngrok-url.ngrok.io/slack/install
 
 ⚡ ¡Listo para recibir comandos OAuth!
     `);

@@ -5,7 +5,7 @@ const path = require('path');
 
 /**
  * Script de validación OAuth para ngrok específico
- * URL configurada: https://2bc16bb5b5dd.ngrok.io
+ * URL configurada: https://your-ngrok-url.ngrok.io
  */
 
 // Cargar variables de entorno desde .env
@@ -37,7 +37,7 @@ const logger = {
 };
 
 // Configuración
-const NGROK_URL = 'https://2bc16bb5b5dd.ngrok.io';
+const NGROK_URL = 'https://your-ngrok-url.ngrok.io';
 const LOCAL_PORT = process.env.PORT || 3000;
 
 // Variables OAuth requeridas

@@ -1,6 +1,6 @@
 # 🎯 Configuración OAuth Slack con ngrok Específico
 
-## URL ngrok configurada: https://2bc16bb5b5dd.ngrok.io
+## URL ngrok configurada: https://your-ngrok-url.ngrok.io
 
 ### 📋 URLs OAuth configuradas en Slack App
 
@@ -9,19 +9,19 @@ En [api.slack.com](https://api.slack.com/apps) > Tu App > **OAuth & Permissions*
 #### 🔗 Redirect URLs
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect
+https://your-ngrok-url.ngrok.io/slack/oauth_redirect
 ```
 
 #### 📨 Event Subscriptions > Request URL
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/events
+https://your-ngrok-url.ngrok.io/slack/events
 ```
 
 #### 🏠 Manage Distribution > Sharable URL
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/install
+https://your-ngrok-url.ngrok.io/slack/install
 ```
 
 ---
@@ -35,7 +35,7 @@ Tu **OAuth Redirect URL** es el endpoint HTTP donde tu aplicación recibe el `co
 **URL configurada:**
 
 ```
-POST https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect
+POST https://your-ngrok-url.ngrok.io/slack/oauth_redirect
 ```
 
 ### 2. Configuración en el Código
@@ -56,9 +56,9 @@ const receiver = new ExpressReceiver({
 
 ### 3. URLs Resultantes
 
-- **🏠 Install URL:** `https://2bc16bb5b5dd.ngrok.io/slack/install`
-- **🔄 OAuth Redirect:** `https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect`
-- **📨 Events URL:** `https://2bc16bb5b5dd.ngrok.io/slack/events`
+- **🏠 Install URL:** `https://your-ngrok-url.ngrok.io/slack/install`
+- **🔄 OAuth Redirect:** `https://your-ngrok-url.ngrok.io/slack/oauth_redirect`
+- **📨 Events URL:** `https://your-ngrok-url.ngrok.io/slack/events`
 
 ---
 
@@ -101,7 +101,7 @@ npm run dev:oauth
 ### Paso 2: Abrir URL de instalación
 
 ```
-https://2bc16bb5b5dd.ngrok.io/slack/install
+https://your-ngrok-url.ngrok.io/slack/install
 ```
 
 ### Paso 3: Autorizar la app en Slack
@@ -109,7 +109,7 @@ https://2bc16bb5b5dd.ngrok.io/slack/install
 1. Se abre la página de autorización de Slack
 2. Selecciona tu workspace
 3. Acepta los permisos solicitados
-4. Slack redirige a: `https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect`
+4. Slack redirige a: `https://your-ngrok-url.ngrok.io/slack/oauth_redirect`
 
 ### Paso 4: Probar comandos
 
@@ -137,7 +137,7 @@ SLACK_STATE_SECRET=your-custom-oauth-state-secret-2025
 
 ### Error: "Invalid redirect_uri"
 
-- ✅ Verifica que la URL esté exactamente configurada en Slack: `https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect`
+- ✅ Verifica que la URL esté exactamente configurada en Slack: `https://your-ngrok-url.ngrok.io/slack/oauth_redirect`
 - ✅ No debe tener barras extra ni espacios
 
 ### Error: "ngrok not accessible"
@@ -168,14 +168,14 @@ tail -f logs/slack-oauth.log
 ### Verificar salud del sistema
 
 ```bash
-curl https://2bc16bb5b5dd.ngrok.io/health
+curl https://your-ngrok-url.ngrok.io/health
 ```
 
 ### Test manual de endpoints
 
 ```bash
-curl -X POST https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect
-curl -X GET https://2bc16bb5b5dd.ngrok.io/slack/install
+curl -X POST https://your-ngrok-url.ngrok.io/slack/oauth_redirect
+curl -X GET https://your-ngrok-url.ngrok.io/slack/install
 ```
 
 ---
@@ -183,12 +183,12 @@ curl -X GET https://2bc16bb5b5dd.ngrok.io/slack/install
 ## ✅ Checklist OAuth
 
 - [ ] ✅ Variables de entorno configuradas en `.env`
-- [ ] ✅ URL ngrok activa: `https://2bc16bb5b5dd.ngrok.io`
+- [ ] ✅ URL ngrok activa: `https://your-ngrok-url.ngrok.io`
 - [ ] ✅ OAuth Redirect configurado en Slack App
 - [ ] ✅ Event URL configurado en Slack App
 - [ ] ✅ Install URL configurado en Slack App
 - [ ] ✅ Servidor OAuth ejecutándose: `npm run dev:oauth`
-- [ ] ⏳ App instalada en workspace vía `https://2bc16bb5b5dd.ngrok.io/slack/install`
+- [ ] ⏳ App instalada en workspace vía `https://your-ngrok-url.ngrok.io/slack/install`
 - [ ] ⏳ Comandos funcionando: `/kop-test`, `/kop-status`, `/kop-leads`, `/kop-help`
 
 ---

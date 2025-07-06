@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script para iniciar el servidor OAuth completo
-# URL ngrok configurada: https://2bc16bb5b5dd.ngrok.io
+# URL ngrok configurada: https://your-ngrok-url.ngrok.io
 
 set -e
 
@@ -47,18 +47,18 @@ fi
 # Mostrar información OAuth
 echo ""
 echo "🌐 Configuración OAuth:"
-echo "   • NGROK URL: https://2bc16bb5b5dd.ngrok.io"
-echo "   • Install URL: https://2bc16bb5b5dd.ngrok.io/slack/install"
-echo "   • OAuth Redirect: https://2bc16bb5b5dd.ngrok.io/slack/oauth_redirect"
-echo "   • Events URL: https://2bc16bb5b5dd.ngrok.io/slack/events"
+echo "   • NGROK URL: https://your-ngrok-url.ngrok.io"
+echo "   • Install URL: https://your-ngrok-url.ngrok.io/slack/install"
+echo "   • OAuth Redirect: https://your-ngrok-url.ngrok.io/slack/oauth_redirect"
+echo "   • Events URL: https://your-ngrok-url.ngrok.io/slack/events"
 echo ""
 
 # Verificar si ngrok está funcionando
 echo "🔍 Verificando conectividad ngrok..."
-if curl -s --head "https://2bc16bb5b5dd.ngrok.io" | head -n 1 | grep -q "200\|404"; then
-    echo "✅ ngrok accesible: https://2bc16bb5b5dd.ngrok.io"
+if curl -s --head "https://your-ngrok-url.ngrok.io" | head -n 1 | grep -q "200\|404"; then
+    echo "✅ ngrok accesible: https://your-ngrok-url.ngrok.io"
 else
-    echo "⚠️  ngrok no detectado en https://2bc16bb5b5dd.ngrok.io"
+    echo "⚠️  ngrok no detectado en https://your-ngrok-url.ngrok.io"
     echo "💡 Asegúrate de que ngrok esté corriendo: ngrok http 3000"
 fi
 
@@ -72,7 +72,7 @@ echo ""
 
 # Información de testing
 echo "🎯 Para probar OAuth:"
-echo "   1. 🌐 Abre: https://2bc16bb5b5dd.ngrok.io/slack/install"
+echo "   1. 🌐 Abre: https://your-ngrok-url.ngrok.io/slack/install"
 echo "   2. 🔐 Autoriza la app en tu workspace"
 echo "   3. ⚡ Prueba los comandos:"
 echo "      • /kop-test"
