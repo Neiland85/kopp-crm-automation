@@ -8,9 +8,23 @@
 
 # =============================================================================
 
-# vm2 Sandbox Escape vulnerabilities (Issues #31, #32)
+# crypto-js PBKDF2 vulnerability (Issue #43) - CVE-2023-46233
+
+# - Path: zapier-platform-core > fernet@0.4.0 > crypto-js@3.1.8
+
+# - Impact: NONE in production (our main crypto-js is 4.2.0, PBKDF2 not used)
+
+# - Mitigation: Production code uses crypto-js@4.2.0 (patched version)
+
+# - Status: ACCEPTED RISK for transitive dependency only
+
+# vm2 Sandbox Escape vulnerabilities (Issues #31, #32, #41, #42)
 
 # - Path: vercel > @vercel/remix-builder > @remix-run/dev > proxy-agent > pac-proxy-agent > pac-resolver > degenerator > vm2@3.9.19
+
+# - CVE-2023-37466: Node.js custom inspect function escape
+
+# - CVE-2023-37903: Promise handler sanitization bypass
 
 # - Impact: NONE in production (only affects Vercel CLI development tools)
 
@@ -24,7 +38,7 @@
 
 # =============================================================================
 
-# ip SSRF improper categorization (Issue #33)
+# ip SSRF improper categorization (Issues #33, #44) - CVE-2024-29415
 
 # - Path: vercel > @vercel/remix-builder > @remix-run/dev > proxy-agent > pac-proxy-agent > pac-resolver > ip@1.1.9
 
@@ -34,7 +48,7 @@
 
 # - Status: ACCEPTED RISK for development tools
 
-# path-to-regexp backtracking RegExp (Issue #7)
+# path-to-regexp backtracking RegExp (Issues #7, #45) - CVE-2024-45296
 
 # - Path: vercel > @vercel/node > path-to-regexp@6.2.1
 
@@ -47,6 +61,20 @@
 # - Status: ACCEPTED RISK for development tools
 
 # =============================================================================
+
+# MODERATE VULNERABILITIES (Development Dependencies Only)
+
+# =============================================================================
+
+# cross-spawn ReDoS vulnerability (Issue #47) - CVE-2023-43646
+
+# - Path: pre-commit@1.2.2 > cross-spawn@5.1.0
+
+# - Impact: NONE in production (only affects pre-commit hooks in development)
+
+# - Mitigation: Not used in production runtime
+
+# - Status: ACCEPTED RISK for development tools
 
 # PRODUCTION SECURITY STATUS: ✅ SECURE
 

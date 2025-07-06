@@ -2,16 +2,35 @@
 
 ## 📊 **RESUMEN DE ISSUES MANEJADOS**
 
-| Issue # | Vulnerability        | Severity | Status      | Justificación                    |
-| ------- | -------------------- | -------- | ----------- | -------------------------------- |
-| #31     | vm2 Sandbox Escape   | CRITICAL | ✅ IGNORADO | Solo en Vercel CLI (dev tool)    |
-| #32     | vm2 Sandbox Escape   | CRITICAL | ✅ IGNORADO | Solo en Vercel CLI (dev tool)    |
-| #33     | ip SSRF              | HIGH     | ✅ IGNORADO | Solo en Vercel CLI PAC resolver  |
-| #7      | path-to-regexp ReDoS | HIGH     | ✅ IGNORADO | Solo en Vercel CLI routing utils |
+| Issue # | Vulnerability            | CVE               | Severity | Status      | Justificación                     |
+| ------- | ------------------------ | ----------------- | -------- | ----------- | --------------------------------- |
+| #43     | crypto-js PBKDF2         | CVE-2023-46233    | CRITICAL | ✅ IGNORADO | Transitive, prod usa 4.2.0        |
+| #31     | vm2 Sandbox Escape       | CVE-2023-37466    | CRITICAL | ✅ IGNORADO | Solo en Vercel CLI (dev tool)     |
+| #32     | vm2 Sandbox Escape       | CVE-2023-37903    | CRITICAL | ✅ IGNORADO | Solo en Vercel CLI (dev tool)     |
+| #41     | vm2 Node.js inspect      | CVE-2023-37466    | CRITICAL | ✅ IGNORADO | Solo en Vercel CLI (dev tool)     |
+| #42     | vm2 Promise sanitization | CVE-2023-37903    | CRITICAL | ✅ IGNORADO | Solo en Vercel CLI (dev tool)     |
+| #44     | ip SSRF isPublic         | CVE-2024-29415    | HIGH     | ✅ IGNORADO | Solo en Vercel CLI PAC resolver   |
+| #33     | ip SSRF                  | SNYK-JS-IP-8068204| HIGH     | ✅ IGNORADO | Solo en Vercel CLI PAC resolver   |
+| #45     | path-to-regexp ReDoS     | CVE-2024-45296    | HIGH     | ✅ IGNORADO | Solo en Vercel CLI routing utils  |
+| #7      | path-to-regexp ReDoS     | SNYK-JS-PATHTOREG | HIGH     | ✅ IGNORADO | Solo en Vercel CLI routing utils  |
+| #47     | cross-spawn ReDoS        | CVE-2023-43646    | MODERATE | ✅ IGNORADO | Solo en pre-commit hooks (dev)    |
 
 ## 🔍 **ANÁLISIS TÉCNICO DETALLADO**
 
-### **vm2 Vulnerabilities (Issues #31, #32)**
+### **crypto-js PBKDF2 Vulnerability (Issue #43) - CVE-2023-46233**
+
+```
+Ruta de dependencia:
+zapier-platform-core@17.2.0 > fernet@0.4.0 > crypto-js@3.1.8
+
+✅ Impacto en producción: NINGUNO
+- Nuestra aplicación principal usa crypto-js@4.2.0 (versión corregida)
+- La vulnerabilidad está en una dependencia transitiva de Zapier
+- PBKDF2 no se utiliza en nuestro código de producción
+- El issue está en el algoritmo por defecto, no afecta nuestro uso
+```
+
+### **vm2 Vulnerabilities (Issues #31, #32, #41, #42)**
 
 ```
 Ruta de dependencia:
@@ -21,9 +40,11 @@ vercel > @vercel/remix-builder > @remix-run/dev > proxy-agent > pac-proxy-agent 
 - vm2 no está presente en el runtime de producción
 - Solo se usa en herramientas de desarrollo de Vercel CLI
 - Nuestro api/index.js no utiliza vm2
+- CVE-2023-37466: Node.js custom inspect escape
+- CVE-2023-37903: Promise handler sanitization bypass
 ```
 
-### **ip SSRF Vulnerability (Issue #33)**
+### **ip SSRF Vulnerabilities (Issues #33, #44) - CVE-2024-29415**
 
 ```
 Ruta de dependencia:
