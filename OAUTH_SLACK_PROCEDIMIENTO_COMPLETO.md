@@ -5,11 +5,11 @@
 ### Variables de Entorno OAuth
 
 ```bash
-SLACK_CLIENT_ID=9155273277588.9155036764963
-SLACK_CLIENT_SECRET=1e2ab1b362b342b47d8e62278aa8a082
-SLACK_SIGNING_SECRET=6641bb0274c9b73a2196e71cf778ffe1
-SLACK_STATE_SECRET=kopp-stadium-oauth-state-secret-2025
-SLACK_BOT_TOKEN=xoxb-9155273277588-9153065131602-mgNsZuTwQtdabsGofQA5t81F
+SLACK_CLIENT_ID=1234567890.0987654321
+SLACK_CLIENT_SECRET=abcd1234efgh5678ijkl9012mnop3456
+SLACK_SIGNING_SECRET=abcd1234efgh5678ijkl9012mnop3456
+SLACK_STATE_SECRET=your-custom-oauth-state-secret-2025
+SLACK_BOT_TOKEN=xoxb-1234567890-0987654321-AbCdEfGhIjKlMnOpQrStUvWx
 ```
 
 ### URL ngrok Configurada
@@ -169,9 +169,9 @@ curl https://2bc16bb5b5dd.ngrok.io/slack/install
 ### Basic Information
 
 - ✅ App ID: A084XXXXXXX (automático)
-- ✅ Client ID: 9155273277588.9155036764963
-- ✅ Client Secret: 1e2ab1b362b342b47d8e62278aa8a082
-- ✅ Signing Secret: 6641bb0274c9b73a2196e71cf778ffe1
+- ✅ Client ID: 1234567890.0987654321
+- ✅ Client Secret: abcd1234efgh5678ijkl9012mnop3456
+- ✅ Signing Secret: abcd1234efgh5678ijkl9012mnop3456
 
 ### OAuth & Permissions
 
