@@ -1,0 +1,40 @@
+# Dependabot configuration for ignoring known safe vulnerabilities
+# See: https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates
+
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    # Ignore vulnerabilities that are in development dependencies only
+    ignore:
+      # crypto-js PBKDF2 (transitive via zapier-platform-core)
+      - dependency-name: 'crypto-js'
+        versions: ['< 4.2.0']
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+
+      # vm2 sandbox escape (Vercel CLI tools only)
+      - dependency-name: 'vm2'
+        versions: ['<= 3.9.19']
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+
+      # ip SSRF (Vercel CLI tools only)
+      - dependency-name: 'ip'
+        versions: ['<= 2.0.1']
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+
+      # path-to-regexp ReDoS (Vercel CLI tools only)
+      - dependency-name: 'path-to-regexp'
+        versions: ['< 6.3.0']
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+
+      # cross-spawn ReDoS (pre-commit hooks only)
+      - dependency-name: 'cross-spawn'
+        versions: ['< 6.0.6']
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']

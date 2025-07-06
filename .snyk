@@ -3,7 +3,18 @@
 
 # Ignoring dev dependencies vulnerabilities that don't affect production runtime
 ignore:
-  # VM2 Sandbox Escape vulnerabilities (CRITICAL) - Issues #31, #32
+  # crypto-js PBKDF2 vulnerability (CRITICAL) - Issue #43
+  # Note: crypto-js 4.2.0 is already installed, but transitive dependency via zapier-platform-core uses 3.1.8
+  SNYK-JS-CRYPTOJS-6148168:
+    - '*':
+        reason: crypto-js 3.1.8 via zapier-platform-core (fernet), our main crypto-js is 4.2.0. PBKDF2 not used in production
+        expires: 2025-12-31T00:00:00.000Z
+  CVE-2023-46233:
+    - '*':
+        reason: crypto-js PBKDF2 issue in transitive dependency only, not used in production code
+        expires: 2025-12-31T00:00:00.000Z
+
+  # VM2 Sandbox Escape vulnerabilities (CRITICAL) - Issues #31, #32, #41, #42
   SNYK-JS-VM2-5537100:
     - '*':
         reason: vm2 vulnerability in Vercel CLI dev tools only, not used in production runtime
@@ -12,14 +23,26 @@ ignore:
     - '*':
         reason: vm2 sandbox escape in Vercel CLI degenerator, dev dependency only
         expires: 2025-12-31T00:00:00.000Z
+  CVE-2023-37466:
+    - '*':
+        reason: vm2 Node.js custom inspect vulnerability in Vercel CLI tools, development only
+        expires: 2025-12-31T00:00:00.000Z
+  CVE-2023-37903:
+    - '*':
+        reason: vm2 Promise handler sanitization bypass in Vercel CLI tools, development only
+        expires: 2025-12-31T00:00:00.000Z
 
-  # IP SSRF vulnerability (HIGH) - Issue #33
+  # IP SSRF vulnerability (HIGH) - Issue #33, #44
   SNYK-JS-IP-8068204:
     - '*':
         reason: ip SSRF in Vercel CLI pac-resolver, development dependency only
         expires: 2025-12-31T00:00:00.000Z
+  CVE-2024-29415:
+    - '*':
+        reason: ip SSRF improper categorization in isPublic, affects Vercel CLI only
+        expires: 2025-12-31T00:00:00.000Z
 
-  # path-to-regexp backtracking RegExp (HIGH) - Issue #7
+  # path-to-regexp backtracking RegExp (HIGH) - Issues #7, #45
   SNYK-JS-PATHTOREG-8068204:
     - '*':
         reason: path-to-regexp vulnerability in Vercel CLI tools, not in production Express app
@@ -27,6 +50,16 @@ ignore:
   SNYK-JS-PATHTOREG-6217873:
     - '*':
         reason: path-to-regexp in @vercel/node and @vercel/routing-utils, dev tools only
+        expires: 2025-12-31T00:00:00.000Z
+  CVE-2024-45296:
+    - '*':
+        reason: path-to-regexp backtracking regular expressions in Vercel CLI, development only
+        expires: 2025-12-31T00:00:00.000Z
+
+  # cross-spawn ReDoS vulnerability (MODERATE) - Issue #47
+  CVE-2023-43646:
+    - '*':
+        reason: cross-spawn ReDoS in pre-commit hooks, development dependency only
         expires: 2025-12-31T00:00:00.000Z
 
   # esbuild dev server vulnerability (MODERATE)
