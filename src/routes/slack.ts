@@ -1,7 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
 
-const router = express.Router();
+const router: express.Router = express.Router();
 
 /**
  * @swagger
@@ -594,46 +594,49 @@ router.post('/message', async (req: Request, res: Response): Promise<void> => {
  *       500:
  *         description: Error interno
  */
-router.put('/message/:ts', async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { ts } = req.params;
-    const { channel, text } = req.body;
+router.put(
+  '/message/:ts',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { ts } = req.params;
+      const { channel, text } = req.body;
 
-    // Validación básica
-    if (!channel || !text) {
-      res.status(400).json({
-        error: 'MISSING_REQUIRED_FIELDS',
-        message: 'Los campos channel y text son obligatorios',
-      });
-      return;
-    }
+      // Validación básica
+      if (!channel || !text) {
+        res.status(400).json({
+          error: 'MISSING_REQUIRED_FIELDS',
+          message: 'Los campos channel y text son obligatorios',
+        });
+        return;
+      }
 
-    // Mock response - En producción aquí iría la integración real con Slack
-    const slackResponse = {
-      ok: true,
-      channel: 'C1234567890',
-      ts: ts,
-      message: {
-        text,
-        user: 'U1234567890',
+      // Mock response - En producción aquí iría la integración real con Slack
+      const slackResponse = {
+        ok: true,
+        channel: 'C1234567890',
         ts: ts,
-      },
-    };
+        message: {
+          text,
+          user: 'U1234567890',
+          ts: ts,
+        },
+      };
 
-    res.status(200).json({
-      success: true,
-      message: 'Mensaje actualizado exitosamente',
-      data: slackResponse,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    res.status(500).json({
-      error: 'SLACK_UPDATE_FAILED',
-      message: error instanceof Error ? error.message : 'Error desconocido',
-      timestamp: new Date().toISOString(),
-    });
+      res.status(200).json({
+        success: true,
+        message: 'Mensaje actualizado exitosamente',
+        data: slackResponse,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({
+        error: 'SLACK_UPDATE_FAILED',
+        message: error instanceof Error ? error.message : 'Error desconocido',
+        timestamp: new Date().toISOString(),
+      });
+    }
   }
-});
+);
 
 /**
  * @swagger
@@ -669,44 +672,47 @@ router.put('/message/:ts', async (req: Request, res: Response): Promise<void> =>
  *       500:
  *         description: Error interno
  */
-router.delete('/message/:ts', async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { ts } = req.params;
-    const { channel } = req.body;
+router.delete(
+  '/message/:ts',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { ts } = req.params;
+      const { channel } = req.body;
 
-    // Validación básica
-    if (!channel) {
-      res.status(400).json({
-        error: 'MISSING_REQUIRED_FIELDS',
-        message: 'El campo channel es obligatorio',
+      // Validación básica
+      if (!channel) {
+        res.status(400).json({
+          error: 'MISSING_REQUIRED_FIELDS',
+          message: 'El campo channel es obligatorio',
+        });
+        return;
+      }
+
+      // Mock response - En producción aquí iría la integración real con Slack
+      const slackResponse = {
+        ok: true,
+        channel: 'C1234567890',
+        ts: ts,
+      };
+
+      res.status(200).json({
+        success: true,
+        message: 'Mensaje eliminado exitosamente',
+        data: slackResponse,
+        timestamp: new Date().toISOString(),
       });
-      return;
+    } catch (error) {
+      res.status(500).json({
+        error: 'SLACK_DELETE_FAILED',
+        message: error instanceof Error ? error.message : 'Error desconocido',
+        timestamp: new Date().toISOString(),
+      });
     }
-
-    // Mock response - En producción aquí iría la integración real con Slack
-    const slackResponse = {
-      ok: true,
-      channel: 'C1234567890',
-      ts: ts,
-    };
-
-    res.status(200).json({
-      success: true,
-      message: 'Mensaje eliminado exitosamente',
-      data: slackResponse,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    res.status(500).json({
-      error: 'SLACK_DELETE_FAILED',
-      message: error instanceof Error ? error.message : 'Error desconocido',
-      timestamp: new Date().toISOString(),
-    });
   }
-});
+);
 
 /**
- * @swagger  
+ * @swagger
  * /slack/users:
  *   get:
  *     tags: [Slack]
@@ -815,9 +821,9 @@ router.get('/users', async (req: Request, res: Response) => {
     ];
 
     // Filtrar usuarios eliminados si no se requieren
-    const filteredUsers = include_deleted 
-      ? users 
-      : users.filter(user => !user.is_deleted);
+    const filteredUsers = include_deleted
+      ? users
+      : users.filter((user) => !user.is_deleted);
 
     res.json({
       success: true,

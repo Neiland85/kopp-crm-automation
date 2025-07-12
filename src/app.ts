@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import { setupSwagger } from './config/swagger';
 import healthRoutes from './routes/health';
@@ -6,7 +6,7 @@ import slackRoutes from './routes/slack';
 import hubspotRoutes from './routes/hubspot';
 import zapierRoutes from './routes/zapier';
 
-const app = express();
+const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware básico
@@ -161,13 +161,13 @@ app.use('/zapier', zapierRoutes);
 setupSwagger(app);
 
 // Middleware de manejo de errores
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars
 app.use(
   (
     err: any,
     req: express.Request,
     res: express.Response,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line no-unused-vars
     _next: express.NextFunction
   ) => {
     console.error('Error:', err);
