@@ -233,3 +233,5 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .jest-cache/
 .vercel
+
+.early.coverage
